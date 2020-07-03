@@ -1,2 +1,2 @@
 # HACK4CSGO
-Hack for CSGO that I've been working on and not completed yet.
+Internal trainer for CSGO I've been working on as my training and not completed yet.
