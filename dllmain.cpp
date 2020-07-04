@@ -3,14 +3,18 @@
 #include <Windows.h>
 #include "offsets.h"
 #include "LocalPlayer.h"
+#include "Entity.h"
 #include <iostream>
+
+
 
 DWORD fMain(HMODULE hMod)
 {
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
-    uintptr_t ModuleBase = (uintptr_t)GetModuleHandle(TEXT("client.dll"));
+    uintptr_t moduleBase = (uintptr_t)GetModuleHandle(TEXT("client.dll"));
+    int* maxnumber = GetMaxEntities();
 
     //hackloop
     while (true)
@@ -18,13 +22,15 @@ DWORD fMain(HMODULE hMod)
         if (GetAsyncKeyState(VK_END) & 1) break;
 
         if (GetAsyncKeyState(VK_INSERT) & 1) {
-            LocalPlayer* localplayer = LocalPlayer::GetLocalPlayer(ModuleBase);
         }
         Sleep(1);
     }
+
     FreeLibraryAndExitThread(hMod, 0);
     return 0;
 }
+
+
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
