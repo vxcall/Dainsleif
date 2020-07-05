@@ -10,4 +10,12 @@ public:
 		z += arg.z;
 		return *this;
 	}
+
+	Vector3& operator-(Vector3 arg)
+	{
+		x -= arg.x;
+		y -= arg.y;
+		z -= arg.z;
+		return *this;
+	}
 };

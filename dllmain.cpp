@@ -16,12 +16,20 @@ DWORD fMain(HMODULE hMod)
     uintptr_t moduleBase = (uintptr_t)GetModuleHandle(TEXT("client.dll"));
     int* maxnumber = GetMaxEntities();
 
-    //hackloop
+    //waiting key input for cheats
     while (true)
     {
         if (GetAsyncKeyState(VK_END) & 1) break;
 
-        if (GetAsyncKeyState(VK_INSERT) & 1) {
+        if (GetAsyncKeyState(VK_INSERT) & 1) { //main hack
+            LocalPlayer* lp = GetLocalPlayer(moduleBase);
+            std::cout << "My team number: " << *(lp->GetTeam()) << std::endl;
+            std::vector<Entity*> entityList = GetEntities(moduleBase);
+            int i = 0;
+            for (unsigned int i = 0; i < entityList.size(); i++)
+            {
+                std::cout << "This entity's team number: " << *(entityList[i]->GetTeam()) << std::endl;
+            }
         }
         Sleep(1);
     }
