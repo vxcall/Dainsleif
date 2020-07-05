@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Entity.h"
 #include "offsets.h"
-#include "utility.h"
 #include <iostream>
 #include <vector>
 

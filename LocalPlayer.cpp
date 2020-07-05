@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "LocalPlayer.h"
 #include "offsets.h"
-#include "utility.h"
 #include <iostream>
 #include <Windows.h>
 #include "vector3.h"

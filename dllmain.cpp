@@ -41,38 +41,40 @@ DWORD fMain(HMODULE hMod)
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
+    bool bAimBot = false;
 
     //waiting key input for cheats
     while (true)
     {
         if (GetAsyncKeyState(VK_END) & 1) break;
+
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            std::cout << "INSERT pressed" << std::endl;
-            while (1)
+            bAimBot = !bAimBot;
+            if (bAimBot)
             {
-                if (GetAsyncKeyState(VK_DELETE) & 1)
-                {
-                    std::cout << "DELETE pressed" << std::endl;
-                    break;
-                }
+                std::cout << "AIMBOT got turned on" << std::endl;
+            }
+            else
+            {
+                std::cout << "AIMBOT got turned off" << std::endl;
+            }
+        }
 
-                Entity* closestEnt = GetClosestEnemy(GetEntities(moduleBase));
-                
+        if (bAimBot) {
+            Entity* closestEnt = GetClosestEnemy(GetEntities(moduleBase));
+            if (closestEnt) {
                 if (*closestEnt->IsDormant())
                 {
                     closestEnt = nullptr;
                 }
-
                 if (closestEnt)
                 {
                     GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());
                 }
-                Sleep(1);
+                
             }
         }
-        
-        
         Sleep(1);
     }
 
