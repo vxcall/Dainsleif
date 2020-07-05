@@ -12,6 +12,8 @@ public:
 
 	Vector3* GetBonePosition();
 
+	bool* IsDormant();
+
 	int* GetHealth();
 
 	int* GetTeam();

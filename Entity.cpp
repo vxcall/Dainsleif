@@ -27,6 +27,11 @@ Vector3* Entity::GetBonePosition()
 	return &bonePos;
 }
 
+bool* Entity::IsDormant()
+{
+	return (bool*)(*(uintptr_t*)this + m_bDormant);
+}
+
 int* Entity::GetHealth()
 {
 	return (int*)(*(uintptr_t*)this + m_iHealth);

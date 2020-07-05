@@ -25,7 +25,6 @@ float LocalPlayer::GetDistance(Vector3 targetPos)
 {
 	Vector3 deltaVector = targetPos - *this->GetHeadPosition();
 	float distance = sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
-	std::cout << "distance: " << distance << std::endl;
 	return distance;
 }
 

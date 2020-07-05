@@ -25,8 +25,6 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
 
         if (currentDistance < closestDistance) //if this entity is closer than old one, then update closestDistance and closestEntityIndex.
         {
-            std::cout << "currentDistance: " << currentDistance << std::endl;
-            std::cout << "closestEntityIndex: " << closestEntityIndex << std::endl;
             closestDistance = currentDistance;
             closestEntityIndex = i;
         }
@@ -60,8 +58,12 @@ DWORD fMain(HMODULE hMod)
                 }
 
                 Entity* closestEnt = GetClosestEnemy(GetEntities(moduleBase));
+                
+                if (*closestEnt->IsDormant())
+                {
+                    closestEnt = nullptr;
+                }
 
-                if (!closestEnt) continue;
                 if (closestEnt)
                 {
                     GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());

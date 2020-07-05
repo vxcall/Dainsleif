@@ -9,6 +9,8 @@
 #define m_dwBoneMatrix 0x26A8
 #define m_iTeamNum 0xF4
 
+#define m_bDormant 0xED
+
 #define dwClientState 0x58ADD4
 #define dwClientState_MaxPlayer 0x388
 #define dwClientState_ViewAngles 0x4D88
