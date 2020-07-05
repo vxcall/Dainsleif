@@ -1,6 +1,8 @@
 # HACK4CSGO
 Internal trainer for CSGO I've been working on as my training and not completed yet.
 
+STILL WORKING 05/07/2020
+
 # AimBot
 
 If you turn it on, it will automatically lock aim to a closest enemy unless you step really away from him.
