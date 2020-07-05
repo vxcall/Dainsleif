@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-uintptr_t moduleBase = (uintptr_t)GetModuleHandle(TEXT("client.dll"));
+uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle(L"client.dll"));
 
 Entity* GetClosestEnemy(std::vector<Entity*> entityList)
 {

@@ -9,7 +9,7 @@
 
 LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
 {
-	LocalPlayer* lp = (LocalPlayer*)(moduleBase + dwLocalPlayer); //get local player address and cast it to my original class type
+	LocalPlayer* lp = reinterpret_cast<LocalPlayer*>((moduleBase + dwLocalPlayer)); //get local player address and cast it to my original class type
 	return lp;
 }
 
@@ -29,12 +29,12 @@ float LocalPlayer::GetDistance(Vector3 targetPos)
 
 Vector3* LocalPlayer::GetBodyPosition()
 {
-	return (Vector3*)(*(uintptr_t*)this + m_vecOrigin);
+	return reinterpret_cast<Vector3*>((*(uintptr_t*)this + m_vecOrigin));
 }
 
 Vector3* LocalPlayer::GetViewOffset()
 {
-	return (Vector3*)(*(uintptr_t*)this + m_vecViewOffset);
+	return reinterpret_cast<Vector3*>((*(uintptr_t*)this + m_vecViewOffset));
 }
 
 Vector3* LocalPlayer::GetHeadPosition()
@@ -47,19 +47,19 @@ Vector3* LocalPlayer::GetHeadPosition()
 
 int* LocalPlayer::GetHealth()
 {
-	return (int*)(*(uintptr_t*)this + m_iHealth);
+	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iHealth));
 }
 
 int* LocalPlayer::GetTeam()
 {
-	return (int*)(*(uintptr_t*)this + m_iTeamNum);
+	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iTeamNum));
 }
 
 double PI = 3.14159265358;
 void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 {
-	static uint32_t engineModule = (uint32_t)GetModuleHandle(TEXT("engine.dll"));
-	static Vector3* viewAngles = (Vector3*)(*(uint32_t*)(engineModule + dwClientState) + dwClientState_ViewAngles);
+	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle(L"engine.dll"));
+	static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 	Vector3 delta;
 	float hypotenuse = GetDistance(TargetsHeadPosition, delta);
 	float pitch = -asin(delta.z / hypotenuse) * (180 / PI);

@@ -6,39 +6,39 @@
 
 Vector3* Entity::GetBodyPosition()
 {
-	return (Vector3*)(*(uintptr_t*)this + m_vecOrigin);
+	return reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>(this) + m_vecOrigin));
 }
 
 Vector3* Entity::GetViewOffset()
 {
-	return (Vector3*)(*(uintptr_t*)this + m_vecViewOffset);
+	return reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>(this) + m_vecViewOffset));
 }
 
 #define boneID 8
 
 Vector3* Entity::GetBonePosition()
 {
-	uint32_t boneMatrix = *(uint32_t*)(*(uint32_t*)this + m_dwBoneMatrix);
+	uintptr_t boneMatrix = *reinterpret_cast<uintptr_t*>((*reinterpret_cast<uintptr_t*>(this) + m_dwBoneMatrix));
 	static Vector3 bonePos;
-	bonePos.x = *(float*)(boneMatrix + 0x30 * boneID + 0x0C);
-	bonePos.y = *(float*)(boneMatrix + 0x30 * boneID + 0x1C);
-	bonePos.z = *(float*)(boneMatrix + 0x30 * boneID + 0x2C);
+	bonePos.x = *reinterpret_cast<float*>((boneMatrix + 0x30 * boneID + 0x0C));
+	bonePos.y = *reinterpret_cast<float*>((boneMatrix + 0x30 * boneID + 0x1C));
+	bonePos.z = *reinterpret_cast<float*>((boneMatrix + 0x30 * boneID + 0x2C));
 	return &bonePos;
 }
 
 bool* Entity::IsDormant()
 {
-	return (bool*)(*(uintptr_t*)this + m_bDormant);
+	return reinterpret_cast<bool*>((*(uintptr_t*)this + m_bDormant));
 }
 
 int* Entity::GetHealth()
 {
-	return (int*)(*(uintptr_t*)this + m_iHealth);
+	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iHealth));
 }
 
 int* Entity::GetTeam()
 {
-	return (int*)(*(uintptr_t*)this + m_iTeamNum);
+	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iTeamNum));
 }
 
 std::vector<Entity*> GetEntities(uintptr_t moduleBase)
@@ -47,7 +47,7 @@ std::vector<Entity*> GetEntities(uintptr_t moduleBase)
 	std::vector<Entity*> entityList; //initialize vector by specifying the size with maxnum, and fill them with 0.
 	for (int i = 1; i < maxnum; i++)
 	{
-		Entity* entity = (Entity*)((moduleBase + dwEntityList) + i * 0x10);
+		Entity* entity = reinterpret_cast<Entity*>(((moduleBase + dwEntityList) + i * 0x10));
 		if (!*(uintptr_t*)entity) continue; //Cast the address that possibly is entity into uintptr_t and check if it's 0.
 		entityList.push_back(entity);
 	}
@@ -55,6 +55,6 @@ std::vector<Entity*> GetEntities(uintptr_t moduleBase)
 }
 
 int* GetMaxEntities() {
-	uintptr_t moduleBase = (uintptr_t)GetModuleHandle(TEXT("engine.dll"));
-	return (int*)(*(uintptr_t*)(moduleBase + dwClientState) + dwClientState_MaxPlayer);
+	uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle(L"engine.dll"));
+	return reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>((moduleBase + dwClientState)) + dwClientState_MaxPlayer));
 }
