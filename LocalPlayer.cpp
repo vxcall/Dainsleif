@@ -6,7 +6,6 @@
 #include <Windows.h>
 #include "vector3.h"
 #include <math.h>
-#include <cmath>
 
 
 LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
@@ -17,11 +16,16 @@ LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
 
 float LocalPlayer::GetDistance(Vector3 targetPos, Vector3& deltaVector)
 {
-    deltaVector = *(this->GetHeadPosition()) - targetPos; //minus operation is defined in vector3.h
-	deltaVector.x = fabs(deltaVector.x);
-	deltaVector.y = fabs(deltaVector.y);
-	deltaVector.z = fabs(deltaVector.z);
+    deltaVector =  targetPos - *this->GetHeadPosition(); //minus operation is defined in vector3.h
 	float distance = sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z); //This is the trigonometry calculation to get hypnotenuse.
+	return distance;
+}
+
+float LocalPlayer::GetDistance(Vector3 targetPos)
+{
+	Vector3 deltaVector = targetPos - *this->GetHeadPosition();
+	float distance = sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
+	std::cout << "distance: " << distance << std::endl;
 	return distance;
 }
 

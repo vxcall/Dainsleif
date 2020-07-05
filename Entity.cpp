@@ -27,6 +27,11 @@ Vector3* Entity::GetBonePosition()
 	return &bonePos;
 }
 
+int* Entity::GetHealth()
+{
+	return (int*)(*(uintptr_t*)this + m_iHealth);
+}
+
 int* Entity::GetTeam()
 {
 	return (int*)(*(uintptr_t*)this + m_iTeamNum);

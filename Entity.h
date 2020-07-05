@@ -7,8 +7,13 @@ class Entity
 {
 public:
 	Vector3* GetBodyPosition();
+
 	Vector3* GetViewOffset();
+
 	Vector3* GetBonePosition();
+
+	int* GetHealth();
+
 	int* GetTeam();
 };
 

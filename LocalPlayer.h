@@ -19,6 +19,8 @@ public:
 	//GetDistance returns distance between local player and target passed as argument.
 	float GetDistance(Vector3 targetPos, Vector3& deltaVector);
 
+	float GetDistance(Vector3 targetPos);
+
 	//GetHealth retrieves local player's health.
 	int* GetHealth();
 
