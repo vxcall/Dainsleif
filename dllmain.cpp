@@ -21,7 +21,7 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
         if (*entityList[i]->GetTeam() == *lp->GetTeam()) continue; //filter out if entity is same team as local player.
         if (*entityList[i]->GetHealth() < 1 || *lp->GetHealth() < 1) continue; //skip if either entity or local player is dead
 
-        float currentDistance = lp->GetDistance(*(entityList[i]->GetBonePosition()));
+        float currentDistance = lp->GetDistance(*(entityList[i]->GetBodyPosition()));
 
         if (currentDistance < closestDistance) //if this entity is closer than old one, then update closestDistance and closestEntityIndex.
         {

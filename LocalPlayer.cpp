@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include "vector3.h"
 #include <math.h>
+#include <cmath>
 
 
 LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
@@ -22,7 +23,7 @@ float LocalPlayer::GetDistance(Vector3 targetPos, Vector3& deltaVector)
 
 float LocalPlayer::GetDistance(Vector3 targetPos)
 {
-	Vector3 deltaVector = targetPos - *this->GetHeadPosition();
+	Vector3 deltaVector = targetPos - *this->GetBodyPosition();
 	float distance = sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
 	return distance;
 }
@@ -66,6 +67,7 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 	float yaw = atan2(delta.y, delta.x) * (180 / PI);
 	if (pitch >= -89 && pitch <= 89 && yaw >= -180 && yaw <= 180)
 	{
+		
 		viewAngles->x = pitch;
 		viewAngles->y = yaw;
 	}
