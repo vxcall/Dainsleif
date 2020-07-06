@@ -16,7 +16,7 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
     float closestDistance = 1000000;
     int closestEntityIndex = -1;
 
-    for (unsigned int i = 0; i < entityList.size(); i++)
+    for (unsigned int i = 0; i < entityList.size(); ++i)
     {
         if (*entityList[i]->GetTeam() == *lp->GetTeam()) continue; //filter out if entity is same team as local player.
         if (*entityList[i]->GetHealth() < 1 || *lp->GetHealth() < 1) continue; //skip if either entity or local player is dead

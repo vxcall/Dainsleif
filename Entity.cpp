@@ -45,7 +45,7 @@ std::vector<Entity*> GetEntities(uintptr_t moduleBase)
 {
 	int maxnum = *GetMaxEntities(); //getting possible maximum number of entity. It was 64 when I tested.
 	std::vector<Entity*> entityList; //initialize vector by specifying the size with maxnum, and fill them with 0.
-	for (int i = 1; i < maxnum; i++)
+	for (int i = 1; i < maxnum; ++i)
 	{
 		Entity* entity = reinterpret_cast<Entity*>(((moduleBase + dwEntityList) + i * 0x10));
 		if (!*(uintptr_t*)entity) continue; //Cast the address that possibly is entity into uintptr_t and check if it's 0.

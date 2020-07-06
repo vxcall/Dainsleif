@@ -67,8 +67,24 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 	float yaw = atan2(delta.y, delta.x) * (180 / PI);
 	if (pitch >= -89 && pitch <= 89 && yaw >= -180 && yaw <= 180)
 	{
-		
-		viewAngles->x = pitch;
-		viewAngles->y = yaw;
+		if (viewAngles->x < pitch)
+		{
+			viewAngles->x += 0.1f;
+		}
+		else if (viewAngles->x > pitch)
+		{
+			viewAngles->x -= 0.1f;
+		}
+
+		if (viewAngles->y < yaw)
+		{
+			viewAngles->y += 0.1f;
+		}
+		else if (viewAngles->y > yaw)
+		{
+			viewAngles->y -= 0.1f;
+		}
+		//viewAngles->x = pitch;
+		//viewAngles->y = yaw;
 	}
 }
