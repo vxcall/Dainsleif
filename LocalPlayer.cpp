@@ -62,32 +62,12 @@ float LocalPlayer::GetDistance(Vector3 targetPos)
 	return distance;
 }
 
-Vector3* LocalPlayer::GetBodyPosition()
-{
-	return reinterpret_cast<Vector3*>((*(uintptr_t*)this + m_vecOrigin));
-}
-
-Vector3* LocalPlayer::GetViewOffset()
-{
-	return reinterpret_cast<Vector3*>((*(uintptr_t*)this + m_vecViewOffset));
-}
-
 Vector3* LocalPlayer::GetHeadPosition()
 {
 	Vector3 bp = *(this->GetBodyPosition()); //get position and dereference it to calculate later on.
 	Vector3 vo = *(this->GetViewOffset()); //get viewoffset and dereference it to calculate later on.
 	Vector3* headPosition = &(bp + vo); //calculate them and store the result into pointer variable.
 	return headPosition;
-}
-
-int* LocalPlayer::GetHealth()
-{
-	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iHealth));
-}
-
-int* LocalPlayer::GetTeam()
-{
-	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iTeamNum));
 }
 
 int sign(float A) {
