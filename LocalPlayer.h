@@ -1,5 +1,4 @@
 #pragma once
-#include <Windows.h>
 #include "vector3.h"
 #include "Entity.h"
 

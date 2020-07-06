@@ -1,11 +1,5 @@
 #include "pch.h"
 #include "LocalPlayer.h"
-#include "offsets.h"
-#include <iostream>
-#include <Windows.h>
-#include <math.h>
-#include <vector>
-#include <cstdlib>
 
 
 LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
@@ -83,6 +77,9 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 	float hypotenuse = GetDistance(TargetsHeadPosition, delta);
 	float pitch = -asin(delta.z / hypotenuse) * (180 / static_cast<float>(PI));
 	float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
+
+	std::cout << "aaa" << std::endl;
+
 	if (pitch >= -89 && pitch <= 89 && yaw >= -180 && yaw <= 180)
 	{
 		int pitchDistance = static_cast<int>(pitch - viewAngles->x);

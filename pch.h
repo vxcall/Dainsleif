@@ -9,5 +9,11 @@
 
 // プリコンパイルするヘッダーをここに追加します
 #include "framework.h"
+#include "vector3.h"
+#include <iostream>
+#include <vector>
+#include "offsets.h"
+#include <math.h>
+#include <cstdlib>
 
 #endif //PCH_H

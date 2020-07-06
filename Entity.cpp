@@ -1,8 +1,5 @@
 #include "pch.h"
 #include "Entity.h"
-#include "offsets.h"
-#include <iostream>
-#include <vector>
 
 Vector3* Entity::GetBodyPosition()
 {
