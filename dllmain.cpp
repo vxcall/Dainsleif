@@ -1,10 +1,5 @@
-﻿// dllmain.cpp : DLL アプリケーションのエントリ ポイントを定義します。
-#include "pch.h"
-#include <Windows.h>
-#include "offsets.h"
+﻿#include "pch.h"
 #include "LocalPlayer.h"
-#include "Entity.h"
-#include <iostream>
 
 
 uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle(L"client.dll"));
@@ -51,13 +46,15 @@ DWORD fMain(HMODULE hMod)
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
             bAimBot = !bAimBot;
-            if (bAimBot)
+
+            switch (bAimBot)
             {
-                std::cout << "AIMBOT got turned on" << std::endl;
-            }
-            else
-            {
-                std::cout << "AIMBOT got turned off" << std::endl;
+            case true:
+                std::cout << "AIMBOT is on" << std::endl;
+                break;
+            case false:
+                std::cout << "AIMBOT is off" << std::endl;
+                break;
             }
         }
 
@@ -72,7 +69,7 @@ DWORD fMain(HMODULE hMod)
                 {
                     GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());
                 }
-                
+
             }
         }
         Sleep(1);
