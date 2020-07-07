@@ -1,7 +1,5 @@
 #pragma once
-#include <Windows.h>
-#include "vector3.h"
-#include <vector>
+#include "pch.h"
 
 class Entity
 {
@@ -16,12 +14,18 @@ public:
 	int* GetHealth();
 
 	//GetTeam returns teamNumber so that I can distinguish either the entity is friendly or hostile.
-	int* GetTeam();
+	int GetTeam();
 
 	bool* IsDormant();
 
 	Vector3* GetBonePosition();
+
+	uintptr_t GetGlowIndex();
+
+	void Glow(uintptr_t moduleBase);
 };
+
+uintptr_t GetGlowObjectManager(uintptr_t moduleBase);
 
 std::vector<Entity*> GetEntities(uintptr_t moduleBase);
 

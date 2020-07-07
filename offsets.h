@@ -1,16 +1,18 @@
 #pragma once
 
-#define dwEntityList 0x4D4F25C
+constexpr uintptr_t dwEntityList = 0x4D4F25C;
+constexpr uintptr_t dwLocalPlayer = 0xD3ABEC;
+constexpr uintptr_t dwGlowObjectManager = 0x5297080;
 
-#define dwLocalPlayer 0xD3ABEC
-#define m_vecOrigin 0x138
-#define m_iHealth 0x100
-#define m_vecViewOffset 0x108
-#define m_dwBoneMatrix 0x26A8
-#define m_iTeamNum 0xF4
+constexpr uintptr_t m_vecOrigin = 0x138;
+constexpr uintptr_t m_iHealth = 0x100;
+constexpr uintptr_t m_vecViewOffset = 0x108;
+constexpr uintptr_t m_dwBoneMatrix = 0x26A8;
+constexpr uintptr_t m_iTeamNum = 0xF4;
+constexpr uintptr_t m_iGlowIndex = 0xA438;
 
-#define m_bDormant 0xED
+constexpr uintptr_t m_bDormant = 0xED;
 
-#define dwClientState 0x58ADD4
-#define dwClientState_MaxPlayer 0x388
-#define dwClientState_ViewAngles 0x4D88
+constexpr uintptr_t dwClientState = 0x58ADD4;
+constexpr uintptr_t dwClientState_MaxPlayer = 0x388;
+constexpr uintptr_t dwClientState_ViewAngles = 0x4D88;

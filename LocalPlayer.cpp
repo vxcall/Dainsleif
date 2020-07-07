@@ -53,8 +53,8 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 		float x = num * min(pitchDistance, yawDistance);
 
 		/*
-		num‚ğ‘å‚«‚¢‚Ù‚¤‚Ì•Ó‚É‚©‚¯‚é‚Æ0.5‚É‚È‚éB
-		‘å‚«‚¢‚Ù‚¤:0.5 = ¬‚³‚¢‚Ù‚¤:x
+		num * max == 0.5f.
+		Bigger:0.5 = Smoller:x
 		*/
 		float pf;
 		float yf;
@@ -68,8 +68,6 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 			pf = x;
 			yf = 0.5f;
 		}
-
-		
 
 		if (pitchDistance <= 0.4f) { //If distance between vertical axis of crosshair and enemy's head is below 0.4 which is pretty close, just aim at exact head.
 			viewAngles->x = pitch;
@@ -85,7 +83,6 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 				viewAngles->x -= pf;
 			}
 		}
-
 
 		if (yawDistance <= 0.4f) {
 			viewAngles->y = yaw;

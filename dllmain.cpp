@@ -13,7 +13,7 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
 
     for (unsigned int i = 0; i < entityList.size(); ++i)
     {
-        if (*entityList[i]->GetTeam() == *lp->GetTeam()) continue; //filter out if entity is same team as local player.
+        if (entityList[i]->GetTeam() == lp->GetTeam()) continue; //filter out if entity is same team as local player.
         if (*entityList[i]->GetHealth() < 1 || *lp->GetHealth() < 1) continue; //skip if either entity or local player is dead
 
         float currentDistance = lp->GetDistance(*(entityList[i]->GetBodyPosition()));
@@ -36,7 +36,9 @@ DWORD fMain(HMODULE hMod)
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
-    bool bAimBot = false;
+    bool bAimBot = false, bGlowHack = false;
+
+    std::vector<Entity*> entityList;
 
     //waiting key input for cheats
     while (true)
@@ -45,6 +47,7 @@ DWORD fMain(HMODULE hMod)
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
+            entityList = GetEntities(moduleBase);
             bAimBot = !bAimBot;
 
             switch (bAimBot)
@@ -58,8 +61,24 @@ DWORD fMain(HMODULE hMod)
             }
         }
 
-        if (bAimBot) {
-            Entity* closestEnt = GetClosestEnemy(GetEntities(moduleBase));
+        if (GetAsyncKeyState(VK_DELETE) & 1)
+        {
+            entityList = GetEntities(moduleBase);
+            bGlowHack = !bGlowHack;
+            switch (bGlowHack)
+            {
+            case true:
+                std::cout << "GLOWHACK is on" << std::endl;
+                break;
+            case false:
+                std::cout << "GLOWHACK is off" << std::endl;
+                break;
+            }
+        }
+
+        if (bAimBot)
+        {
+            Entity* closestEnt = GetClosestEnemy(entityList);
             if (closestEnt) {
                 if (*closestEnt->IsDormant())
                 {
@@ -72,6 +91,16 @@ DWORD fMain(HMODULE hMod)
 
             }
         }
+
+        if (bGlowHack)
+        {
+            for (unsigned int i = 0; i < entityList.size(); ++i)
+            {
+                entityList[i]->Glow(moduleBase);
+            }
+        }
+
+
         Sleep(1);
     }
 

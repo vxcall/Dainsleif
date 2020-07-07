@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Entity.h"
+#include "LocalPlayer.h"
 
 Vector3* Entity::GetBodyPosition()
 {
@@ -33,9 +34,49 @@ int* Entity::GetHealth()
 	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iHealth));
 }
 
-int* Entity::GetTeam()
+int Entity::GetTeam()
 {
-	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iTeamNum));
+	return *reinterpret_cast<int*>((*(uintptr_t*)this + m_iTeamNum));
+}
+
+uintptr_t Entity::GetGlowIndex()
+{
+	return *reinterpret_cast<uintptr_t*>(*(uintptr_t*)this + m_iGlowIndex);
+}
+
+uintptr_t GetGlowObjectManager(uintptr_t moduleBase) {
+	return *reinterpret_cast<uintptr_t*>(moduleBase + dwGlowObjectManager);
+}
+
+
+
+void Entity::Glow(uintptr_t moduleBase)
+{
+	uintptr_t glowObjectManager = GetGlowObjectManager(moduleBase);
+	uintptr_t glowIndex = this->GetGlowIndex();
+	LocalPlayer* lp = GetLocalPlayer(moduleBase);
+	int teamNum = this->GetTeam();
+	if (!lp || !glowObjectManager)
+	{
+		std::cout << "Error has occurred in Glow function. NULL POINTER EXCEPTION" << std::endl;
+		return;
+	}
+	if (teamNum == lp->GetTeam())
+	{
+		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x4)) = 0.f;
+		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x8)) = 0.f;
+		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0xC)) = 1.f;
+		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x10)) = 1.7f;
+	}
+	else if (teamNum != lp->GetTeam() && !*this->IsDormant())
+	{
+		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x4)) = 1.f;
+		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x8)) = 0.f;
+		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0xC)) = 0.f;
+		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x10)) = 1.7f;
+	}
+	*(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x24)) = true; //If I set this to false, the entire glow disappear
+	*(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x25)) = false; //if i set this true, the damage indicater go out of the outline.
 }
 
 std::vector<Entity*> GetEntities(uintptr_t moduleBase)
@@ -50,6 +91,10 @@ std::vector<Entity*> GetEntities(uintptr_t moduleBase)
 	}
 	return entityList;
 }
+
+
+
+
 
 int* GetMaxEntities() {
 	uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle(L"engine.dll"));
