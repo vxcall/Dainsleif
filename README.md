@@ -1,7 +1,8 @@
 # HACK4CSGO
-Internal trainer for CSGO I've been working on as my training and not completed yet.
+Internal trainer for CSGO I've been working on as my training of reverse engineering and not completed yet.
+Since I don't intend to make this a malicious software, this isn't considered to be performed in multiplayer mode. Keep in that mind plz.
 
-STILL WORKING 05/07/2020
+STILL WORKING 08/07/2020
 
 # Aimbot
 
@@ -24,7 +25,7 @@ This feature allows you to see both opponents and teammate's outline through wal
 
 - [x] Aimbot
 - [x] Glow hack
-- [ ] GUI menu for more better user experience
+- [ ] GUI menu for more better user experience (by hooking Directx9 endScene function)
 - [ ] Enemy's health indicator
 - [ ] ESP (drow line by myself)
 - [ ] teleport hack (not sure if it's possible without getting detected)
