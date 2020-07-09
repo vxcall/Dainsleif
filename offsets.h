@@ -1,8 +1,8 @@
 #pragma once
 
-constexpr uintptr_t dwEntityList = 0x4D4F25C;
-constexpr uintptr_t dwLocalPlayer = 0xD3ABEC;
-constexpr uintptr_t dwGlowObjectManager = 0x5297080;
+constexpr uintptr_t dwEntityList = 0x4D523EC;
+constexpr uintptr_t dwLocalPlayer = 0xD3DBEC;
+constexpr uintptr_t dwGlowObjectManager = 0x529A248;
 
 constexpr uintptr_t m_vecOrigin = 0x138;
 constexpr uintptr_t m_iHealth = 0x100;

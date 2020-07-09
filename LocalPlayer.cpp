@@ -114,7 +114,5 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 
 			}
 		}
-
-		
 	}
 }

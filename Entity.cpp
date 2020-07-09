@@ -26,6 +26,13 @@ Vector3* Entity::GetBonePosition()
 
 bool* Entity::IsDormant()
 {
+	/*
+	templete<typename T>
+	T ExtractVal(T returnType)
+	{
+
+	}
+	*/
 	return reinterpret_cast<bool*>((*(uintptr_t*)this + m_bDormant));
 }
 
@@ -48,35 +55,52 @@ uintptr_t GetGlowObjectManager(uintptr_t moduleBase) {
 	return *reinterpret_cast<uintptr_t*>(moduleBase + dwGlowObjectManager);
 }
 
+//This is a struct to treat glow stuff cleaner maybe XD.
+struct GlowObject {
+    float* Red;
+    float* Green;
+    float* Blue;
+    float* Alpha;
 
+    GlowObject(uintptr_t moduleBase, uintptr_t glowObjectManager, uintptr_t glowIndex)
+    {
+        Red = reinterpret_cast<float*>((glowObjectManager + ((glowIndex * 0x38) + 0x4)));
+        Green = reinterpret_cast<float*>((glowObjectManager + ((glowIndex * 0x38) + 0x8)));
+        Blue = reinterpret_cast<float*>((glowObjectManager + ((glowIndex * 0x38) + 0xC)));
+        Alpha = reinterpret_cast<float*>((glowObjectManager + ((glowIndex * 0x38) + 0x10)));
+    }
+};
 
 void Entity::Glow(uintptr_t moduleBase)
 {
-	uintptr_t glowObjectManager = GetGlowObjectManager(moduleBase);
-	uintptr_t glowIndex = this->GetGlowIndex();
-	LocalPlayer* lp = GetLocalPlayer(moduleBase);
-	int teamNum = this->GetTeam();
-	if (!lp || !glowObjectManager)
-	{
-		std::cout << "Error has occurred in Glow function. NULL POINTER EXCEPTION" << std::endl;
-		return;
-	}
-	if (teamNum == lp->GetTeam())
-	{
-		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x4)) = 0.f;
-		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x8)) = 0.f;
-		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0xC)) = 1.f;
-		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x10)) = 1.7f;
-	}
-	else if (teamNum != lp->GetTeam() && !*this->IsDormant())
-	{
-		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x4)) = 1.f;
-		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x8)) = 0.f;
-		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0xC)) = 0.f;
-		*(float*)(glowObjectManager + ((glowIndex * 0x38) + 0x10)) = 1.7f;
-	}
-	*(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x24)) = true; //If I set this to false, the entire glow disappear
-	*(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x25)) = false; //if i set this true, the damage indicater go out of the outline.
+    uintptr_t glowObjectManager = GetGlowObjectManager(moduleBase);
+    uintptr_t glowIndex = this->GetGlowIndex();
+    GlowObject go(moduleBase, glowObjectManager, glowIndex);
+
+    LocalPlayer* lp = GetLocalPlayer(moduleBase);
+    int teamNum = this->GetTeam();
+
+    if (!lp || !glowObjectManager)
+    {
+        std::cout << "Error has occurred in Glow function. NULL POINTER EXCEPTION" << std::endl;
+        return;
+    }
+    if (teamNum == lp->GetTeam())
+    {
+        *go.Red = 0.f;
+        *go.Green = 1.f;
+        *go.Blue = 0.f;
+        *go.Alpha = 1.7f;
+    }
+    else if (teamNum != lp->GetTeam() && !*this->IsDormant())
+    {
+        *go.Red = 1.f;
+        *go.Green = 0.f;
+        *go.Blue = 0.f;
+        *go.Alpha = 1.7f;
+    }
+    *(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x24)) = true; //If I set this to false, the entire glow disappear
+    *(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x25)) = false; //if i set this true, the damage indicater go out of the outline.
 }
 
 std::vector<Entity*> GetEntities(uintptr_t moduleBase)
