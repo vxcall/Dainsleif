@@ -18,4 +18,12 @@ public:
 		z -= arg.z;
 		return *this;
 	}
+
+	Vector3& operator*(float arg)
+	{
+		x *= arg;
+		y *= arg;
+		z *= arg;
+		return *this;
+	}
 };

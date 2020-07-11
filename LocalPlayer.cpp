@@ -116,3 +116,55 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 		}
 	}
 }
+
+void vectorAbs(Vector3* target)
+{
+	target->x = fabs(target->x);
+	target->y = fabs(target->y);
+	target->z = fabs(target->z);
+}
+
+Vector3 oldPunch = { 0, 0, 0 };
+int oldShotCount = 0;
+
+void LocalPlayer::NeutralizeRecoil()
+{
+	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle(L"engine.dll"));
+
+	int* ShotCount = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iShotsFired);
+
+	//Vector3 norm = { 0, 0, 0 };
+	//AimPunchAngle‚ðviewangle‚©‚çˆø‚­‚Æ‘å‚«‚·‚¬‚é
+	if (*ShotCount >= 1)
+	{
+		if (*ShotCount != oldShotCount) {
+			//This refers to the cursor position after local player shot. Bullet's gonna be shot out over the cursor by twice.
+			Vector3* AimPunchAngle = reinterpret_cast<Vector3*>(*reinterpret_cast<uintptr_t*>(this) + m_aimPunchAngle);
+			Vector3* viewAngle = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+			Vector3 rcsAngle;
+			rcsAngle.y = viewAngle->y + (oldPunch.y - AimPunchAngle->y * 2);
+			rcsAngle.x = viewAngle->x + (oldPunch.x - AimPunchAngle->x * 2);
+
+			while (viewAngle->y > 180)
+				viewAngle->y -= 360;
+			while (viewAngle->y < -180)
+				viewAngle->y += 360;
+
+			if (viewAngle->x > 89.f)
+				viewAngle->x = 89.f;
+			else if (viewAngle->x < -89.f)
+				viewAngle->x = -89.f;
+
+			oldPunch.x = AimPunchAngle->x * 2;
+			oldPunch.y = AimPunchAngle->y * 2;
+			viewAngle->y = rcsAngle.y;
+			viewAngle->x = rcsAngle.x;
+			oldShotCount = *ShotCount;
+		}
+	}
+	else
+	{
+		oldPunch = { 0, 0, 0 };
+		oldShotCount = 0;
+	}
+}

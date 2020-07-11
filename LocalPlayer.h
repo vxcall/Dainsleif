@@ -1,6 +1,7 @@
 #pragma once
 #include "vector3.h"
 #include "Entity.h"
+#include <cmath>
 
 class LocalPlayer : public Entity
 {
@@ -17,6 +18,8 @@ public:
 
 	//AimBot lets local player aim at enemy's head with full precision.
 	void AimBot(Vector3 TargetsHeadPosition);
+
+	void NeutralizeRecoil();
 };
 
 //GetLocalPlayer returns LocalPlayer class instance.

@@ -36,7 +36,7 @@ DWORD fMain(HMODULE hMod)
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
-    bool bAimBot = false, bGlowHack = false;
+    bool bAimBot = false, bGlowHack = false, bNoRecoil = false;
 
     std::vector<Entity*> entityList;
 
@@ -76,6 +76,22 @@ DWORD fMain(HMODULE hMod)
             }
         }
 
+        if (GetAsyncKeyState(VK_HOME) & 1)
+        {
+            entityList = GetEntities(moduleBase);
+            bNoRecoil = !bNoRecoil;
+
+            switch (bNoRecoil)
+            {
+            case true:
+                std::cout << "Neutralize Recoil is on" << std::endl;
+                break;
+            case false:
+                std::cout << "Neutralize Recoil is off" << std::endl;
+                break;
+            }
+        }
+
         if (bAimBot)
         {
             Entity* closestEnt = GetClosestEnemy(entityList);
@@ -100,6 +116,11 @@ DWORD fMain(HMODULE hMod)
             }
         }
 
+        if (bNoRecoil)
+        {
+            LocalPlayer* lp = GetLocalPlayer(moduleBase);
+            lp->NeutralizeRecoil();
+        }
 
         Sleep(1);
     }

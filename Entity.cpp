@@ -26,13 +26,6 @@ Vector3* Entity::GetBonePosition()
 
 bool* Entity::IsDormant()
 {
-	/*
-	templete<typename T>
-	T ExtractVal(T returnType)
-	{
-
-	}
-	*/
 	return reinterpret_cast<bool*>((*(uintptr_t*)this + m_bDormant));
 }
 
@@ -89,15 +82,15 @@ void Entity::Glow(uintptr_t moduleBase)
     {
         *go.Red = 0.f;
         *go.Green = 1.f;
-        *go.Blue = 0.f;
-        *go.Alpha = 1.7f;
+        *go.Blue = 1.f;
+        *go.Alpha = 0.8f;
     }
     else if (teamNum != lp->GetTeam() && !*this->IsDormant())
     {
         *go.Red = 1.f;
         *go.Green = 0.f;
         *go.Blue = 0.f;
-        *go.Alpha = 1.7f;
+        *go.Alpha = 0.8f;
     }
     *(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x24)) = true; //If I set this to false, the entire glow disappear
     *(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x25)) = false; //if i set this true, the damage indicater go out of the outline.
@@ -115,10 +108,6 @@ std::vector<Entity*> GetEntities(uintptr_t moduleBase)
 	}
 	return entityList;
 }
-
-
-
-
 
 int* GetMaxEntities() {
 	uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle(L"engine.dll"));

@@ -10,6 +10,8 @@ constexpr uintptr_t m_vecViewOffset = 0x108;
 constexpr uintptr_t m_dwBoneMatrix = 0x26A8;
 constexpr uintptr_t m_iTeamNum = 0xF4;
 constexpr uintptr_t m_iGlowIndex = 0xA438;
+constexpr uintptr_t m_aimPunchAngle = 0x302C;
+constexpr uintptr_t m_iShotsFired = 0xA390;
 
 constexpr uintptr_t m_bDormant = 0xED;
 
