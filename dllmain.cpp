@@ -95,6 +95,7 @@ DWORD fMain(HMODULE hMod)
         if (GetAsyncKeyState(VK_PRIOR) & 1)
         {
             entityList = GetEntities(moduleBase);
+            std::cout << entityList.size() << std::endl;
             bTriggerBot = !bTriggerBot;
 
             switch (bTriggerBot)
@@ -136,7 +137,7 @@ DWORD fMain(HMODULE hMod)
             LocalPlayer* lp = GetLocalPlayer(moduleBase);
             if (lp)
             {
-                lp->AutoPullTriger(entityList);
+                lp->AutoPullTrigger(entityList);
             }
         }
 

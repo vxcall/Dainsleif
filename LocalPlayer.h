@@ -21,7 +21,7 @@ public:
 
 	void NeutralizeRecoil();
 
-    void AutoPullTriger(std::vector<Entity*> entityList);
+    void AutoPullTrigger(std::vector<Entity*> entityList);
 };
 
 //GetLocalPlayer returns LocalPlayer class instance.

@@ -123,9 +123,7 @@ int oldShotCount = 0;
 void LocalPlayer::NeutralizeRecoil() {
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
 
-    if (!*reinterpret_cast<uintptr_t*>(this)) {
-        return;
-    }
+    if (!*reinterpret_cast<uintptr_t*>(this))  return; //If local player doesn't exist, return.
     int* ShotCount = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iShotsFired);
 
     if (*ShotCount >= 1) {
@@ -162,14 +160,13 @@ void LocalPlayer::NeutralizeRecoil() {
     }
 }
 
-//TODO: make it possible to check if the entity im targetting is friendly or hostile.
-void LocalPlayer::AutoPullTriger(std::vector<Entity*> entityList)
+void LocalPlayer::AutoPullTrigger(std::vector<Entity*> entityList)
 {
-    int* crosshairID = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iCrosshairId); //this int value holds index of entity list.
-    if (*crosshairID != 0) {
-        if (this->GetTeam() == entityList[*crosshairID - 1]->GetTeam()) {
+    int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iCrosshairId); //this int value holds index of entity list.
+    if (crosshairID != 0) {
+        if (this->GetTeam() == entityList[crosshairID - 2]->GetTeam()) {
             std::cout << "friendly" << std::endl;
-        } else if (this->GetTeam() != entityList[*crosshairID]->GetTeam()) {
+        } else {
             std::cout << "hostile" << std::endl;
         }
     }
