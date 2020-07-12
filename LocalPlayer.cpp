@@ -133,8 +133,8 @@ void LocalPlayer::NeutralizeRecoil()
 			Vector3* AimPunchAngle = reinterpret_cast<Vector3*>(*reinterpret_cast<uintptr_t*>(this) + m_aimPunchAngle);
 			Vector3* viewAngle = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 			Vector3 rcsAngle;
-			rcsAngle.y = viewAngle->y + (oldPunch.y - AimPunchAngle->y * 2);
-			rcsAngle.x = viewAngle->x + (oldPunch.x - AimPunchAngle->x * 2);
+			rcsAngle.y = viewAngle->y + (oldPunch.y - AimPunchAngle->y * 2.f);
+			rcsAngle.x = viewAngle->x + (oldPunch.x - AimPunchAngle->x * 2.f);
 
 			while (viewAngle->y > 180)
 				viewAngle->y -= 360;
@@ -146,8 +146,8 @@ void LocalPlayer::NeutralizeRecoil()
 			else if (viewAngle->x < -89.f)
 				viewAngle->x = -89.f;
 
-			oldPunch.x = AimPunchAngle->x * 2;
-			oldPunch.y = AimPunchAngle->y * 2;
+            oldPunch.y = AimPunchAngle->y * 2.f;
+			oldPunch.x = AimPunchAngle->x * 2.f;
 			viewAngle->y = rcsAngle.y;
 			viewAngle->x = rcsAngle.x;
 			oldShotCount = *ShotCount;

@@ -95,16 +95,9 @@ DWORD fMain(HMODULE hMod)
         if (bAimBot)
         {
             Entity* closestEnt = GetClosestEnemy(entityList);
-            if (closestEnt) {
-                if (*closestEnt->IsDormant())
-                {
-                    closestEnt = nullptr;
-                }
-                if (closestEnt)
-                {
+            if (closestEnt && !*closestEnt->IsDormant())
+            {
                     GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());
-                }
-
             }
         }
 
@@ -119,10 +112,12 @@ DWORD fMain(HMODULE hMod)
         if (bNoRecoil)
         {
             LocalPlayer* lp = GetLocalPlayer(moduleBase);
-            lp->NeutralizeRecoil();
+            if (lp) //nullcheck
+            {
+                lp->NeutralizeRecoil();
+            }
         }
-
-        Sleep(1);
+        Sleep(1); //sleep for performance aspect
     }
 
     FreeLibraryAndExitThread(hMod, 0);
