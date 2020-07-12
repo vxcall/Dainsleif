@@ -12,6 +12,7 @@ constexpr uintptr_t m_iTeamNum = 0xF4;
 constexpr uintptr_t m_iGlowIndex = 0xA438;
 constexpr uintptr_t m_aimPunchAngle = 0x302C;
 constexpr uintptr_t m_iShotsFired = 0xA390;
+constexpr uintptr_t m_iCrosshairId = 0xB3E4;
 
 constexpr uintptr_t m_bDormant = 0xED;
 

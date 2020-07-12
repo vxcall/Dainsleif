@@ -36,7 +36,7 @@ DWORD fMain(HMODULE hMod)
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
-    bool bAimBot = false, bGlowHack = false, bNoRecoil = false;
+    bool bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
 
     std::vector<Entity*> entityList;
 
@@ -48,15 +48,15 @@ DWORD fMain(HMODULE hMod)
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
             entityList = GetEntities(moduleBase);
-            bAimBot = !bAimBot;
+            bAimbot = !bAimbot;
 
-            switch (bAimBot)
+            switch (bAimbot)
             {
             case true:
-                std::cout << "AIMBOT is on" << std::endl;
+                std::cout << "Aimbot is on" << std::endl;
                 break;
             case false:
-                std::cout << "AIMBOT is off" << std::endl;
+                std::cout << "Aimbot is off" << std::endl;
                 break;
             }
         }
@@ -68,10 +68,10 @@ DWORD fMain(HMODULE hMod)
             switch (bGlowHack)
             {
             case true:
-                std::cout << "GLOWHACK is on" << std::endl;
+                std::cout << "Glow hack is on" << std::endl;
                 break;
             case false:
-                std::cout << "GLOWHACK is off" << std::endl;
+                std::cout << "Glow hack is off" << std::endl;
                 break;
             }
         }
@@ -92,7 +92,23 @@ DWORD fMain(HMODULE hMod)
             }
         }
 
-        if (bAimBot)
+        if (GetAsyncKeyState(VK_PRIOR) & 1)
+        {
+            entityList = GetEntities(moduleBase);
+            bTriggerBot = !bTriggerBot;
+
+            switch (bTriggerBot)
+            {
+                case true:
+                    std::cout << "Trigger bot is on" << std::endl;
+                    break;
+                case false:
+                    std::cout << "Trigger bot is off" << std::endl;
+                    break;
+            }
+        }
+
+        if (bAimbot)
         {
             Entity* closestEnt = GetClosestEnemy(entityList);
             if (closestEnt && !*closestEnt->IsDormant())
@@ -112,11 +128,18 @@ DWORD fMain(HMODULE hMod)
         if (bNoRecoil)
         {
             LocalPlayer* lp = GetLocalPlayer(moduleBase);
-            if (lp) //nullcheck
-            {
                 lp->NeutralizeRecoil();
+        }
+
+        if (bTriggerBot)
+        {
+            LocalPlayer* lp = GetLocalPlayer(moduleBase);
+            if (lp)
+            {
+                lp->AutoPullTriger(entityList);
             }
         }
+
         Sleep(1); //sleep for performance aspect
     }
 

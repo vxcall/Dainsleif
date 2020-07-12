@@ -20,6 +20,8 @@ public:
 	void AimBot(Vector3 TargetsHeadPosition);
 
 	void NeutralizeRecoil();
+
+    void AutoPullTriger(std::vector<Entity*> entityList);
 };
 
 //GetLocalPlayer returns LocalPlayer class instance.

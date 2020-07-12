@@ -34,7 +34,7 @@ int sign(float A) {
 	return (A > 0) - (A < 0);
 }
 
-double PI = 3.14159265358;
+const double PI = 3.14159265358;
 void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 {
 	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
@@ -120,42 +120,57 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 Vector3 oldPunch = { 0, 0, 0 };
 int oldShotCount = 0;
 
-void LocalPlayer::NeutralizeRecoil()
-{
-	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
+void LocalPlayer::NeutralizeRecoil() {
+    static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
 
-	int* ShotCount = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iShotsFired);
+    if (!*reinterpret_cast<uintptr_t*>(this)) {
+        return;
+    }
+    int* ShotCount = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iShotsFired);
 
-	if (*ShotCount >= 1)
-	{
-		if (*ShotCount != oldShotCount) {
-			//This refers to the cursor position after local player shot. Bullet's gonna be shot out over the cursor by twice.
-			Vector3* AimPunchAngle = reinterpret_cast<Vector3*>(*reinterpret_cast<uintptr_t*>(this) + m_aimPunchAngle);
-			Vector3* viewAngle = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
-			Vector3 rcsAngle;
-			rcsAngle.y = viewAngle->y + (oldPunch.y - AimPunchAngle->y * 2.f);
-			rcsAngle.x = viewAngle->x + (oldPunch.x - AimPunchAngle->x * 2.f);
+    if (*ShotCount >= 1) {
+        if (*ShotCount != oldShotCount) {
+            //This refers to the cursor position after local player shot. Bullet's gonna be shot out over the cursor by twice.
+            Vector3 *AimPunchAngle = reinterpret_cast<Vector3 *>(*reinterpret_cast<uintptr_t *>(this) + m_aimPunchAngle);
+            Vector3 *viewAngle = reinterpret_cast<Vector3 *>((*reinterpret_cast<uintptr_t *>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+            if (!AimPunchAngle || !viewAngle) {
+                return;
+            }
+            Vector3 rcsAngle;
+            rcsAngle.y = viewAngle->y + (oldPunch.y - AimPunchAngle->y * 2.f);
+            rcsAngle.x = viewAngle->x + (oldPunch.x - AimPunchAngle->x * 2.f);
 
-			while (viewAngle->y > 180)
-				viewAngle->y -= 360;
-			while (viewAngle->y < -180)
-				viewAngle->y += 360;
+            while (viewAngle->y > 180)
+                viewAngle->y -= 360;
+            while (viewAngle->y < -180)
+                viewAngle->y += 360;
 
-			if (viewAngle->x > 89.f)
-				viewAngle->x = 89.f;
-			else if (viewAngle->x < -89.f)
-				viewAngle->x = -89.f;
+            if (viewAngle->x > 89.f)
+                viewAngle->x = 89.f;
+            else if (viewAngle->x < -89.f)
+                viewAngle->x = -89.f;
 
             oldPunch.y = AimPunchAngle->y * 2.f;
-			oldPunch.x = AimPunchAngle->x * 2.f;
-			viewAngle->y = rcsAngle.y;
-			viewAngle->x = rcsAngle.x;
-			oldShotCount = *ShotCount;
-		}
-	}
-	else
-	{
-		oldPunch = { 0, 0, 0 };
-		oldShotCount = 0;
-	}
+            oldPunch.x = AimPunchAngle->x * 2.f;
+            viewAngle->y = rcsAngle.y;
+            viewAngle->x = rcsAngle.x;
+            oldShotCount = *ShotCount;
+        }
+    } else {
+        oldPunch = {0, 0, 0};
+        oldShotCount = 0;
+    }
+}
+
+//TODO: make it possible to check if the entity im targetting is friendly or hostile.
+void LocalPlayer::AutoPullTriger(std::vector<Entity*> entityList)
+{
+    int* crosshairID = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iCrosshairId); //this int value holds index of entity list.
+    if (*crosshairID != 0) {
+        if (this->GetTeam() == entityList[*crosshairID - 1]->GetTeam()) {
+            std::cout << "friendly" << std::endl;
+        } else if (this->GetTeam() != entityList[*crosshairID]->GetTeam()) {
+            std::cout << "hostile" << std::endl;
+        }
+    }
 }
