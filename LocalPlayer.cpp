@@ -164,6 +164,8 @@ void LocalPlayer::AutoPullTrigger(std::vector<Entity*> entityList)
 {
     int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iCrosshairId); //this int value holds index of entity list.
     if (crosshairID != 0) {
+
+        //When you kill all enemy, it's somehow gonna be a number more than 300.
         if (crosshairID - 2 > 9) {
             return;
         }

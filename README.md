@@ -19,12 +19,25 @@ When you are away enough from enemies you get the control of angle back.
 **Press DELETE to enable**
 This feature allows you to see both opponents and teammate's outline through walls.
 
-- [ ] want it to be capable of setting specific color of outline.
+- [x] want it to be capable of setting specific color of outline.
+
+# Trigger bot
+**Press PAGE-UP to enable**
+Once you turn this on, you no longer have to press left click when you engage them.
+This feature will complete the job for you.
+
+# Neutralize recoil
+**Press HOME to enable**
+This is basically a recoil control system.
+It automatically calculate the in comming recoil and manipulate your angle to handle it.
+But this doesn't guarantee the 100% accuracy.
 
 # Features being developed
 
-- [x] Aimbot
+- [x] Aim bot
 - [x] Glow hack
+- [x] Trigger bot
+- [x] Neutralize recoil
 - [ ] GUI menu for more better user experience (by hooking Directx9 endScene function)
 - [ ] Enemy's health indicator
 - [ ] ESP (drow line by myself)
