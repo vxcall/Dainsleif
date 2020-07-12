@@ -164,10 +164,12 @@ void LocalPlayer::AutoPullTrigger(std::vector<Entity*> entityList)
 {
     int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iCrosshairId); //this int value holds index of entity list.
     if (crosshairID != 0) {
-        if (this->GetTeam() == entityList[crosshairID - 2]->GetTeam()) {
-            std::cout << "friendly" << std::endl;
-        } else {
-            std::cout << "hostile" << std::endl;
+        if (crosshairID - 2 > 9) {
+            return;
+        }
+        if (this->GetTeam() != entityList[crosshairID - 2]->GetTeam()) {
+            mouse_event(MOUSEEVENTF_LEFTDOWN, NULL, NULL, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, NULL, NULL, 0, 0);
         }
     }
 }
