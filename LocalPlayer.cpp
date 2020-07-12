@@ -117,13 +117,6 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 	}
 }
 
-void vectorAbs(Vector3* target)
-{
-	target->x = fabs(target->x);
-	target->y = fabs(target->y);
-	target->z = fabs(target->z);
-}
-
 Vector3 oldPunch = { 0, 0, 0 };
 int oldShotCount = 0;
 
@@ -133,8 +126,6 @@ void LocalPlayer::NeutralizeRecoil()
 
 	int* ShotCount = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iShotsFired);
 
-	//Vector3 norm = { 0, 0, 0 };
-	//AimPunchAngle‚ðviewangle‚©‚çˆø‚­‚Æ‘å‚«‚·‚¬‚é
 	if (*ShotCount >= 1)
 	{
 		if (*ShotCount != oldShotCount) {
