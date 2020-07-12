@@ -37,7 +37,7 @@ int sign(float A) {
 double PI = 3.14159265358;
 void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 {
-	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle(L"engine.dll"));
+	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
 	static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 	Vector3 delta;
 	float hypotenuse = GetDistance(TargetsHeadPosition, delta);
@@ -122,7 +122,7 @@ int oldShotCount = 0;
 
 void LocalPlayer::NeutralizeRecoil()
 {
-	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle(L"engine.dll"));
+	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
 
 	int* ShotCount = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iShotsFired);
 

@@ -110,6 +110,6 @@ std::vector<Entity*> GetEntities(uintptr_t moduleBase)
 }
 
 int* GetMaxEntities() {
-	uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle(L"engine.dll"));
+	uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
 	return reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>((moduleBase + dwClientState)) + dwClientState_MaxPlayer));
 }

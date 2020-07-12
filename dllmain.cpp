@@ -2,7 +2,7 @@
 #include "LocalPlayer.h"
 
 
-uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle(L"client.dll"));
+uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
 
 Entity* GetClosestEnemy(std::vector<Entity*> entityList)
 {
