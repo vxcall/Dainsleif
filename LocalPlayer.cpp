@@ -4,22 +4,19 @@
 
 LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
 {
-	LocalPlayer* lp = reinterpret_cast<LocalPlayer*>((moduleBase + dwLocalPlayer)); //get local player address and cast it to my original class type
-	return lp;
+	return reinterpret_cast<LocalPlayer*>((moduleBase + dwLocalPlayer)); //get local player address and cast it to my original class type
 }
 
 float LocalPlayer::GetDistance(Vector3 targetPos, Vector3& deltaVector)
 {
     deltaVector =  targetPos - *this->GetHeadPosition(); //minus operation is defined in vector3.h
-	float distance = sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z); //This is the trigonometry calculation to get hypnotenuse.
-	return distance;
+	return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z); //This is the trigonometry calculation to get hypnotenuse.
 }
 
 float LocalPlayer::GetDistance(Vector3 targetPos)
 {
 	Vector3 deltaVector = targetPos - *this->GetBodyPosition();
-	float distance = sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
-	return distance;
+	return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
 }
 
 Vector3* LocalPlayer::GetHeadPosition()
@@ -131,9 +128,6 @@ void LocalPlayer::NeutralizeRecoil() {
             //This refers to the cursor position after local player shot. Bullet's gonna be shot out over the cursor by twice.
             Vector3 *AimPunchAngle = reinterpret_cast<Vector3 *>(*reinterpret_cast<uintptr_t *>(this) + m_aimPunchAngle);
             Vector3 *viewAngle = reinterpret_cast<Vector3 *>((*reinterpret_cast<uintptr_t *>((engineModule + dwClientState)) + dwClientState_ViewAngles));
-            if (!AimPunchAngle || !viewAngle) {
-                return;
-            }
             Vector3 rcsAngle;
             rcsAngle.y = viewAngle->y + (oldPunch.y - AimPunchAngle->y * 2.f);
             rcsAngle.x = viewAngle->x + (oldPunch.x - AimPunchAngle->x * 2.f);
@@ -164,11 +158,8 @@ void LocalPlayer::AutoPullTrigger(std::vector<Entity*> entityList)
 {
     int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iCrosshairId); //this int value holds index of entity list.
     if (crosshairID != 0) {
-
         //When you kill all enemy, it's somehow gonna be a number more than 300.
-        if (crosshairID - 2 > 9) {
-            return;
-        }
+        if (crosshairID - 2 > 9) return;
         if (this->GetTeam() != entityList[crosshairID - 2]->GetTeam()) {
             mouse_event(MOUSEEVENTF_LEFTDOWN, NULL, NULL, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, NULL, NULL, 0, 0);

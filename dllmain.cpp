@@ -11,7 +11,7 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
     float closestDistance = 1000000;
     int closestEntityIndex = -1;
 
-    for (unsigned int i = 0; i < entityList.size(); ++i)
+    for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
     {
         if (entityList[i]->GetTeam() == lp->GetTeam()) continue; //filter out if entity is same team as local player.
         if (*entityList[i]->GetHealth() < 1 || *lp->GetHealth() < 1) continue; //skip if either entity or local player is dead
@@ -31,7 +31,7 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
     return entityList[closestEntityIndex]; //return closest Entity pointer.
 }
 
-DWORD fMain(HMODULE hMod)
+DWORD __CLRCALL_PURE_OR_STDCALL fMain(HMODULE hMod)
 {
     AllocConsole();
     FILE* f;
@@ -49,15 +49,10 @@ DWORD fMain(HMODULE hMod)
         {
             entityList = GetEntities(moduleBase);
             bAimbot = !bAimbot;
-
-            switch (bAimbot)
-            {
-            case true:
+            if (bAimbot) {
                 std::cout << "Aimbot is on" << std::endl;
-                break;
-            case false:
+            } else {
                 std::cout << "Aimbot is off" << std::endl;
-                break;
             }
         }
 
@@ -65,14 +60,10 @@ DWORD fMain(HMODULE hMod)
         {
             entityList = GetEntities(moduleBase);
             bGlowHack = !bGlowHack;
-            switch (bGlowHack)
-            {
-            case true:
+            if (bGlowHack) {
                 std::cout << "Glow hack is on" << std::endl;
-                break;
-            case false:
+            } else {
                 std::cout << "Glow hack is off" << std::endl;
-                break;
             }
         }
 
@@ -81,15 +72,12 @@ DWORD fMain(HMODULE hMod)
             entityList = GetEntities(moduleBase);
             bNoRecoil = !bNoRecoil;
 
-            switch (bNoRecoil)
-            {
-            case true:
+            if (bNoRecoil) {
                 std::cout << "Neutralize Recoil is on" << std::endl;
-                break;
-            case false:
+            } else {
                 std::cout << "Neutralize Recoil is off" << std::endl;
-                break;
             }
+
         }
 
         if (GetAsyncKeyState(VK_PRIOR) & 1)
@@ -97,14 +85,10 @@ DWORD fMain(HMODULE hMod)
             entityList = GetEntities(moduleBase);
             bTriggerBot = !bTriggerBot;
 
-            switch (bTriggerBot)
-            {
-                case true:
-                    std::cout << "Trigger bot is on" << std::endl;
-                    break;
-                case false:
-                    std::cout << "Trigger bot is off" << std::endl;
-                    break;
+            if (bTriggerBot) {
+                std::cout << "Trigger bot is on" << std::endl;
+            } else {
+                std::cout << "Trigger bot is off" << std::endl;
             }
         }
 
