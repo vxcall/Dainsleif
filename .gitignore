@@ -383,3 +383,5 @@ cmake-build-debug/CMakeFiles/TargetDirectories.txt
 cmake-build-debug/HACK4CSGO.cbp
 cmake-build-debug/HACK4CSGO.dll
 cmake-build-debug/Makefile
+
+build/
