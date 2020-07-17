@@ -2,7 +2,7 @@
 Internal trainer for CSGO I've been working on as my training of reverse engineering and not completed yet.
 Since I don't intend to make this a malicious software, this isn't considered to be performed in multiplayer mode. Keep in that mind plz.
 
-#### STILL WORKING 08/07/2020
+#### STILL WORKING: July 18, 2020
 
 # How to build this project
 
