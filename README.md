@@ -2,7 +2,26 @@
 Internal trainer for CSGO I've been working on as my training of reverse engineering and not completed yet.
 Since I don't intend to make this a malicious software, this isn't considered to be performed in multiplayer mode. Keep in that mind plz.
 
-STILL WORKING 08/07/2020
+#### STILL WORKING 08/07/2020
+
+#How to build this project
+
+I really wonder is there anyone who wanna build use this shit, but anyway i have to mention this topic just in case.
+
+**REQUIREMENTS**
+- *MSDetour library*
+
+You need to build [MSDetour](https://github.com/microsoft/Detours) by yourself and place `x86/detours.lib` as well as`x86/detours.pdb` file to `Dependencies/MSDetour/bin` because I couldn't add them on github.
+
+After that, just cmake like this below
+
+```
+$ mkdir build && cd build
+$ cmake ..
+$ make
+```
+
+Then you will have HACK4CSGO.dll in the build directory. Just play it with DLL injector:)
 
 # Aimbot
 
