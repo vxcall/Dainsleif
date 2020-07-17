@@ -2,24 +2,42 @@
 #include "LocalPlayer.h"
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "detours.h"
-//#include "MinHook.h"
+#include <detours.h>
+#include "imgui.h"
+#include "imgui_impl_dx9.h"
+#include "imgui_impl_win32.h"
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
 
 LPD3DXFONT font;
-HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) { //A function containing a bunch of rendering process, that is gonna be hooked.
-    //now here we can create our own graphics
-    int padding = 2;
-    int rectx1 = 100, rectx2 = 300, recty1 = 50, recty2 = 100;
-    D3DRECT rectangle = { rectx1, recty1, rectx2, recty2 };
-    pDevice->Clear(1, &rectangle, D3DCLEAR_TARGET, D3DCOLOR_ARGB(255, 0, 0, 0), 0.0f, 0); // this draws a rectangle
-    if (!font)
-        D3DXCreateFont(pDevice, 16, 0, FW_BOLD, 1, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial", &font);
-    RECT textRectangle;
-    SetRect(&textRectangle, rectx1 + padding, recty1 + padding, rectx2 - padding, recty2 - padding);
-    font->DrawText(NULL, "Press END key to exit", -1, &textRectangle, DT_NOCLIP | DT_LEFT, D3DCOLOR_ARGB(255, 153, 255, 153)); //draw text;
+HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
+{
+    // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+
+    // Setup Platform/Renderer bindings
+    ImGui_ImplWin32_Init(GetForegroundWindow());
+    ImGui_ImplDX9_Init(pDevice);
+
+    // Start the Dear ImGui frame
+    ImGui_ImplDX9_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+
+    ImGui::Begin("Another Window", 0);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+    ImGui::Text("Hello from another window!");
+    ImGui::End();
+
+    ImGui::EndFrame();
+    ImGui::Render();
+    ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
     return originalEndScene(pDevice);
 }
 
