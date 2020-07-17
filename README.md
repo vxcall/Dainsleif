@@ -4,7 +4,7 @@ Since I don't intend to make this a malicious software, this isn't considered to
 
 #### STILL WORKING 08/07/2020
 
-#How to build this project
+# How to build this project
 
 I really wonder is there anyone who wanna build use this shit, but anyway i have to mention this topic just in case.
 
