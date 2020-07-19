@@ -12,13 +12,9 @@ include_directories(${CMAKE_SOURCE_DIR}/Dependencies/MSDetour/include)
 link_directories(${CMAKE_SOURCE_DIR}/Dependencies/MSDetour/bin)
 
 #imGUI
-set(IMGUI_FILES ${CMAKE_SOURCE_DIR}/Dependencies/imGUI)
-include_directories(${IMGUI_FILES})
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/imGUI)
+set(IMGUI_FILES ${IMGUI_FILES}/imconfig.h ${IMGUI_FILES}/imgui.cpp ${IMGUI_FILES}/imgui.h ${IMGUI_FILES}/imgui_demo.cpp ${IMGUI_FILES}/imgui_draw.cpp ${IMGUI_FILES}/imgui_impl_dx9.cpp ${IMGUI_FILES}/imgui_impl_dx9.h ${IMGUI_FILES}/imgui_impl_win32.cpp ${IMGUI_FILES}/imgui_impl_win32.h ${IMGUI_FILES}/imgui_internal.h ${IMGUI_FILES}/imgui_widgets.cpp ${IMGUI_FILES}/imstb_rectpack.h ${IMGUI_FILES}/imstb_textedit.h ${IMGUI_FILES}/imstb_truetype.h)
 
-
-set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-
-add_library(HACK4CSGO SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h ${IMGUI_FILES}/imconfig.h ${IMGUI_FILES}/imgui.cpp ${IMGUI_FILES}/imgui.h ${IMGUI_FILES}/imgui_demo.cpp ${IMGUI_FILES}/imgui_draw.cpp ${IMGUI_FILES}/imgui_impl_dx9.cpp ${IMGUI_FILES}/imgui_impl_dx9.h ${IMGUI_FILES}/imgui_impl_win32.cpp ${IMGUI_FILES}/imgui_impl_win32.h ${IMGUI_FILES}/imgui_internal.h ${IMGUI_FILES}/imgui_widgets.cpp ${IMGUI_FILES}/imstb_rectpack.h ${IMGUI_FILES}/imstb_textedit.h ${IMGUI_FILES}/imstb_truetype.h)
+add_library(HACK4CSGO SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h ${IMGUI_FILES})
 
 target_link_libraries(${PROJECT_NAME} d3d9 d3dx9 detours)
