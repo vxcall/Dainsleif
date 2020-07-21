@@ -1,69 +1,11 @@
 ﻿#include "pch.h"
 #include "LocalPlayer.h"
-#include <d3d9.h>
-#include <d3dx9.h>
-#include <detours.h>
-#include "imgui.h"
-#include "imgui_impl_dx9.h"
-#include "imgui_impl_win32.h"
-
-using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
-endScene originalEndScene = nullptr; //An original endscene which is null now.
-
-LPD3DXFONT font;
-HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
-{
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-
-    // Setup Platform/Renderer bindings
-    ImGui_ImplWin32_Init(GetForegroundWindow());
-    ImGui_ImplDX9_Init(pDevice);
-
-    // Start the Dear ImGui frame
-    ImGui_ImplDX9_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
+#include "GraphicHook.h"
 
 
-    ImGui::Begin("Another Window", 0);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-    ImGui::Text("Hello from another window!");
-    ImGui::End();
+bool bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
 
-    ImGui::EndFrame();
-    ImGui::Render();
-    ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-    return originalEndScene(pDevice);
-}
-
-void hookEndScene() {
-    IDirect3D9* pD3D = Direct3DCreate9(D3D_SDK_VERSION);
-    if (!pD3D) return;
-
-    D3DPRESENT_PARAMETERS d3dparams = {0};  //set D3DPRESENT_PARAMETERS to pass itself as an argument of createDevice().
-    d3dparams.SwapEffect = D3DSWAPEFFECT_DISCARD;
-    d3dparams.hDeviceWindow = GetForegroundWindow();
-    d3dparams.Windowed = true;  //need to be interchangeable
-
-    IDirect3DDevice9* pDevice = nullptr; //A variable to be a device in the next line.
-
-    HRESULT result = pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GetForegroundWindow(), D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dparams, &pDevice);
-    if (FAILED(result) || !pDevice){
-        std::cout << "Device is null" << std::endl;
-        pD3D->Release();
-        return;
-    }
-
-    void** vTable = *reinterpret_cast<void***>(pDevice);
-    originalEndScene = (endScene)DetourFunction((PBYTE)vTable[42],(PBYTE)hookedEndScene);
-    pDevice->Release();
-    pD3D->Release();
-}
+extern bool g_ShowMenu;
 
 uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
 
@@ -94,66 +36,32 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
     return entityList[closestEntityIndex]; //return closest Entity pointer.
 }
 
-DWORD __CLRCALL_PURE_OR_STDCALL fMain(HMODULE hMod)
+HMODULE g_hModule;
+
+DWORD __stdcall EjectThread(LPVOID lpParameter)
+{
+    Sleep(100);
+    FreeLibraryAndExitThread(g_hModule, 0);
+}
+
+DWORD WINAPI fMain()
 {
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
     hookEndScene();
-    bool bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
 
     std::vector<Entity*> entityList;
 
     //waiting key input for cheats
     while (true)
     {
+        entityList = GetEntities(moduleBase);
         if (GetAsyncKeyState(VK_END) & 1) break;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            entityList = GetEntities(moduleBase);
-            bAimbot = !bAimbot;
-            if (bAimbot) {
-                std::cout << "Aimbot is on" << std::endl;
-            } else {
-                std::cout << "Aimbot is off" << std::endl;
-            }
-        }
-
-        if (GetAsyncKeyState(VK_DELETE) & 1)
-        {
-            entityList = GetEntities(moduleBase);
-            bGlowHack = !bGlowHack;
-            if (bGlowHack) {
-                std::cout << "Glow hack is on" << std::endl;
-            } else {
-                std::cout << "Glow hack is off" << std::endl;
-            }
-        }
-
-        if (GetAsyncKeyState(VK_HOME) & 1)
-        {
-            entityList = GetEntities(moduleBase);
-            bNoRecoil = !bNoRecoil;
-
-            if (bNoRecoil) {
-                std::cout << "Neutralize Recoil is on" << std::endl;
-            } else {
-                std::cout << "Neutralize Recoil is off" << std::endl;
-            }
-
-        }
-
-        if (GetAsyncKeyState(VK_PRIOR) & 1)
-        {
-            entityList = GetEntities(moduleBase);
-            bTriggerBot = !bTriggerBot;
-
-            if (bTriggerBot) {
-                std::cout << "Trigger bot is on" << std::endl;
-            } else {
-                std::cout << "Trigger bot is off" << std::endl;
-            }
+            g_ShowMenu = !g_ShowMenu;
         }
 
         if (bAimbot)
@@ -190,10 +98,14 @@ DWORD __CLRCALL_PURE_OR_STDCALL fMain(HMODULE hMod)
 
         Sleep(1); //sleep for performance aspect
     }
-
-    FreeLibraryAndExitThread(hMod, 0);
+    fclose(f);
+    FreeConsole();
+    CreateThread(0, 0, EjectThread, 0, 0, 0);
     return 0;
 }
+
+
+
 
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
@@ -201,7 +113,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)fMain, hModule, 0, nullptr);
+        g_hModule = hModule;
+        CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)fMain, 0, 0, nullptr);
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:
