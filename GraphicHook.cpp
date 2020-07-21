@@ -101,7 +101,8 @@ void hookEndScene() {
 
     IDirect3DDevice9* pDevice = nullptr; //A variable to be a device in the next line.
 
-    HRESULT result = pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, d3dparams.hDeviceWindow, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dparams, &pDevice);
+    HRESULT result = pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
+            d3dparams.hDeviceWindow, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dparams, &pDevice);
 
     if (FAILED(result) || !pDevice){
         std::cout << "Device is null" << std::endl;

@@ -8,13 +8,10 @@ Since I don't intend to make this a malicious software, this isn't considered to
 
 I really wonder is there anyone who wanna build use this shit, but anyway i have to mention this topic just in case.
 
-**REQUIREMENTS**
-- *MSDetour library*
+I believe all you need in order to build this project is already included which is [MSDetour](https://github.com/microsoft/Detours) and [ImGui](https://github.com/ocornut/imgui).
+They're in Dependencies directory.
 
-You need to build [MSDetour](https://github.com/microsoft/Detours) by yourself and place `x86/detours.lib` as well as`x86/detours.pdb` file to `Dependencies/MSDetour/bin` because I couldn't add them on github.
-
-After that, just cmake like this below
-
+In the project root, run these commands below.
 ```
 $ mkdir build && cd build
 $ cmake ..
