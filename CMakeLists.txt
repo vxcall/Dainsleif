@@ -9,7 +9,7 @@ link_directories($ENV{DXSDK_DIR}/Lib/x86)
 
 #MSDetour
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/MSDetour/include)
-link_directories(${CMAKE_SOURCE_DIR}/Dependencies/MSDetour/bin)
+link_directories(${CMAKE_SOURCE_DIR}/Dependencies/MSDetour/binary)
 
 #imGUI
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/imGUI)

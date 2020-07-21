@@ -94,14 +94,15 @@ void hookEndScene() {
 
     if (!pD3D) return;
 
-    D3DPRESENT_PARAMETERS d3dparams = {0};  //set D3DPRESENT_PARAMETERS to pass itself as an argument of createDevice().
+    D3DPRESENT_PARAMETERS d3dparams = {};  //set D3DPRESENT_PARAMETERS to pass itself as an argument of createDevice().
     d3dparams.SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dparams.hDeviceWindow = GetProcessWindow();
     d3dparams.Windowed = true;  //need to be interchangeable
 
     IDirect3DDevice9* pDevice = nullptr; //A variable to be a device in the next line.
 
-    HRESULT result = pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GetForegroundWindow(), D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dparams, &pDevice);
+    HRESULT result = pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
+            d3dparams.hDeviceWindow, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dparams, &pDevice);
 
     if (FAILED(result) || !pDevice){
         std::cout << "Device is null" << std::endl;
