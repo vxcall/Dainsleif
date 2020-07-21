@@ -14,6 +14,26 @@ endScene originalEndScene = nullptr; //An original endscene which is null now.
 HWND window = 0;
 bool g_ShowMenu = false;
 
+BOOL CALLBACK EnumWindowsCallback(HWND handle, LPARAM lParam)
+{
+    DWORD wndProcID;
+    GetWindowThreadProcessId(handle, &wndProcID);
+
+    if (GetCurrentProcessId() != wndProcID )
+    {
+        return TRUE;
+    }
+
+    window = handle;
+    return FALSE;
+}
+
+HWND GetProcessWindow()
+{
+    EnumWindows(EnumWindowsCallback, NULL);
+    return window;
+}
+
 WNDPROC originalWndProc = NULL;
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -81,7 +101,7 @@ void hookEndScene() {
 
     D3DPRESENT_PARAMETERS d3dparams = {0};  //set D3DPRESENT_PARAMETERS to pass itself as an argument of createDevice().
     d3dparams.SwapEffect = D3DSWAPEFFECT_DISCARD;
-    d3dparams.hDeviceWindow = GetForegroundWindow();
+    d3dparams.hDeviceWindow = GetProcessWindow();
     d3dparams.Windowed = true;  //need to be interchangeable
 
     IDirect3DDevice9* pDevice = nullptr; //A variable to be a device in the next line.
