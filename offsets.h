@@ -1,5 +1,7 @@
 #pragma once
 
+constexpr uintptr_t dwppDirect3DDevice9 = 0xA7030;
+
 constexpr uintptr_t dwEntityList = 0x4D523FC;
 constexpr uintptr_t dwLocalPlayer = 0xD3DBEC;
 constexpr uintptr_t dwGlowObjectManager = 0x529A258;

@@ -5,34 +5,14 @@
 #include "imgui.h"
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
+#include "offsets.h"
 
 extern bool bAimbot, bGlowHack, bNoRecoil, bTriggerBot;   ////////////////////////////////////////////////////
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
 
-HWND window = 0;
 bool g_ShowMenu = false;
-
-BOOL CALLBACK EnumWindowsCallback(HWND handle, LPARAM lParam)
-{
-    DWORD wndProcID;
-    GetWindowThreadProcessId(handle, &wndProcID);
-
-    if (GetCurrentProcessId() != wndProcID )
-    {
-        return TRUE;
-    }
-
-    window = handle;
-    return FALSE;
-}
-
-HWND GetProcessWindow()
-{
-    EnumWindows(EnumWindowsCallback, NULL);
-    return window;
-}
 
 WNDPROC originalWndProc = NULL;
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -48,6 +28,11 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 void InitImGui(IDirect3DDevice9* pDevice)
 {
+    D3DDEVICE_CREATION_PARAMETERS parameters;
+	pDevice->GetCreationParameters(&parameters);
+
+    HWND window = parameters.hFocusWindow;
+
     originalWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -90,30 +75,10 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
 }
 
 void hookEndScene() {
-    IDirect3D9* pD3D = Direct3DCreate9(D3D_SDK_VERSION);
-
-    if (!pD3D) return;
-
-    D3DPRESENT_PARAMETERS d3dparams = {};  //set D3DPRESENT_PARAMETERS to pass itself as an argument of createDevice().
-    d3dparams.SwapEffect = D3DSWAPEFFECT_DISCARD;
-    d3dparams.hDeviceWindow = GetProcessWindow();
-    d3dparams.Windowed = true;  //need to be interchangeable
-
-    IDirect3DDevice9* pDevice = nullptr; //A variable to be a device in the next line.
-
-    HRESULT result = pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
-            d3dparams.hDeviceWindow, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dparams, &pDevice);
-
-    if (FAILED(result) || !pDevice){
-        std::cout << "Device is null" << std::endl;
-        pD3D->Release();
-        return;
-    }
+    uintptr_t shaderapidx9 = reinterpret_cast<uintptr_t>(GetModuleHandle("shaderapidx9.dll"));
+	IDirect3DDevice9* pDevice = *reinterpret_cast<IDirect3DDevice9**>(shaderapidx9 + dwppDirect3DDevice9);
 
     void** vTable = *reinterpret_cast<void***>(pDevice);
 
     originalEndScene = (endScene)DetourFunction((PBYTE)vTable[42],(PBYTE)hookedEndScene);
-
-    pDevice->Release();
-    pD3D->Release();
 }
