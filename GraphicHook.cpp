@@ -49,11 +49,6 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 void InitImGui(IDirect3DDevice9* pDevice)
 {
     originalWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
-
-    D3DDEVICE_CREATION_PARAMETERS CP;
-    pDevice->GetCreationParameters(&CP);
-    window = CP.hFocusWindow;
-
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
