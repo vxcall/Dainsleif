@@ -23,7 +23,11 @@ Then you will have HACK4CSGO.dll in the build directory. Just play it with DLL i
 # Menu
 
 **You're accessible to the hack menu by pressing INSERT key on your keyboard.**
+
 This menu feature is one of the most unstable thing in this project now. You can use it yet any error or unexpected behavior can be occurred.
+
+![ Hack menu](https://user-images.githubusercontent.com/33578715/88231178-54595700-cca6-11ea-9700-46078386d921.PNG)
+
 
 # Aimbot
 
