@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Entity.h"
 #include "LocalPlayer.h"
+#include "imgui.h"
 
 Vector3* Entity::GetBodyPosition()
 {
@@ -64,6 +65,9 @@ struct GlowObject {
     }
 };
 
+extern ImVec4 enemyGlowColor;
+extern ImVec4 localGlowColor;
+
 void Entity::Glow(uintptr_t moduleBase)
 {
     uintptr_t glowObjectManager = GetGlowObjectManager(moduleBase);
@@ -80,17 +84,18 @@ void Entity::Glow(uintptr_t moduleBase)
     }
     if (teamNum == lp->GetTeam())
     {
-        *go.Red = 0.f;
-        *go.Green = 1.f;
-        *go.Blue = 1.f;
-        *go.Alpha = 0.8f;
+        std::cout << localGlowColor.x << std::endl;
+        *go.Red = localGlowColor.x;
+        *go.Green = localGlowColor.y;
+        *go.Blue = localGlowColor.z;
+        *go.Alpha = localGlowColor.w;
     }
     else if (teamNum != lp->GetTeam() && !*this->IsDormant())
     {
-        *go.Red = 1.f;
-        *go.Green = 0.f;
-        *go.Blue = 0.f;
-        *go.Alpha = 0.8f;
+        *go.Red = enemyGlowColor.x;
+        *go.Green = enemyGlowColor.y;
+        *go.Blue = enemyGlowColor.z;
+        *go.Alpha = enemyGlowColor.w;
     }
     *(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x24)) = true; //If I set this to false, the entire glow disappear
     *(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x25)) = false; //if i set this true, the damage indicater go out of the outline.

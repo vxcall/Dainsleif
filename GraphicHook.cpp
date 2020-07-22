@@ -8,6 +8,7 @@
 #include "offsets.h"
 
 extern bool bAimbot, bGlowHack, bNoRecoil, bTriggerBot;   ////////////////////////////////////////////////////
+extern uintptr_t moduleBase;
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
@@ -20,16 +21,14 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     if (g_ShowMenu && ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
-    {
         return true;
-    }
     return CallWindowProc(originalWndProc, hWnd, msg, wParam, lParam);
 }
 
 void InitImGui(IDirect3DDevice9* pDevice)
 {
     D3DDEVICE_CREATION_PARAMETERS parameters;
-	pDevice->GetCreationParameters(&parameters);
+    pDevice->GetCreationParameters(&parameters);
 
     HWND window = parameters.hFocusWindow;
 
@@ -44,6 +43,9 @@ void InitImGui(IDirect3DDevice9* pDevice)
     ImGui_ImplDX9_Init(pDevice);
     return;
 }
+
+ImVec4 enemyGlowColor(0.8f, 0.1f, 0.15f, 1.f);
+ImVec4 localGlowColor(0.f, 0.255f, 0.7f, 1.f);
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
@@ -62,8 +64,14 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
             ImGui_ImplWin32_NewFrame();
             ImGui::NewFrame();
 
-            ImGui::Begin("Menu", &g_ShowMenu);
+            ImGui::Begin("HACK4CSGO", &g_ShowMenu);
             ImGui::Checkbox("Aim bot", &bAimbot);
+            ImGui::Checkbox("Trigger bot", &bTriggerBot);
+            ImGui::Checkbox("Glow Hack", &bGlowHack);
+            ImGui::Checkbox("No Recoil", &bNoRecoil);
+            ImGui::ColorEdit4("Enemy color", (float*)&enemyGlowColor);
+            ImGui::ColorEdit4("Teammate color", (float*)&localGlowColor);
+
             ImGui::End();
 
             ImGui::EndFrame();
@@ -76,7 +84,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
 
 void hookEndScene() {
     uintptr_t shaderapidx9 = reinterpret_cast<uintptr_t>(GetModuleHandle("shaderapidx9.dll"));
-	IDirect3DDevice9* pDevice = *reinterpret_cast<IDirect3DDevice9**>(shaderapidx9 + dwppDirect3DDevice9);
+    IDirect3DDevice9* pDevice = *reinterpret_cast<IDirect3DDevice9**>(shaderapidx9 + dwppDirect3DDevice9);
 
     void** vTable = *reinterpret_cast<void***>(pDevice);
 

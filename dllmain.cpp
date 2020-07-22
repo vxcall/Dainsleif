@@ -50,18 +50,19 @@ DWORD WINAPI fMain()
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
     hookEndScene();
-
-    std::vector<Entity*> entityList;
-
+    std::vector<Entity*> entityList = {};
     //waiting key input for cheats
     while (true)
     {
-        entityList = GetEntities(moduleBase);
         if (GetAsyncKeyState(VK_END) & 1) break;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
             g_ShowMenu = !g_ShowMenu;
+        }
+
+        if (bAimbot || bTriggerBot || bGlowHack || bNoRecoil) {
+            entityList = GetEntities(moduleBase);
         }
 
         if (bAimbot)
