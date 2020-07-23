@@ -22,6 +22,8 @@ public:
 	void NeutralizeRecoil();
 
     void AutoPullTrigger(std::vector<Entity*> entityList);
+
+    void SetFOV(int fov);
 };
 
 //GetLocalPlayer returns LocalPlayer class instance.

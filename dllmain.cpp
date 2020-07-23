@@ -3,7 +3,7 @@
 #include "GraphicHook.h"
 
 
-bool bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
+bool bQuit = false, bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
 
 extern bool g_ShowMenu;
 
@@ -54,11 +54,14 @@ DWORD WINAPI fMain()
     //waiting key input for cheats
     while (true)
     {
-        if (GetAsyncKeyState(VK_END) & 1) break;
+        if (bQuit)
+            break;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            g_ShowMenu = !g_ShowMenu;
+            int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State)); //6 means user's in game.
+            if ( gameState== 6 && GetLocalPlayer(moduleBase))
+                g_ShowMenu = !g_ShowMenu;
         }
 
         if (bAimbot || bTriggerBot || bGlowHack || bNoRecoil) {
@@ -70,7 +73,7 @@ DWORD WINAPI fMain()
             Entity* closestEnt = GetClosestEnemy(entityList);
             if (closestEnt && !*closestEnt->IsDormant())
             {
-                    GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());
+                GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());
             }
         }
 

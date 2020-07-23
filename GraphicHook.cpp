@@ -2,12 +2,13 @@
 #include "GraphicHook.h"
 #include <d3d9.h>
 #include <detours.h>
+#include "LocalPlayer.h"
 #include "imgui.h"
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
 #include "offsets.h"
 
-extern bool bAimbot, bGlowHack, bNoRecoil, bTriggerBot;   ////////////////////////////////////////////////////
+extern bool bQuit, bAimbot, bGlowHack, bNoRecoil, bTriggerBot;
 extern uintptr_t moduleBase;
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
@@ -46,6 +47,7 @@ void InitImGui(IDirect3DDevice9* pDevice)
 
 ImVec4 enemyGlowColor(0.8f, 0.1f, 0.15f, 1.f);
 ImVec4 localGlowColor(0.f, 0.255f, 0.7f, 1.f);
+int fov = 90;
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
@@ -60,6 +62,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
     {
         if (g_ShowMenu)
         {
+            LocalPlayer* lp = GetLocalPlayer(moduleBase);
             ImGui_ImplDX9_NewFrame();
             ImGui_ImplWin32_NewFrame();
             ImGui::NewFrame();
@@ -67,11 +70,21 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
             ImGui::Begin("HACK4CSGO", &g_ShowMenu);
             ImGui::Checkbox("Aim bot", &bAimbot);
             ImGui::Checkbox("Trigger bot", &bTriggerBot);
-            ImGui::Checkbox("Glow Hack", &bGlowHack);
             ImGui::Checkbox("No Recoil", &bNoRecoil);
-            ImGui::ColorEdit4("Enemy color", (float*)&enemyGlowColor);
-            ImGui::ColorEdit4("Teammate color", (float*)&localGlowColor);
+            ImGui::Checkbox("Glow Hack", &bGlowHack);
+            if (bGlowHack)
+            {
+                ImGui::ColorEdit4("Enemy color", (float*)&enemyGlowColor);
+                ImGui::ColorEdit4("Teammate color", (float*)&localGlowColor);
+            }
+            if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120))
+                lp->SetFOV(fov);
 
+
+            if (ImGui::Button("Quit"))
+            {
+                bQuit = true;
+            }
             ImGui::End();
 
             ImGui::EndFrame();

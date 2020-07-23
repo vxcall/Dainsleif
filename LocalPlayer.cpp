@@ -27,8 +27,14 @@ Vector3* LocalPlayer::GetHeadPosition()
 	return headPosition;
 }
 
-int sign(float A) {
+int sign(float A)
+{
 	return (A > 0) - (A < 0);
+}
+
+void LocalPlayer::SetFOV(int fov)
+{
+    *reinterpret_cast<int*>(*(uintptr_t*)this + m_iFOV) = fov;
 }
 
 const double PI = 3.14159265358;
@@ -154,6 +160,8 @@ void LocalPlayer::NeutralizeRecoil() {
     }
 }
 
+//If Trigger bot is on, Aimbot have to need this somehow.
+bool isTriggerBotON = false;
 void LocalPlayer::AutoPullTrigger(std::vector<Entity*> entityList)
 {
     int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iCrosshairId); //this int value holds index of entity list.

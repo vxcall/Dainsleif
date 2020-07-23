@@ -6,7 +6,5 @@
 #include <iostream>
 #include <vector>
 #include "offsets.h"
-#include <math.h>
-#include <cstdlib>
 
 #endif

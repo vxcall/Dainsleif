@@ -15,9 +15,10 @@ constexpr uintptr_t m_iGlowIndex = 0xA438;
 constexpr uintptr_t m_aimPunchAngle = 0x302C;
 constexpr uintptr_t m_iShotsFired = 0xA390;
 constexpr uintptr_t m_iCrosshairId = 0xB3E4;
-
+constexpr uintptr_t m_iFOV = 0x332C;
 constexpr uintptr_t m_bDormant = 0xED;
 
 constexpr uintptr_t dwClientState = 0x58ADD4;
+constexpr uintptr_t dwClientState_State = 0x108;
 constexpr uintptr_t dwClientState_MaxPlayer = 0x388;
 constexpr uintptr_t dwClientState_ViewAngles = 0x4D88;

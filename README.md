@@ -2,7 +2,8 @@
 Internal trainer for CSGO I've been working on as my training of reverse engineering and not completed yet.
 Since I don't intend to make this a malicious software, this isn't considered to be performed in multiplayer mode. Keep in that mind plz.
 
-#### STILL WORKING: July 23, 2020
+If you are enough kind to motivate me, just **star** this project :) I would be very happy.
+### STILL WORKING: July 24, 2020
 
 # How to build this project
 
@@ -26,7 +27,7 @@ Then you will have HACK4CSGO.dll in the build directory. Just play it with DLL i
 
 This menu feature is one of the most unstable thing in this project now. You can use it yet any error or unexpected behavior can be occurred.
 
-![ Hack menu](https://user-images.githubusercontent.com/33578715/88231178-54595700-cca6-11ea-9700-46078386d921.PNG)
+![Hack menu](https://user-images.githubusercontent.com/33578715/88310005-c03ccd80-cd41-11ea-980e-a7f1fa639597.png)
 
 
 # Aimbot
@@ -62,7 +63,8 @@ But this doesn't guarantee the 100% accuracy.
 - [x] Glow hack
 - [x] Trigger bot
 - [x] Neutralize recoil
-- [ ] GUI menu for more better user experience (by hooking Directx9 endScene function)
+- [x] GUI menu for more better user experience (by hooking Directx9 endScene function)
+- [ ] Close GUI menu if user get outta game to main menu
 - [ ] Enemy's health indicator
 - [ ] ESP (drow line by myself)
 - [ ] teleport hack (not sure if it's possible without getting detected)

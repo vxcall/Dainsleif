@@ -14,7 +14,7 @@ Vector3* Entity::GetViewOffset()
 }
 
 #define boneID 8
-
+extern bool isTriggerBotON;
 Vector3* Entity::GetBonePosition()
 {
 	uintptr_t boneMatrix = *reinterpret_cast<uintptr_t*>((*reinterpret_cast<uintptr_t*>(this) + m_dwBoneMatrix));
@@ -22,6 +22,10 @@ Vector3* Entity::GetBonePosition()
 	bonePos.x = *reinterpret_cast<float*>((boneMatrix + 0x30 * boneID + 0x0C));
 	bonePos.y = *reinterpret_cast<float*>((boneMatrix + 0x30 * boneID + 0x1C));
 	bonePos.z = *reinterpret_cast<float*>((boneMatrix + 0x30 * boneID + 0x2C));
+	if (isTriggerBotON)
+    {
+        bonePos.z -= 2.f;
+    }
 	return &bonePos;
 }
 
@@ -84,7 +88,6 @@ void Entity::Glow(uintptr_t moduleBase)
     }
     if (teamNum == lp->GetTeam())
     {
-        std::cout << localGlowColor.x << std::endl;
         *go.Red = localGlowColor.x;
         *go.Green = localGlowColor.y;
         *go.Blue = localGlowColor.z;
