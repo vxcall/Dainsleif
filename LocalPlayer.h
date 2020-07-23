@@ -1,7 +1,6 @@
 #pragma once
-#include "vector3.h"
+#include "pch.h"
 #include "Entity.h"
-#include <cmath>
 
 class LocalPlayer : public Entity
 {

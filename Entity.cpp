@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Entity.h"
 #include "LocalPlayer.h"
-#include "imgui.h"
 
 Vector3* Entity::GetBodyPosition()
 {

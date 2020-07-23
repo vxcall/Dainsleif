@@ -64,7 +64,8 @@ But this doesn't guarantee the 100% accuracy.
 - [x] Trigger bot
 - [x] Neutralize recoil
 - [x] GUI menu for more better user experience (by hooking Directx9 endScene function)
-- [ ] Close GUI menu if user get outta game to main menu
+- [x] Close GUI menu whenever user gets outta in game and goes back to main menu
+- [ ] Save setting that user inputs to toml file
 - [ ] Enemy's health indicator
 - [ ] ESP (drow line by myself)
 - [ ] teleport hack (not sure if it's possible without getting detected)

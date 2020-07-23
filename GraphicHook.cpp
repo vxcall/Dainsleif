@@ -1,12 +1,6 @@
-#include <iostream>
+#include "pch.h"
 #include "GraphicHook.h"
-#include <d3d9.h>
-#include <detours.h>
 #include "LocalPlayer.h"
-#include "imgui.h"
-#include "imgui_impl_dx9.h"
-#include "imgui_impl_win32.h"
-#include "offsets.h"
 
 extern bool bQuit, bAimbot, bGlowHack, bNoRecoil, bTriggerBot;
 extern uintptr_t moduleBase;

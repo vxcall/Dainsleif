@@ -57,11 +57,16 @@ DWORD WINAPI fMain()
         if (bQuit)
             break;
 
+        int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State));
+
         if (GetAsyncKeyState(VK_INSERT) & 1)
-        {
-            int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State)); //6 means user's in game.
-            if ( gameState== 6 && GetLocalPlayer(moduleBase))
+        {//6 means user's in game.
+            if ( gameState== 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase)))
                 g_ShowMenu = !g_ShowMenu;
+        }
+
+        if (gameState != 6) {
+            g_ShowMenu = false;
         }
 
         if (bAimbot || bTriggerBot || bGlowHack || bNoRecoil) {
