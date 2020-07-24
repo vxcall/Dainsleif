@@ -1,15 +1,19 @@
-# HACK4CSGO
+# HACK4CSGO :zap:
 Internal trainer for CSGO I've been working on as my training of reverse engineering and not completed yet.
-Since I don't intend to make this a malicious software, this isn't considered to be performed in multiplayer mode. Keep in that mind plz.
+Since I don't intend to make this a malicious software, **this isn't considered to be performed in multiplayer mode**. Keep in that mind plz.
 
 If you are enough kind to motivate me, just **star** this project :) I would be very happy.
+
+If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
 ### STILL WORKING: July 25, 2020
 
-# How to build this project
+# How to use this hack :key :
 
-I really wonder is there anyone who wanna build use this shit, but anyway i have to mention this topic just in case.
+### 1. Download DLL itself from [release](https://github.com/s3pt3mb3r/HACK4CSGO/releases)
 
-I believe all you need in order to build this project is already included which is [MSDetour](https://github.com/microsoft/Detours) and [ImGui](https://github.com/ocornut/imgui).
+### 2. Build DLL from source code
+
+I believe all you need in order to build this project is already included which is [MSDetour](https://github.com/microsoft/Detours), [ImGui](https://github.com/ocornut/imgui), and [toml11](https://github.com/ToruNiina/toml11).
 They're in Dependencies directory.
 
 In the project root, run these commands below.
@@ -19,13 +23,13 @@ $ cmake ..
 $ make
 ```
 
-Then you will have HACK4CSGO.dll in the build directory. Just play it with DLL injector:)
+### Either way you get the HACK4CSGO.dll, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)
 
-# Menu
 
-**You're accessible to the hack menu by pressing INSERT key on your keyboard.**
+# Menu :green_book:
 
-This menu feature is one of the most unstable thing in this project now. You can use it yet any error or unexpected behavior can be occurred.
+You're accessible to the hack menu by pressing **INSERT** key on your keyboard.
+**But you may only access it in game. Even though you press INSERT when you are in main menu, nothing happens**
 
 ![Hack menu](https://user-images.githubusercontent.com/33578715/88310005-c03ccd80-cd41-11ea-980e-a7f1fa639597.png)
 
@@ -66,6 +70,8 @@ But this doesn't guarantee the 100% accuracy.
 - [x] GUI menu for more better user experience (by hooking Directx9 endScene function)
 - [x] Close GUI menu whenever user gets outta in game and goes back to main menu
 - [x] Save setting automatically that user inputs to toml file
+- [ ] Add a "reset setting" button
+- [ ] Display alert when dll is successfully injected
 - [ ] Enemy's health indicator
 - [ ] ESP (drow line by myself)
 - [ ] teleport hack (not sure if it's possible without getting detected)
