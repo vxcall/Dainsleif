@@ -74,11 +74,15 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
             if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120))
                 lp->SetFOV(fov);
 
-
-            if (ImGui::Button("Quit"))
+            if (ImGui::Button("set to default"))
             {
-                bQuit = true;
+                bAimbot = false;
+                bTriggerBot = false;
+                bGlowHack = false;
+                bNoRecoil = false;
+                fov = 90;
             }
+            if (ImGui::Button("Quit")) bQuit = true;
             ImGui::End();
 
             ImGui::EndFrame();
