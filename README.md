@@ -70,8 +70,9 @@ But this doesn't guarantee the 100% accuracy.
 - [x] GUI menu for more better user experience (by hooking Directx9 endScene function)
 - [x] Close GUI menu whenever user gets outta in game and goes back to main menu
 - [x] Save setting automatically that user inputs to toml file
-- [ ] Add a "reset setting" button
+- [x] Add a "reset setting" button
 - [ ] Display alert when dll is successfully injected
+- [ ] Place quit button on menu bar.
 - [ ] Enemy's health indicator
 - [ ] ESP (drow line by myself)
 - [ ] teleport hack (not sure if it's possible without getting detected)
