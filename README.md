@@ -7,7 +7,7 @@ If you are enough kind to motivate me, just **star** this project :) I would be 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
 ### STILL WORKING: July 25, 2020
 
-# How to use this hack :key :
+# How to use this hack :key:
 
 ### 1. Download DLL itself from [release](https://github.com/s3pt3mb3r/HACK4CSGO/releases)
 
