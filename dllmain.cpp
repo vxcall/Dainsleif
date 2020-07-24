@@ -2,10 +2,13 @@
 #include "LocalPlayer.h"
 #include "GraphicHook.h"
 
-
 bool bQuit = false, bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
 
-extern bool g_ShowMenu;
+const char* dir = "C:/Users/PC/HACK4CSGO"; //directory that savedata will be saved.
+std::string filename = (std::string)dir + "/savedata.toml"; //Set file path.
+
+extern bool g_ShowMenu; //decleard in GraphicHook.cpp
+int fov = 90;
 
 uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
 
@@ -36,6 +39,30 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
     return entityList[closestEntityIndex]; //return closest Entity pointer.
 }
 
+void ParseFile() {
+    auto saveData = toml::parse(filename);
+
+    // find specified values associated with one keys, and assign them into each variable.
+    bAimbot = toml::find<bool>(saveData, "bAimbot");
+    bGlowHack = toml::find<bool>(saveData, "bGlowHack");
+    bNoRecoil = toml::find<bool>(saveData, "bNoRecoil");
+    bTriggerBot = toml::find<bool>(saveData, "bTriggerBot");
+    fov = toml::find<int>(saveData, "fov");
+}
+
+void WriteFile() {
+    //Make a variable holds keys and values.
+    const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
+                           {"bNoRecoil", bNoRecoil}, {"bTriggerBot", bTriggerBot},
+                           {"fov", fov}};
+
+    //Open file and write it in toml syntax.
+    std::ofstream file;
+    file.open(filename, std::ios::out);
+    file << data;
+    file.close();
+}
+
 HMODULE g_hModule;
 
 DWORD __stdcall EjectThread(LPVOID lpParameter)
@@ -46,27 +73,58 @@ DWORD __stdcall EjectThread(LPVOID lpParameter)
 
 DWORD WINAPI fMain()
 {
+    //Create console window
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
+
+    std::ifstream fs(filename);
+    if (!fs.is_open()) {
+        _mkdir(dir);
+    } else {
+        ParseFile();
+    }
+
     hookEndScene();
     std::vector<Entity*> entityList = {};
     //waiting key input for cheats
     while (true)
     {
+        static bool isStayingMainMenu = false;
+
         if (bQuit)
+        {
+            WriteFile();
             break;
+        }
 
         int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State));
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
-        {//6 means user's in game.
-            if ( gameState== 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase)))
+        {
+            if (gameState== 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase))) //6 means user's in game.
+            {
+                isStayingMainMenu = false;
                 g_ShowMenu = !g_ShowMenu;
+                if (!g_ShowMenu)
+                    WriteFile();
+            }
         }
 
         if (gameState != 6) {
+            if (!isStayingMainMenu)
+            {
+                WriteFile();
+                isStayingMainMenu = true;
+            }
             g_ShowMenu = false;
+        }
+
+        if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase))) continue;
+
+        static bool bInitLocalPlayer = false;
+        if (!bInitLocalPlayer) {
+            GetLocalPlayer(moduleBase)->SetFOV(fov);
         }
 
         if (bAimbot || bTriggerBot || bGlowHack || bNoRecoil) {
@@ -92,17 +150,12 @@ DWORD WINAPI fMain()
 
         if (bNoRecoil)
         {
-            LocalPlayer* lp = GetLocalPlayer(moduleBase);
-            lp->NeutralizeRecoil();
+            GetLocalPlayer(moduleBase)->NeutralizeRecoil();
         }
 
         if (bTriggerBot)
         {
-            LocalPlayer* lp = GetLocalPlayer(moduleBase);
-            if (lp)
-            {
-                lp->AutoPullTrigger(entityList);
-            }
+            GetLocalPlayer(moduleBase)->AutoPullTrigger(entityList);
         }
 
         Sleep(1); //sleep for performance aspect

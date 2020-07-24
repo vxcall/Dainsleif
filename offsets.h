@@ -2,9 +2,9 @@
 
 constexpr uintptr_t dwppDirect3DDevice9 = 0xA7030;
 
-constexpr uintptr_t dwEntityList = 0x4D5240C;
-constexpr uintptr_t dwLocalPlayer = 0xD3DBEC;
-constexpr uintptr_t dwGlowObjectManager = 0x529A278;
+constexpr uintptr_t dwEntityList = 0x4D5348C;
+constexpr uintptr_t dwLocalPlayer = 0xD3EC4C;
+constexpr uintptr_t dwGlowObjectManager = 0x529B2F0;
 
 constexpr uintptr_t m_vecOrigin = 0x138;
 constexpr uintptr_t m_iHealth = 0x100;

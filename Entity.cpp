@@ -80,11 +80,6 @@ void Entity::Glow(uintptr_t moduleBase)
     LocalPlayer* lp = GetLocalPlayer(moduleBase);
     int teamNum = this->GetTeam();
 
-    if (!lp || !glowObjectManager)
-    {
-        std::cout << "Error has occurred in Glow function. NULL POINTER EXCEPTION" << std::endl;
-        return;
-    }
     if (teamNum == lp->GetTeam())
     {
         *go.Red = localGlowColor.x;

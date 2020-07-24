@@ -126,7 +126,6 @@ int oldShotCount = 0;
 void LocalPlayer::NeutralizeRecoil() {
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
 
-    if (!*reinterpret_cast<uintptr_t*>(this))  return; //If local player doesn't exist, return.
     int* ShotCount = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iShotsFired);
 
     if (*ShotCount >= 1) {

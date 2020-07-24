@@ -3,7 +3,7 @@ Internal trainer for CSGO I've been working on as my training of reverse enginee
 Since I don't intend to make this a malicious software, this isn't considered to be performed in multiplayer mode. Keep in that mind plz.
 
 If you are enough kind to motivate me, just **star** this project :) I would be very happy.
-### STILL WORKING: July 24, 2020
+### STILL WORKING: July 25, 2020
 
 # How to build this project
 
@@ -65,7 +65,7 @@ But this doesn't guarantee the 100% accuracy.
 - [x] Neutralize recoil
 - [x] GUI menu for more better user experience (by hooking Directx9 endScene function)
 - [x] Close GUI menu whenever user gets outta in game and goes back to main menu
-- [ ] Save setting that user inputs to toml file
+- [x] Save setting automatically that user inputs to toml file
 - [ ] Enemy's health indicator
 - [ ] ESP (drow line by myself)
 - [ ] teleport hack (not sure if it's possible without getting detected)
