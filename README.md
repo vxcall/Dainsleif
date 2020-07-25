@@ -7,7 +7,7 @@ If you are enough kind to motivate me, just **star** this project :) I would be 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
 ### STILL WORKING: July 26, 2020
 
-#Table of contents
+# Table of contents
 
 - [How to use this hack](#how-to-use-this-hack-key)
     - [Download DLL itself from release](#1-download-dll-itself-from-release)
@@ -93,5 +93,5 @@ But this doesn't guarantee the 100% accuracy.
 - [ ] ESP (draw line by myself)
 - [ ] teleportation hack (not sure if it's possible without getting detected)
 
-#Contributors
+# Contributors
 - [l1m0n3](https://github.com/l1m0n3)
