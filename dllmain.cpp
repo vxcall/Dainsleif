@@ -63,20 +63,19 @@ void WriteFile() {
     file.close();
 }
 
-HMODULE g_hModule;
-
-DWORD __stdcall EjectThread(LPVOID lpParameter)
+VOID WINAPI Detach(LPVOID lpParameter)
 {
-    Sleep(100);
-    FreeLibraryAndExitThread(g_hModule, 0);
+    unhookEndScene();
+
+    fclose(stdout);
+    FreeConsole();
 }
 
-DWORD WINAPI fMain()
+DWORD WINAPI fMain(LPVOID lpParameter)
 {
     //Create console window
     AllocConsole();
-    FILE* f;
-    freopen_s(&f, "CONOUT$", "w", stdout);
+    freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
 
     std::ifstream fs(filename);
     if (!fs.is_open()) {
@@ -86,6 +85,7 @@ DWORD WINAPI fMain()
     }
 
     hookEndScene();
+
     std::vector<Entity*> entityList = {};
     //waiting key input for cheats
     while (true)
@@ -160,28 +160,25 @@ DWORD WINAPI fMain()
 
         Sleep(1); //sleep for performance aspect
     }
-    fclose(f);
-    FreeConsole();
-    CreateThread(0, 0, EjectThread, 0, 0, 0);
-    return 0;
+
+    FreeLibraryAndExitThread(static_cast<HMODULE>(lpParameter), EXIT_SUCCESS);
 }
 
-
-
-
-
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
-    switch (ul_reason_for_call)
+    if (dwReason == DLL_PROCESS_ATTACH)
     {
-    case DLL_PROCESS_ATTACH:
-        g_hModule = hModule;
-        CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)fMain, 0, 0, nullptr);
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
+        DisableThreadLibraryCalls(hModule);
+
+        HANDLE hThread = CreateThread(nullptr, 0, fMain, hModule, 0, nullptr);
+        if (hThread)
+        {
+            CloseHandle(hThread);
+        }
+    }
+    else if (dwReason == DLL_PROCESS_DETACH && !lpReserved)
+    {
+        Detach(hModule);
     }
     return TRUE;
 }
-

@@ -1,2 +1,4 @@
 
 void hookEndScene();
+
+void unhookEndScene();
