@@ -1,3 +1,4 @@
+[![HitCount](http://hits.dwyl.com/s3pt3mb3r/HACK4CSGO.svg)](http://hits.dwyl.com/s3pt3mb3r/HACK4CSGO)
 # HACK4CSGO :zap:
 Internal trainer for CSGO I've been working on as my training of reverse engineering.
 Since I don't intend to make this a malicious software, **this isn't considered to be performed in multiplayer mode**. Keep in that mind plz.
