@@ -1,4 +1,4 @@
-[![HitCount](http://hits.dwyl.com/s3pt3mb3r/HACK4CSGO.svg)](http://hits.dwyl.com/s3pt3mb3r/HACK4CSGO)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 # HACK4CSGO :zap:
 Internal trainer for CSGO I've been working on as my training of reverse engineering.
 Since I don't intend to make this a malicious software, **this isn't considered to be performed in multiplayer mode**. Keep in that mind plz.
@@ -6,7 +6,7 @@ Since I don't intend to make this a malicious software, **this isn't considered 
 If you are enough kind to motivate me, just **star** this project :) I would be very happy.
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
-### STILL WORKING: July 26, 2020
+### STILL WORKING: July 27, 2020
 
 # Table of contents
 

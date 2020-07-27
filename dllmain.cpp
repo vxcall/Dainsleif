@@ -4,8 +4,9 @@
 
 bool bQuit = false, bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
 
-const char* dir = "C:/Users/PC/HACK4CSGO"; //directory that savedata will be saved.
-std::string filename = (std::string)dir + "/savedata.toml"; //Set file path.
+TCHAR dir[ MAX_PATH ];
+//const char* dir = "C:/Users/PC/HACK4CSGO"; //directory that savedata will be saved.
+std::string filename;
 
 extern bool g_ShowMenu; //decleard in GraphicHook.cpp
 int fov = 90;
@@ -76,10 +77,12 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     //Create console window
     AllocConsole();
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
+    SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
+    filename = static_cast<std::string>(dir) + "\\HACK4CSGO\\savedata.toml"; //Set file path.
 
-    std::ifstream fs(filename);
+    std::ifstream fs(filename); //check if the file is exsist or not
     if (!fs.is_open()) {
-        _mkdir(dir);
+        _mkdir((static_cast<std::string>(dir) + "\\HACK4CSGO").c_str()); //convert dir variable which is typed TCHAR into std::string, then convert back to char*
     } else {
         ParseFile();
     }

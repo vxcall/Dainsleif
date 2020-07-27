@@ -5,6 +5,7 @@
 extern bool bQuit, bAimbot, bGlowHack, bNoRecoil, bTriggerBot;
 extern uintptr_t moduleBase;
 extern int fov; //decleard in dllmain.cpp
+extern std::string filename;
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
@@ -20,6 +21,19 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     if (g_ShowMenu && ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
         return true;
     return CallWindowProc(originalWndProc, hWnd, msg, wParam, lParam);
+}
+
+static void HelpMarker(std::string desc)
+{
+    ImGui::TextDisabled("(?)");
+    if (ImGui::IsItemHovered())
+    {
+        ImGui::BeginTooltip();
+        ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+        ImGui::TextUnformatted(desc.c_str());
+        ImGui::PopTextWrapPos();
+        ImGui::EndTooltip();
+    }
 }
 
 void InitImGui(IDirect3DDevice9* pDevice)
@@ -75,6 +89,8 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
             bNoRecoil = false;
             fov = 90;
         }
+        ImGui::SameLine();
+        HelpMarker("Setting file is in the following directory: " + filename);
         if (ImGui::Button("Quit")) bQuit = true;
         ImGui::End();
 
