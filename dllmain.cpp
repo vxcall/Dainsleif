@@ -2,16 +2,17 @@
 #include "LocalPlayer.h"
 #include "GraphicHook.h"
 
+uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
+
 bool bQuit = false, bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
+int fov = 90;
+ImVec4 enemyGlowColor;
+ImVec4 localGlowColor;
 
 TCHAR dir[ MAX_PATH ];
-//const char* dir = "C:/Users/PC/HACK4CSGO"; //directory that savedata will be saved.
-std::string filename;
+std::string filename;//const char* dir = "C:/Users/PC/HACK4CSGO"; //directory that savedata will be saved.
 
 extern bool g_ShowMenu; //decleard in GraphicHook.cpp
-int fov = 90;
-
-uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
 
 Entity* GetClosestEnemy(std::vector<Entity*> entityList)
 {
@@ -49,14 +50,22 @@ void ParseFile() {
     bNoRecoil = toml::find<bool>(saveData, "bNoRecoil");
     bTriggerBot = toml::find<bool>(saveData, "bTriggerBot");
     fov = toml::find<int>(saveData, "fov");
+    enemyGlowColor.x = toml::find<float>(saveData, "enemyGlowColor", "Red");
+    enemyGlowColor.y = toml::find<float>(saveData, "enemyGlowColor", "Green");
+    enemyGlowColor.z = toml::find<float>(saveData, "enemyGlowColor", "Blue");
+    enemyGlowColor.w = toml::find<float>(saveData, "enemyGlowColor", "Alpha");
+    localGlowColor.x = toml::find<float>(saveData, "localGlowColor", "Red");
+    localGlowColor.y = toml::find<float>(saveData, "localGlowColor", "Green");
+    localGlowColor.z = toml::find<float>(saveData, "localGlowColor", "Blue");
+    localGlowColor.w = toml::find<float>(saveData, "localGlowColor", "Alpha");
 }
 
 void WriteFile() {
     //Make a variable holds keys and values.
     const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
                            {"bNoRecoil", bNoRecoil}, {"bTriggerBot", bTriggerBot},
-                           {"fov", fov}};
-
+                           {"fov", fov}, {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
+                           {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}}};
     //Open file and write it in toml syntax.
     std::ofstream file;
     file.open(filename, std::ios::out);
@@ -74,6 +83,15 @@ VOID WINAPI Detach(LPVOID lpParameter)
 
 DWORD WINAPI fMain(LPVOID lpParameter)
 {
+    enemyGlowColor.x = 0.8f;
+    enemyGlowColor.y = 0.1f;
+    enemyGlowColor.z = 0.15f;
+    enemyGlowColor.w = 1.f;
+    localGlowColor.x = 0.f;
+    localGlowColor.y = 0.255f;
+    localGlowColor.z = 0.7f;
+    localGlowColor.w = 1.f;
+
     //Create console window
     AllocConsole();
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
@@ -83,6 +101,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     std::ifstream fs(filename); //check if the file is exsist or not
     if (!fs.is_open()) {
         _mkdir((static_cast<std::string>(dir) + "\\HACK4CSGO").c_str()); //convert dir variable which is typed TCHAR into std::string, then convert back to char*
+        WriteFile();
     } else {
         ParseFile();
     }

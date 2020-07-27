@@ -52,30 +52,14 @@ uintptr_t GetGlowObjectManager(uintptr_t moduleBase) {
 	return *reinterpret_cast<uintptr_t*>(moduleBase + dwGlowObjectManager);
 }
 
-//This is a struct to treat glow stuff cleaner maybe XD.
-struct GlowObject {
-    float* Red;
-    float* Green;
-    float* Blue;
-    float* Alpha;
-
-    GlowObject(uintptr_t moduleBase, uintptr_t glowObjectManager, uintptr_t glowIndex)
-    {
-        Red = reinterpret_cast<float*>((glowObjectManager + ((glowIndex * 0x38) + 0x4)));
-        Green = reinterpret_cast<float*>((glowObjectManager + ((glowIndex * 0x38) + 0x8)));
-        Blue = reinterpret_cast<float*>((glowObjectManager + ((glowIndex * 0x38) + 0xC)));
-        Alpha = reinterpret_cast<float*>((glowObjectManager + ((glowIndex * 0x38) + 0x10)));
-    }
-};
-
-extern ImVec4 enemyGlowColor;
-extern ImVec4 localGlowColor;
+extern ImVec4 enemyGlowColor; //declared in dll.main
+extern ImVec4 localGlowColor; //declared in dll.main
 
 void Entity::Glow(uintptr_t moduleBase)
 {
     uintptr_t glowObjectManager = GetGlowObjectManager(moduleBase);
     uintptr_t glowIndex = this->GetGlowIndex();
-    GlowObject go(moduleBase, glowObjectManager, glowIndex);
+    GlowObject go(glowObjectManager, glowIndex);
 
     LocalPlayer* lp = GetLocalPlayer(moduleBase);
     int teamNum = this->GetTeam();

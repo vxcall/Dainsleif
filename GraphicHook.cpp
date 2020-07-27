@@ -56,8 +56,8 @@ void ShutdownImGui()
     ImGui::DestroyContext();
 }
 
-ImVec4 enemyGlowColor(0.8f, 0.1f, 0.15f, 1.f);
-ImVec4 localGlowColor(0.f, 0.255f, 0.7f, 1.f);
+extern ImVec4 enemyGlowColor; //declared in dll.main
+extern ImVec4 localGlowColor; //declared in dll.main
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
