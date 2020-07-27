@@ -11,7 +11,7 @@ If you have any question about this project, feel free to ask me through [issue]
 
 ### STILL WORKING: July 27, 2020
 
-# Support me :handshaking:
+# Support me :two_hearts:
 Any supports will be greatly appreciated. 
 You can easily support/motivate me by either **starring my project**, **following me on github** or **sending PR to me**.
 
