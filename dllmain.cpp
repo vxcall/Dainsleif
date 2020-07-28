@@ -26,7 +26,7 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
         if (entityList[i]->GetTeam() == lp->GetTeam()) continue; //filter out if entity is same team as local player.
         if (*entityList[i]->GetHealth() < 1 || *lp->GetHealth() < 1) continue; //skip if either entity or local player is dead
 
-        float currentDistance = lp->GetDistance(*(entityList[i]->GetBodyPosition()));
+        float currentDistance = GetDistance(*entityList[i]->GetBodyPosition(), *lp->GetHeadPosition());
 
         if (currentDistance < closestDistance) //if this entity is closer than old one, then update closestDistance and closestEntityIndex.
         {
@@ -39,6 +39,27 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
         return nullptr;
     }
     return entityList[closestEntityIndex]; //return closest Entity pointer.
+}
+
+Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList)
+{
+    float closestDistance = 1000000;
+    int closestEntityIndex = -1;
+    static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
+    Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+    for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
+    {
+        float targetPosition = GetDistance(*entityList[i]->GetBodyPosition(), *viewAngles);
+        if (targetPosition < closestDistance) {
+            closestDistance = targetPosition;
+            closestEntityIndex = i;
+        }
+    }
+    if (closestEntityIndex == -1)
+    {
+        return nullptr;
+    }
+    return entityList[closestEntityIndex];
 }
 
 void ParseFile() {

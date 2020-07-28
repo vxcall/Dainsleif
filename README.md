@@ -9,7 +9,7 @@ Besides that, I'm not a skilled hacker as this cheat is not a high quality as of
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
 
-### STILL WORKING: July 27, 2020
+### STILL WORKING: July 29, 2020
 
 # Support me :two_hearts:
 Any supports will be greatly appreciated. 
@@ -33,6 +33,10 @@ You can easily support/motivate me by either **starring my project**, **followin
 You can select from two ways to use this hack.
 
 **1. Download DLL itself from [release](https://github.com/s3pt3mb3r/HACK4CSGO/releases)**
+
+Warning: I don't recommend you use this way because offsets, the information that specify the location of the in game resources such as health and ammo, are usually outdated.
+
+You should use the 2nd way if you wanna ensure hack works correctly.
 
 **2. Build DLL from source code**
 

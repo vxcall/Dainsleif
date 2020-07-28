@@ -7,16 +7,16 @@ LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
 	return reinterpret_cast<LocalPlayer*>((moduleBase + dwLocalPlayer)); //get local player address and cast it to my original class type
 }
 
-float LocalPlayer::GetDistance(Vector3 targetPos, Vector3& deltaVector)
+float GetDistance(Vector3 targetPos, Vector3 basePos)
 {
-    deltaVector =  targetPos - *this->GetHeadPosition(); //minus operation is defined in vector3.h
-	return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z); //This is the trigonometry calculation to get hypnotenuse.
+    Vector3 deltaVector = targetPos - basePos;
+    return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
 }
 
-float LocalPlayer::GetDistance(Vector3 targetPos)
+float GetDistance(Vector3 targetPos, Vector3 basePos, Vector3& deltaVector)
 {
-	Vector3 deltaVector = targetPos - *this->GetBodyPosition();
-	return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
+    deltaVector = targetPos - basePos;
+    return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
 }
 
 Vector3* LocalPlayer::GetHeadPosition()
@@ -43,7 +43,7 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
 	static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 	Vector3 delta;
-	float hypotenuse = GetDistance(TargetsHeadPosition, delta);
+	float hypotenuse = ::GetDistance(TargetsHeadPosition, *this->GetHeadPosition(), delta);
 	float pitch = -asin(delta.z / hypotenuse) * (180 / static_cast<float>(PI));
 	float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
 
