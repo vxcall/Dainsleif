@@ -28,20 +28,16 @@ You can easily support/motivate me by either **starring my project**, **followin
 - [Contributors](#contributors)
 
 
-# How to use this hack :key:
+# How to build this hack :key:
 
-You can select from two ways to use this hack.
+**requirement**
+- [DirectxSDK](https://www.microsoft.com/en-au/download/details.aspx?id=6812)
 
-**1. Download DLL itself from [release](https://github.com/s3pt3mb3r/HACK4CSGO/releases)**
-
-Warning: I don't recommend you use this way because offsets, the information that specify the location of the in game resources such as health and ammo, are usually outdated.
-
-You should use the 2nd way if you wanna ensure hack works correctly.
-
-**2. Build DLL from source code**
-
-I believe all you need in order to build this project is already included which is [MSDetour](https://github.com/microsoft/Detours), [ImGui](https://github.com/ocornut/imgui), and [toml11](https://github.com/ToruNiina/toml11).
+You can select from two ways to build this hack.
+I believe all you need in order to build this project except DirectxSDK is already included which is [MSDetour](https://github.com/microsoft/Detours), [ImGui](https://github.com/ocornut/imgui), and [toml11](https://github.com/ToruNiina/toml11).
 They're in Dependencies directory.
+
+**1. Build project using Cmake**
 
 In the project root, run these commands below.
 ```
@@ -50,8 +46,21 @@ $ cmake ..
 $ make
 ```
 
+**2. Build project using Visual Studio**
+
+You can grab a source code for Visual Studio users from [release](https://github.com/s3pt3mb3r/HACK4CSGO/releases).
+
+You can find `HACK4CSGO.sln` file in `/build` directory.
+
 **Either way you get the HACK4CSGO.dll, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
+### WORNING :rotating_light:
+
+Keep your eyes on the `offset.h` in my repository.
+
+If your game crashes immediately just after you start the hack, that means your offset.h is outdated.
+
+Copy and Paste contents in `offset.h` from mine to yours.
 
 # Menu :green_book:
 
