@@ -2,10 +2,12 @@
 #include "GraphicHook.h"
 #include "LocalPlayer.h"
 
-extern bool bQuit, bAimbot, bGlowHack, bNoRecoil, bTriggerBot;
-extern uintptr_t moduleBase;
-extern int fov; //decleard in dllmain.cpp
-extern std::string filename;
+extern bool bQuit, bAimbot, bGlowHack, bNoRecoil, bTriggerBot; //declared in dll.main
+extern uintptr_t moduleBase; //declared in dll.main
+extern int fov; //declared in dllmain.cpp
+extern float aimSmoothness;
+extern std::string filename; //declared in dllmain.cpp
+extern ImVec4 enemyGlowColor, localGlowColor; //declared in dll.main
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
@@ -56,9 +58,6 @@ void ShutdownImGui()
     ImGui::DestroyContext();
 }
 
-extern ImVec4 enemyGlowColor; //declared in dll.main
-extern ImVec4 localGlowColor; //declared in dll.main
-
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
     if (g_ShowMenu)
@@ -70,6 +69,12 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
 
         ImGui::Begin("HACK4CSGO", &g_ShowMenu);
         ImGui::Checkbox("Aim bot", &bAimbot);
+        if (bAimbot)
+        {
+            ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.01, 0.5);
+            ImGui::SameLine();
+            ImGui::Text("Less Smoothness");
+        }
         ImGui::Checkbox("Trigger bot", &bTriggerBot);
         ImGui::Checkbox("No Recoil", &bNoRecoil);
         ImGui::Checkbox("Glow Hack", &bGlowHack);

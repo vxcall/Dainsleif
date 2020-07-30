@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "LocalPlayer.h"
 
+float aimSmoothness = 0.2f;
 
 LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
 {
@@ -52,10 +53,11 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 		int pitchDistance = abs(static_cast<int>(pitch - viewAngles->x));
 		int yawDistance = abs(static_cast<int>(yaw - viewAngles->y));
 
-		float num = 0.5f / max(pitchDistance, yawDistance);
+		float num = aimSmoothness / max(pitchDistance, yawDistance);
 		float x = num * min(pitchDistance, yawDistance);
 
 		/*
+		aimSmoothness is a base of how smooth the aim pulling should be.
 		num * max == 0.5f.
 		Bigger:0.5 = Smoller:x
 		*/
@@ -63,13 +65,13 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 		float yf;
 		if (pitchDistance > yawDistance)
 		{
-			pf = 0.5f;
+			pf = aimSmoothness;
 			yf = x;
 		}
 		else
 		{
 			pf = x;
-			yf = 0.5f;
+			yf = aimSmoothness;
 		}
 
 		if (pitchDistance <= 0.4f) { //If distance between vertical axis of crosshair and enemy's head is below 0.4 which is pretty close, just aim at exact head.

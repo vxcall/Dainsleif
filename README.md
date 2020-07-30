@@ -58,9 +58,9 @@ You can find `HACK4CSGO.sln` file in `/build` directory.
 
 Keep your eyes on the `offset.h` in my repository.
 
-If your game crashes immediately just after you start the hack, that means your offset.h is outdated.
+If the menu doesn't show up when you press INSERT, or your game crashes immediately just after you initiate the hack, that means your `offset.h` is outdated.
 
-Copy and Paste contents in `offset.h` from mine to yours.
+Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
 
 # Menu :green_book:
 
@@ -91,6 +91,8 @@ This feature allows you to see both opponents and teammate's outline through wal
 
 Once you turn this on, you no longer have to press left click when you engage them.
 This feature will complete the job for you.
+
+- [ ] Fix the bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot
 
 ## Neutralize recoil
 
