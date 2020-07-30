@@ -6,8 +6,9 @@ uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll")
 
 bool bQuit = false, bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
 int fov = 90;
-ImVec4 enemyGlowColor;
-ImVec4 localGlowColor;
+extern float aimSmoothness; //declared in LocalPlayer.cpp
+ImVec4 enemyGlowColor = ImVec4(0.8f,0.1f,0.15f,1.f);
+ImVec4 localGlowColor = ImVec4(0.f,0.255f,0.7f,1.f);
 
 TCHAR dir[ MAX_PATH ];
 std::string filename;//const char* dir = "C:/Users/PC/HACK4CSGO"; //directory that savedata will be saved.
@@ -67,18 +68,13 @@ void ParseFile() {
 
     // find specified values associated with one keys, and assign them into each variable.
     bAimbot = toml::find<bool>(saveData, "bAimbot");
+    aimSmoothness = toml::find<float>(saveData, "aimSmoothness");
     bGlowHack = toml::find<bool>(saveData, "bGlowHack");
     bNoRecoil = toml::find<bool>(saveData, "bNoRecoil");
     bTriggerBot = toml::find<bool>(saveData, "bTriggerBot");
     fov = toml::find<int>(saveData, "fov");
-    enemyGlowColor.x = toml::find<float>(saveData, "enemyGlowColor", "Red");
-    enemyGlowColor.y = toml::find<float>(saveData, "enemyGlowColor", "Green");
-    enemyGlowColor.z = toml::find<float>(saveData, "enemyGlowColor", "Blue");
-    enemyGlowColor.w = toml::find<float>(saveData, "enemyGlowColor", "Alpha");
-    localGlowColor.x = toml::find<float>(saveData, "localGlowColor", "Red");
-    localGlowColor.y = toml::find<float>(saveData, "localGlowColor", "Green");
-    localGlowColor.z = toml::find<float>(saveData, "localGlowColor", "Blue");
-    localGlowColor.w = toml::find<float>(saveData, "localGlowColor", "Alpha");
+    enemyGlowColor = ImVec4(toml::find<float>(saveData, "enemyGlowColor", "Red"), toml::find<float>(saveData, "enemyGlowColor", "Green"), toml::find<float>(saveData, "enemyGlowColor", "Blue"), toml::find<float>(saveData, "enemyGlowColor", "Alpha"));
+    localGlowColor = ImVec4(toml::find<float>(saveData, "localGlowColor", "Red"), toml::find<float>(saveData, "localGlowColor", "Green"), toml::find<float>(saveData, "localGlowColor", "Blue"), toml::find<float>(saveData, "localGlowColor", "Alpha"));
 }
 
 void WriteFile() {
@@ -86,7 +82,8 @@ void WriteFile() {
     const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
                            {"bNoRecoil", bNoRecoil}, {"bTriggerBot", bTriggerBot},
                            {"fov", fov}, {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
-                           {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}}};
+                           {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
+                           {"aimSmoothness", aimSmoothness}};
     //Open file and write it in toml syntax.
     std::ofstream file;
     file.open(filename, std::ios::out);
@@ -104,15 +101,6 @@ VOID WINAPI Detach(LPVOID lpParameter)
 
 DWORD WINAPI fMain(LPVOID lpParameter)
 {
-    enemyGlowColor.x = 0.8f;
-    enemyGlowColor.y = 0.1f;
-    enemyGlowColor.z = 0.15f;
-    enemyGlowColor.w = 1.f;
-    localGlowColor.x = 0.f;
-    localGlowColor.y = 0.255f;
-    localGlowColor.z = 0.7f;
-    localGlowColor.w = 1.f;
-
     //Create console window
     AllocConsole();
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);

@@ -67,7 +67,7 @@ Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't loo
 You're accessible to the hack menu by pressing **INSERT** key on your keyboard.
 **But you may only access it in game. Even though you press INSERT when you are in main menu, nothing happens**
 
-![Hack menu](https://user-images.githubusercontent.com/33578715/88559084-f7bbba80-d05e-11ea-8c04-e4dfff8f28f0.png)
+![Hack menu](https://user-images.githubusercontent.com/33578715/88968420-e33b2480-d2e1-11ea-8047-122ca32ea717.png)
 
 # Hacks
 
@@ -102,19 +102,19 @@ But this doesn't guarantee the 100% accuracy.
 
 # Features being developed
 
-- [x] Aim bot
-- [x] Glow hack
-- [x] Trigger bot
-- [x] Neutralize recoil
-- [x] GUI menu for more better user experience (by hooking Directx9 endScene function)
-- [x] Close GUI menu whenever user gets outta in game and goes back to main menu
-- [x] Save setting automatically that user inputs to toml file
-- [x] Add a "reset setting" button
-- [ ] Display alert when dll is successfully injected
+- [ ] Built-in pattern scanning system.
+- [ ] Display alert when dll is successfully injected.
 - [ ] Place quit button on menu bar.
-- [ ] Enemy's health indicator
-- [ ] ESP (draw line by myself)
-- [ ] teleportation hack (not sure if it's possible without getting detected)
+- [ ] Enemy's health indicator.
+- [ ] Chams.
+- [x] Aim bot.
+- [x] Glow hack.
+- [x] Trigger bot.
+- [x] Neutralize recoil.
+- [x] GUI menu for more better user experience (by hooking Directx9 endScene function).
+- [x] Close GUI menu whenever user gets outta in game and goes back to main menu.
+- [x] Save setting automatically that user inputs to toml file.
+- [x] Add a "reset setting" button.
 
 # Contributors
 - [l1m0n3](https://github.com/l1m0n3)

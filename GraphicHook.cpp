@@ -5,7 +5,7 @@
 extern bool bQuit, bAimbot, bGlowHack, bNoRecoil, bTriggerBot; //declared in dll.main
 extern uintptr_t moduleBase; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
-extern float aimSmoothness;
+extern float aimSmoothness; //declared in LocalPlayer.cpp
 extern std::string filename; //declared in dllmain.cpp
 extern ImVec4 enemyGlowColor, localGlowColor; //declared in dll.main
 
@@ -68,30 +68,50 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ImGui::NewFrame();
 
         ImGui::Begin("HACK4CSGO", &g_ShowMenu);
-        ImGui::Checkbox("Aim bot", &bAimbot);
-        if (bAimbot)
+        ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
+        if (ImGui::BeginTabBar("Hack_tab_bar", tab_bar_flags))
         {
-            ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.01, 0.5);
-            ImGui::SameLine();
-            ImGui::Text("Less Smoothness");
+            if (ImGui::BeginTabItem("Aim bot"))
+            {
+                ImGui::Checkbox("Enable Aim bot", &bAimbot);
+                ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.01, 0.5);
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Glow hack"))
+            {
+                ImGui::Checkbox("Enable Glow hack", &bGlowHack);
+                ImGui::ColorEdit4("Enemy Color", (float*)&enemyGlowColor);
+                ImGui::ColorEdit4("Teammate color", (float*)&localGlowColor);
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Anti Recoil"))
+            {
+                ImGui::Checkbox("Enable Anti recoil", &bNoRecoil);
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Trigger bot"))
+            {
+                ImGui::Checkbox("Enable Trigger bot", &bTriggerBot);
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Field of View"))
+            {
+                if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120))
+                    lp->SetFOV(fov);
+                ImGui::EndTabItem();
+            }
+            ImGui::EndTabBar();
         }
-        ImGui::Checkbox("Trigger bot", &bTriggerBot);
-        ImGui::Checkbox("No Recoil", &bNoRecoil);
-        ImGui::Checkbox("Glow Hack", &bGlowHack);
-        if (bGlowHack)
-        {
-            ImGui::ColorEdit4("Enemy color", (float*)&enemyGlowColor);
-            ImGui::ColorEdit4("Teammate color", (float*)&localGlowColor);
-        }
-        if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120))
-            lp->SetFOV(fov);
-
-        if (ImGui::Button("set to default"))
+        ImGui::Separator();
+        if (ImGui::Button("set everything to default"))
         {
             bAimbot = false;
             bTriggerBot = false;
             bGlowHack = false;
             bNoRecoil = false;
+            aimSmoothness = 0.2f;
+            enemyGlowColor = ImVec4(0.8f,0.1f,0.15f,1.f);
+            localGlowColor = ImVec4(0.f,0.255f,0.7f,1.f);
             fov = 90;
         }
         ImGui::SameLine();
