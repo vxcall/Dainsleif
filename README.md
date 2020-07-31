@@ -52,6 +52,8 @@ Then your `HACK4CSGO.dll` should be in `/build` directory.
 
 **2. Build project using Visual Studio 2019**
 
+If you still have cmake, carry out following commands. (No? Then scroll down a bit)
+
 ```
 $ git clone https://github.com/s3pt3mb3r/HACK4CSGO.git
 $ cd HACK4CSGO
@@ -59,11 +61,14 @@ $ mkdir build && cd build
 $ cmake .. -A Win32
 ```
 
-You can find `HACK4CSGO.sln` file in `/build` directory.
+You can find `HACK4CSGO.sln` in `/build` directory.
 
 Once you load the project click `Build` -> `Build HACK4CSGO`.
 
 Then your `HACK4CSGO.dll` should be in `/build/Debug` directory.
+
+You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/HACK4CSGO/releases) and download relevant zip file.
+(If latest release looks old, create an issue and ask me, I'll handle it.)
 
 **Either way you get the `HACK4CSGO.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
