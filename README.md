@@ -19,7 +19,7 @@ You can easily support/motivate me by either **starring my project**, **followin
 
 - [How to use this hack](#how-to-use-this-hack-key)
 - [Menu](#menu-green_book)
-- [Hakcs](#hacks)
+- [Hacks](#hacks)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
     - [Trigger bot](#trigger-bot)
@@ -60,7 +60,7 @@ Then your `HACK4CSGO.dll` should be in `build/Debug` directory.
 
 **Either way you get the `HACK4CSGO.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
-### WORNING :rotating_light:
+### WARNING :rotating_light:
 
 Keep your eyes on the `offset.h` in my repository.
 

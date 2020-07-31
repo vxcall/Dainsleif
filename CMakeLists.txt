@@ -3,6 +3,11 @@ project(HACK4CSGO)
 
 set(CMAKE_CXX_STANDARD 17)
 
+if (CMAKE_GENERATOR MATCHES "Visual Studio")
+  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+  source_group(Dependencies REGULAR_EXPRESSION ${CMAKE_SOURCE_DIR}/Dependencies/*)
+endif ()
+
 #Directx9
 include_directories($ENV{DXSDK_DIR}/Include)
 link_directories($ENV{DXSDK_DIR}/Lib/x86)
@@ -19,6 +24,10 @@ set(IMGUI_FILES ${IMGUI_FILE_PATH}/imconfig.h ${IMGUI_FILE_PATH}/imgui.cpp ${IMG
 #toml11
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/toml11)
 
-add_library(HACK4CSGO SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h ${IMGUI_FILES} GraphicHook.cpp GraphicHook.h)
+add_library(HACK4CSGO SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h GraphicHook.cpp GraphicHook.h ${IMGUI_FILES})
+
+if (MSVC)
+  target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")
+endif (MSVC)
 
 target_link_libraries(${PROJECT_NAME} d3d9 detours)
