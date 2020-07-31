@@ -4,7 +4,7 @@
 
 uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
 
-bool bQuit = false, bAimbot = false, bGlowHack = false, bNoRecoil = false, bTriggerBot = false;
+bool bQuit = false, bAimbot = false, bGlowHack = false, bAntiRecoil = false, bTriggerBot = false;
 int fov = 90;
 extern float aimSmoothness; //declared in LocalPlayer.cpp
 ImVec4 enemyGlowColor = ImVec4(0.8f,0.1f,0.15f,1.f);
@@ -70,7 +70,7 @@ void ParseFile() {
     bAimbot = toml::find<bool>(saveData, "bAimbot");
     aimSmoothness = toml::find<float>(saveData, "aimSmoothness");
     bGlowHack = toml::find<bool>(saveData, "bGlowHack");
-    bNoRecoil = toml::find<bool>(saveData, "bNoRecoil");
+    bAntiRecoil = toml::find<bool>(saveData, "bAntiRecoil");
     bTriggerBot = toml::find<bool>(saveData, "bTriggerBot");
     fov = toml::find<int>(saveData, "fov");
     enemyGlowColor = ImVec4(toml::find<float>(saveData, "enemyGlowColor", "Red"), toml::find<float>(saveData, "enemyGlowColor", "Green"), toml::find<float>(saveData, "enemyGlowColor", "Blue"), toml::find<float>(saveData, "enemyGlowColor", "Alpha"));
@@ -80,7 +80,7 @@ void ParseFile() {
 void WriteFile() {
     //Make a variable holds keys and values.
     const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
-                           {"bNoRecoil", bNoRecoil}, {"bTriggerBot", bTriggerBot},
+                           {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot},
                            {"fov", fov}, {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
                            {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
                            {"aimSmoothness", aimSmoothness}};
@@ -158,7 +158,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
             GetLocalPlayer(moduleBase)->SetFOV(fov);
         }
 
-        if (bAimbot || bTriggerBot || bGlowHack || bNoRecoil) {
+        if (bAimbot || bTriggerBot || bGlowHack || bAntiRecoil) {
             entityList = GetEntities(moduleBase);
         }
 
@@ -179,7 +179,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
             }
         }
 
-        if (bNoRecoil)
+        if (bAntiRecoil)
         {
             GetLocalPlayer(moduleBase)->NeutralizeRecoil();
         }

@@ -2,14 +2,14 @@
 # HACK4CSGO :zap:
 First of all, if you are enough kind to motivate me, just **star** this project :) I would be very happy.
 
-This is an internal cheat for CSGO I've been working on as my training of reverse engineering.
+This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
 Since I don't intend to make this a malicious software, **this isn't considered to be performed in multi player mode**. Keep in that mind.
 
-Besides that, I'm not a skilled hacker as this cheat is not a high quality as of today. However, It's interesting for you to see this project evolving day by day. (me as well XD)
+Besides that, I'm not a skilled hacker as this cheat is not a high quality as of today. However, It may be interesting for you to see this project evolving day by day. (me as well XD)
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
 
-### STILL WORKING: July 29, 2020
+### STILL WORKING: July 31, 2020
 
 # Support me :two_hearts:
 Any supports will be greatly appreciated. 
@@ -65,9 +65,11 @@ Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't loo
 # Menu :green_book:
 
 You're accessible to the hack menu by pressing **INSERT** key on your keyboard.
-**But you may only access it in game. Even though you press INSERT when you are in main menu, nothing happens**
+**But you're allowed to access it only when you're in game. Even though you press INSERT when you are in main menu, nothing happens.**
 
-![Hack menu](https://user-images.githubusercontent.com/33578715/88968420-e33b2480-d2e1-11ea-8047-122ca32ea717.png)
+![Hack menu](https://user-images.githubusercontent.com/33578715/88986783-800fb900-d306-11ea-9797-0cc5a504b01a.png)
+
+You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 
 # Hacks
 
