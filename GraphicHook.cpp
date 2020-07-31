@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "ImGuiTheme.h"
 #include "GraphicHook.h"
 #include "LocalPlayer.h"
 
@@ -50,6 +51,7 @@ void InitImGui(IDirect3DDevice9* pDevice)
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
+    LoadFont(io);
 
     ImGui::StyleColorsDark();
 
@@ -146,6 +148,8 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ImGui_ImplDX9_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
+
+        LoadTheme();
 
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar;
         ImGui::Begin("HACK4CSGO", &g_ShowMenu, window_flags);

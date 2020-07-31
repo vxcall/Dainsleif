@@ -67,7 +67,7 @@ Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't loo
 You're accessible to the hack menu by pressing **INSERT** key on your keyboard.
 **But you're allowed to access it only when you're in game. Even though you press INSERT when you are in main menu, nothing happens.**
 
-![Hack menu](https://user-images.githubusercontent.com/33578715/88986783-800fb900-d306-11ea-9797-0cc5a504b01a.png)
+![Hack menu](https://user-images.githubusercontent.com/33578715/88990443-8a36b500-d310-11ea-8f41-17ef9d8c0156.png)
 
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 
