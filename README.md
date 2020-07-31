@@ -39,7 +39,8 @@ They're in Dependencies directory.
 
 **1. Build project using Cmake**
 
-In the project root, run these commands below.
+Run these commands below.
+
 ```
 $ git clone https://github.com/s3pt3mb3r/HACK4CSGO.git
 $ cd HACK4CSGO
