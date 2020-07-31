@@ -28,9 +28,14 @@ Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList)
         if (entityList[i]->GetTeam() == lp->GetTeam())
             continue;
         Vector3 delta;
-        GetDistance(*entityList[i]->GetBonePosition(), *lp->GetHeadPosition(), delta);
+
+        Vector3* entityHeadPosition = entityList[i]->GetBonePosition();
+        if (!entityHeadPosition) continue; //null pointer check
+
+        GetDistance(*entityHeadPosition, *lp->GetHeadPosition(), delta);
         float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
         int yawDistance = abs(static_cast<int>(yaw - viewAngles->y));
+
         if (yawDistance < closestDistance) {
             closestDistance = yawDistance;
             closestEntityIndex = i;

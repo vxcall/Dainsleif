@@ -28,7 +28,7 @@ You can easily support/motivate me by either **starring my project**, **followin
 - [Contributors](#contributors)
 
 
-# How to build this hack :key:
+# How to build this hack :syringe:
 
 **requirement**
 - [DirectxSDK](https://www.microsoft.com/en-au/download/details.aspx?id=6812)
@@ -41,6 +41,8 @@ They're in Dependencies directory.
 
 In the project root, run these commands below.
 ```
+$ git clone https://github.com/s3pt3mb3r/HACK4CSGO.git
+$ cd HACK4CSGO
 $ mkdir build && cd build
 $ cmake ..
 $ make
@@ -50,13 +52,18 @@ Then your `HACK4CSGO.dll` should be in `/build` directory.
 
 **2. Build project using Visual Studio 2019**
 
-You can grab a source code for Visual Studio users from [release](https://github.com/s3pt3mb3r/HACK4CSGO/releases).
+```
+$ git clone https://github.com/s3pt3mb3r/HACK4CSGO.git
+$ cd HACK4CSGO
+$ mkdir build && cd build
+$ cmake .. -A Win32
+```
 
 You can find `HACK4CSGO.sln` file in `/build` directory.
 
-Once you load the project, while pointing HACK4CSGO on the solution explorer pane, click `Build` -> `Build HACK4CSGO`.
+Once you load the project click `Build` -> `Build HACK4CSGO`.
 
-Then your `HACK4CSGO.dll` should be in `build/Debug` directory.
+Then your `HACK4CSGO.dll` should be in `/build/Debug` directory.
 
 **Either way you get the `HACK4CSGO.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
@@ -68,7 +75,7 @@ If the menu doesn't show up when you press INSERT, or your game crashes immediat
 
 Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
 
-# Menu :green_book:
+# Menu :scroll:
 
 You're accessible to the hack menu by pressing **INSERT** key on your keyboard.
 **But you're allowed to access it only when you're in game. Even though you press INSERT when you are in main menu, nothing happens.**
@@ -77,7 +84,7 @@ You're accessible to the hack menu by pressing **INSERT** key on your keyboard.
 
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 
-# Hacks
+# Hacks :computer:
 
 ## Aimbot
 
@@ -93,6 +100,8 @@ When you are away enough from enemies you get the control of angle back.
 
 This feature allows you to see both opponents and teammate's outline through walls.
 
+![Glow hack](https://user-images.githubusercontent.com/33578715/89087560-48b51100-d3c7-11ea-9ada-8ef04acfa52c.png)
+
 - [x] want it to be capable of setting specific color of outline.
 
 ## Trigger bot
@@ -102,11 +111,13 @@ This feature will complete the job for you.
 
 - [ ] Fix the bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot
 
-## Neutralize recoil
+## Anti recoil
 
 This is basically a recoil control system.
 It automatically calculate the in comming recoil and manipulate your angle to handle it.
 But this doesn't guarantee the 100% accuracy.
+
+![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
 
 # Features being developed
 

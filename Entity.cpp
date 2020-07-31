@@ -17,11 +17,9 @@ extern bool isTriggerBotON;
 Vector3* Entity::GetBonePosition()
 {
 	uintptr_t boneMatrix = *reinterpret_cast<uintptr_t*>(*reinterpret_cast<uintptr_t*>(this) + m_dwBoneMatrix);
-	try {
-        if (!boneMatrix) throw 404;
-	} catch (int e) {
+	if (!boneMatrix) { //When started the game while bAimbot is on, the game is gonna crash.
 	    return nullptr;
-    }
+	}
 	static Vector3 bonePos;
     bonePos.x = *reinterpret_cast<float*>(boneMatrix + 0x30 * boneID + 0x0C);
     bonePos.y = *reinterpret_cast<float*>(boneMatrix + 0x30 * boneID + 0x1C);
