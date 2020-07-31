@@ -9,7 +9,7 @@ Besides that, I'm not a skilled hacker as this cheat is not a high quality as of
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
 
-### STILL WORKING: July 31, 2020
+### STILL WORKING: August 01, 2020
 
 # Support me :two_hearts:
 Any supports will be greatly appreciated. 

@@ -8,12 +8,6 @@ LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
 	return reinterpret_cast<LocalPlayer*>((moduleBase + dwLocalPlayer)); //get local player address and cast it to my original class type
 }
 
-float GetDistance(Vector3 targetPos, Vector3 basePos)
-{
-    Vector3 deltaVector = targetPos - basePos;
-    return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
-}
-
 float GetDistance(Vector3 targetPos, Vector3 basePos, Vector3& deltaVector)
 {
     deltaVector = targetPos - basePos;
@@ -74,7 +68,7 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 			yf = aimSmoothness;
 		}
 
-		if (pitchDistance <= 0.4f) { //If distance between vertical axis of crosshair and enemy's head is below 0.4 which is pretty close, just aim at exact head.
+		if (pitchDistance <= 0.001f) { //If distance between vertical axis of crosshair and enemy's head is below 0.4 which is pretty close, just aim at exact head.
 			viewAngles->x = pitch;
 		}
 		else
@@ -89,7 +83,7 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 			}
 		}
 
-		if (yawDistance <= 0.4f) {
+		if (yawDistance <= 0.001f) {
 			viewAngles->y = yaw;
 		}
 		else

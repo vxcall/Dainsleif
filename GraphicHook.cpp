@@ -113,7 +113,7 @@ void ShowTabMenu() {
         if (ImGui::BeginTabItem("Aim bot"))
         {
             ImGui::Checkbox("Enable Aim bot", &bAimbot);
-            ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.01, 0.5);
+            ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.005, 0.5);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Glow hack"))
