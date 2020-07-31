@@ -15,45 +15,24 @@ std::string filename;//const char* dir = "C:/Users/PC/HACK4CSGO"; //directory th
 
 extern bool g_ShowMenu; //decleard in GraphicHook.cpp
 
-Entity* GetClosestEnemy(std::vector<Entity*> entityList)
-{
-    LocalPlayer* lp = GetLocalPlayer(moduleBase);
-
-    float closestDistance = 1000000;
-    int closestEntityIndex = -1;
-
-    for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
-    {
-        if (entityList[i]->GetTeam() == lp->GetTeam()) continue; //filter out if entity is same team as local player.
-        if (*entityList[i]->GetHealth() < 1 || *lp->GetHealth() < 1) continue; //skip if either entity or local player is dead
-
-        float currentDistance = GetDistance(*entityList[i]->GetBodyPosition(), *lp->GetHeadPosition());
-
-        if (currentDistance < closestDistance) //if this entity is closer than old one, then update closestDistance and closestEntityIndex.
-        {
-            closestDistance = currentDistance;
-            closestEntityIndex = i;
-        }
-    }
-    if (closestEntityIndex == -1)
-    {
-        return nullptr;
-    }
-    return entityList[closestEntityIndex]; //return closest Entity pointer.
-}
-
+const double PI = 3.14159265358;
 Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList)
 {
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
-    Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
     float closestDistance = 1000000;
     int closestEntityIndex = -1;
-
+    LocalPlayer* lp = GetLocalPlayer(moduleBase);
+    Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
     for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
     {
-        float Distance = GetDistance(*entityList[i]->GetBonePosition(), *viewAngles);
-        if (Distance < closestDistance) {
-            closestDistance = Distance;
+        if (entityList[i]->GetTeam() == lp->GetTeam())
+            continue;
+        Vector3 delta;
+        GetDistance(*entityList[i]->GetBonePosition(), *lp->GetHeadPosition(), delta);
+        float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
+        int yawDistance = abs(static_cast<int>(yaw - viewAngles->y));
+        if (yawDistance < closestDistance) {
+            closestDistance = yawDistance;
             closestEntityIndex = i;
         }
     }
@@ -153,6 +132,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
                     WriteFile();
             }
         }
+
         static bool bInitLocalPlayer = false;
         if (!bInitLocalPlayer) {
             GetLocalPlayer(moduleBase)->SetFOV(fov);
@@ -165,7 +145,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         if (bAimbot)
         {
             Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList);
-            if (closestEnt && !*closestEnt->IsDormant())
+            if (closestEnt != nullptr && !*closestEnt->IsDormant())
             {
                 GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());
             }

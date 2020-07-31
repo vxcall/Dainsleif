@@ -86,8 +86,8 @@ When you are away enough from enemies you get the control of angle back.
 
 - [x] Check if bDormant is true
 - [x] Aiming smoother rather than instantly stick crosshair to the target
-- [ ] Require more humanistic way to aim
-- [ ] Aim at closest enemy based on the position of crosshair not physical distance so that user can move their angle most of the time
+- [x] Require more humanistic way to aim
+- [x] Aim at closest enemy based on the position of crosshair not physical distance so that user can move their angle most of the time
 
 ## Glow hack
 
@@ -111,10 +111,9 @@ But this doesn't guarantee the 100% accuracy.
 # Features being developed
 
 - [ ] Built-in pattern scanning system.
-- [ ] Display alert when dll is successfully injected.
-- [ ] Place quit button on menu bar.
 - [ ] Enemy's health indicator.
 - [ ] Chams.
+- [x] Place quit button on menu bar.
 - [x] Aim bot.
 - [x] Glow hack.
 - [x] Trigger bot.

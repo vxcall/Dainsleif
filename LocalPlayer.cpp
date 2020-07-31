@@ -44,7 +44,7 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 	static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
 	static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 	Vector3 delta;
-	float hypotenuse = ::GetDistance(TargetsHeadPosition, *this->GetHeadPosition(), delta);
+	float hypotenuse = GetDistance(TargetsHeadPosition, *this->GetHeadPosition(), delta);
 	float pitch = -asin(delta.z / hypotenuse) * (180 / static_cast<float>(PI));
 	float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
 
