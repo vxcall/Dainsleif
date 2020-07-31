@@ -97,6 +97,8 @@ void ShowMenuBar()
                 }
                 ImGui::EndMenu();
             }
+            if (ImGui::MenuItem("Quit"))
+                bQuit = true;
             ImGui::EndMenu();
         }
         ImGui::EndMenuBar();
@@ -160,8 +162,6 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
 
         ImGui::Separator();
 
-        if (ImGui::Button("Quit")) bQuit = true;
-        ImGui::SameLine();
         HelpMarker("Setting file is in the following directory: " + filename);
         ImGui::End();
 

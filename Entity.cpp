@@ -89,7 +89,10 @@ std::vector<Entity*> GetEntities(uintptr_t moduleBase)
 	for (int i = 1; i < maxnum; ++i)
 	{
 		Entity* entity = reinterpret_cast<Entity*>(((moduleBase + dwEntityList) + i * 0x10));
-		if (!*(uintptr_t*)entity) continue; //Cast the address that possibly is entity into uintptr_t and check if it's 0.
+		if (!*reinterpret_cast<uintptr_t*>(entity)) //Cast the address that possibly is entity into uintptr_t and check if it's null.
+		    continue;
+		if (!*entity->GetHealth())
+            continue;
 		entityList.push_back(entity);
 	}
 	return entityList;

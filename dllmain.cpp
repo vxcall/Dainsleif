@@ -44,15 +44,16 @@ Entity* GetClosestEnemy(std::vector<Entity*> entityList)
 
 Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList)
 {
-    float closestDistance = 1000000;
-    int closestEntityIndex = -1;
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+    float closestDistance = 1000000;
+    int closestEntityIndex = -1;
+
     for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
     {
-        float targetPosition = GetDistance(*entityList[i]->GetBodyPosition(), *viewAngles);
-        if (targetPosition < closestDistance) {
-            closestDistance = targetPosition;
+        float Distance = GetDistance(*entityList[i]->GetBonePosition(), *viewAngles);
+        if (Distance < closestDistance) {
+            closestDistance = Distance;
             closestEntityIndex = i;
         }
     }
@@ -117,8 +118,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     hookEndScene();
 
-    std::vector<Entity*> entityList = {};
-    //waiting key input for cheats
+    std::vector<Entity*> entityList;
+
     while (true)
     {
         static bool isStayingMainMenu = false;
@@ -131,17 +132,6 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State));
 
-        if (GetAsyncKeyState(VK_INSERT) & 1)
-        {
-            if (gameState== 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase))) //6 means user's in game.
-            {
-                isStayingMainMenu = false;
-                g_ShowMenu = !g_ShowMenu;
-                if (!g_ShowMenu)
-                    WriteFile();
-            }
-        }
-
         if (gameState != 6) {
             if (!isStayingMainMenu)
             {
@@ -153,6 +143,16 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase))) continue;
 
+        if (GetAsyncKeyState(VK_INSERT) & 1)
+        {
+            if (gameState== 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase))) //6 means user's in game.
+            {
+                isStayingMainMenu = false;
+                g_ShowMenu = !g_ShowMenu;
+                if (!g_ShowMenu)
+                    WriteFile();
+            }
+        }
         static bool bInitLocalPlayer = false;
         if (!bInitLocalPlayer) {
             GetLocalPlayer(moduleBase)->SetFOV(fov);
@@ -164,7 +164,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bAimbot)
         {
-            Entity* closestEnt = GetClosestEnemy(entityList);
+            Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList);
             if (closestEnt && !*closestEnt->IsDormant())
             {
                 GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());
