@@ -7,6 +7,7 @@
 #include <iostream>
 #include <shlobj.h>
 #include <vector>
+#include <filesystem>
 #include <Windows.h>
 #include <d3d9.h>
 #include <detours.h>
