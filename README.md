@@ -98,10 +98,12 @@ Each of them could work correctly yet when they are on concurrently with others,
 
 ## Aimbot
 
-If you turn it on, it will automatically lock aim at a closest enemy unless you step really away from him.
-When you are away enough from enemies you get the control of angle back.
+This is the feature I can guarantee the highest quality in the hacks I offer here.
 
+Turning this function on automatically lets you aim at enemy's head with 100% precision.
+It select the closest enemy from where your crosshair is as a target.
 
+![aimbot](https://user-images.githubusercontent.com/33578715/89108283-b31e8d80-d469-11ea-8e55-e4e469d74576.gif)
 
 ## Glow hack
 
