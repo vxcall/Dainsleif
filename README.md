@@ -1,5 +1,5 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
-# HACK4CSGO :zap:
+# Dainsleif :zap:
 First of all, if you are enough kind to motivate me, just **star** this project :) I would be very happy.
 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
@@ -7,7 +7,7 @@ Since I don't intend to make this a malicious software, **this isn't considered 
 
 Besides that, I'm not a skilled hacker as this cheat is not a high quality as of today. However, It may be interesting for you to see this project evolving day by day. (me as well XD)
 
-If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
+If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 
 ### STILL WORKING: August 02, 2020
 
@@ -43,36 +43,37 @@ They're in Dependencies directory.
 Run these commands below.
 
 ```
-$ git clone https://github.com/s3pt3mb3r/HACK4CSGO.git
-$ cd HACK4CSGO
+$ git clone https://github.com/s3pt3mb3r/Dainsleif.git
+$ cd Dainsleif
 $ mkdir build && cd build
 $ cmake ..
 $ make
 ```
 
-Then your `HACK4CSGO.dll` should be in `/build` directory.
+Then your `Dainsleif.dll` should be in `/build` directory.
 
 **2. Build project using Visual Studio 2019**
 
 If you still have cmake, carry out following commands. (No? Then scroll down a bit)
 
 ```
-$ git clone https://github.com/s3pt3mb3r/HACK4CSGO.git
-$ cd HACK4CSGO
+$ git clone https://github.com/s3pt3mb3r/Dainsleif.git
+$ cd Dainsleif
 $ mkdir build && cd build
 $ cmake .. -A Win32
 ```
 
-You can find `HACK4CSGO.sln` in `/build` directory.
+You can find `Dainsleif.sln` in `/build` directory.
 
-Once you load the project click `Build` -> `Build HACK4CSGO`.
+Once you load the project click `Build` -> `Build Dainsleif`.
 
-Then your `HACK4CSGO.dll` should be in `/build/Debug` directory.
+Then your `Dainsleif.dll` should be in `/build/Debug` directory.
 
-You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/HACK4CSGO/releases) and download relevant zip file.
+You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/Dainsleif/releases) and download relevant zip file.
 (If latest release looks old, create an issue and ask me, I'll handle it.)
 
-**Either way you get the `HACK4CSGO.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
+**Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
+**Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
 ### WARNING :rotating_light:
 
