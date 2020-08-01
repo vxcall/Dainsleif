@@ -4,11 +4,10 @@
 
 uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
 
-bool bQuit = false, bAimbot = false, bGlowHack = false, bAntiRecoil = false, bTriggerBot = false;
-int fov = 90;
+bool bQuit = false, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
+int fov;
 extern float aimSmoothness; //declared in LocalPlayer.cpp
-ImVec4 enemyGlowColor = ImVec4(0.8f,0.1f,0.15f,1.f);
-ImVec4 localGlowColor = ImVec4(0.f,0.255f,0.7f,1.f);
+ImVec4 enemyGlowColor, localGlowColor;
 
 TCHAR dir[ MAX_PATH ];
 std::string filename;//const char* dir = "C:/Users/PC/HACK4CSGO"; //directory that savedata will be saved.
@@ -52,14 +51,18 @@ void ParseFile() {
     auto saveData = toml::parse(filename);
 
     // find specified values associated with one keys, and assign them into each variable.
-    bAimbot = toml::find<bool>(saveData, "bAimbot");
-    aimSmoothness = toml::find<float>(saveData, "aimSmoothness");
-    bGlowHack = toml::find<bool>(saveData, "bGlowHack");
-    bAntiRecoil = toml::find<bool>(saveData, "bAntiRecoil");
-    bTriggerBot = toml::find<bool>(saveData, "bTriggerBot");
-    fov = toml::find<int>(saveData, "fov");
-    enemyGlowColor = ImVec4(toml::find<float>(saveData, "enemyGlowColor", "Red"), toml::find<float>(saveData, "enemyGlowColor", "Green"), toml::find<float>(saveData, "enemyGlowColor", "Blue"), toml::find<float>(saveData, "enemyGlowColor", "Alpha"));
-    localGlowColor = ImVec4(toml::find<float>(saveData, "localGlowColor", "Red"), toml::find<float>(saveData, "localGlowColor", "Green"), toml::find<float>(saveData, "localGlowColor", "Blue"), toml::find<float>(saveData, "localGlowColor", "Alpha"));
+    bAimbot = toml::find_or<bool>(saveData, "bAimbot", false);
+    aimSmoothness = toml::find_or<float>(saveData, "aimSmoothness", 0.2f);
+    bGlowHack = toml::find_or<bool>(saveData, "bGlowHack", false);
+    bAntiRecoil = toml::find_or<bool>(saveData, "bAntiRecoil", false);
+    bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", false);
+    fov = toml::find_or<int>(saveData, "fov", 90);
+
+    auto& enemyGlowColorTable = toml::find_or(saveData, "enemyGlowColor", {});
+    enemyGlowColor = ImVec4(toml::find_or<float>(enemyGlowColorTable, "Red", 0.8f), toml::find_or<float>(enemyGlowColorTable, "Green", 0.1f), toml::find_or<float>(enemyGlowColorTable, "Blue", 0.15f), toml::find_or<float>(enemyGlowColorTable, "Alpha", 1.0f));
+
+    auto& localGlowColorTable = toml::find_or(saveData, "localGlowColor", {});
+    localGlowColor = ImVec4(toml::find_or<float>(localGlowColorTable, "Red", 0.0f), toml::find_or<float>(localGlowColorTable, "Green", 0.255f), toml::find_or<float>(localGlowColorTable, "Blue", 0.7f), toml::find_or<float>(localGlowColorTable, "Alpha", 1.0f));
 }
 
 void WriteFile() {
@@ -89,16 +92,19 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     //Create console window
     AllocConsole();
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
+
     SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
     filename = static_cast<std::string>(dir) + "\\HACK4CSGO\\savedata.toml"; //Set file path.
 
-    std::ifstream fs(filename); //check if the file is exsist or not
-    if (!fs.is_open()) {
-        _mkdir((static_cast<std::string>(dir) + "\\HACK4CSGO").c_str()); //convert dir variable which is typed TCHAR into std::string, then convert back to char*
-        WriteFile();
-    } else {
-        ParseFile();
+    std::filesystem::path path{filename};
+    std::filesystem::create_directories(path.parent_path());
+    if (!std::filesystem::exists(path))
+    {
+        std::ofstream stream{path};
+        stream.close();
     }
+
+    ParseFile();
 
     hookEndScene();
 
