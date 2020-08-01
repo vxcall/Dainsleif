@@ -44,8 +44,11 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 
 	if (pitch >= -89 && pitch <= 89 && yaw >= -180 && yaw <= 180)
 	{
-		int pitchDistance = abs(static_cast<int>(pitch - viewAngles->x));
-		int yawDistance = abs(static_cast<int>(yaw - viewAngles->y));
+		float pitchDistance = fabs(pitch - viewAngles->x);
+		float yawDistance = fabs(yaw - viewAngles->y);
+		if (pitchDistance >= 11 || yawDistance >= 11) {
+		    return;
+		}
 
 		float num = aimSmoothness / max(pitchDistance, yawDistance);
 		float x = num * min(pitchDistance, yawDistance);
@@ -61,57 +64,44 @@ void LocalPlayer::AimBot(Vector3 TargetsHeadPosition)
 		{
 			pf = aimSmoothness;
 			yf = x;
-		}
-		else
-		{
+		} else {
 			pf = x;
 			yf = aimSmoothness;
 		}
 
-		if (pitchDistance <= 0.001f) { //If distance between vertical axis of crosshair and enemy's head is below 0.4 which is pretty close, just aim at exact head.
-			viewAngles->x = pitch;
-		}
-		else
-		{
-			if (viewAngles->x < pitch)  //my view is smaller than pitch.
-			{
-				viewAngles->x += pf;
-			}
-			else if (viewAngles->x > pitch)
-			{
-				viewAngles->x -= pf;
-			}
+		float rangeAimFix = aimSmoothness * 0.5f; //rangeAimFix holds the value representing area around enemy's head that allows viewAngle to be free.
+		if (aimSmoothness <= 0.2)
+		    rangeAimFix = 0.1f;
+
+		if (pitchDistance > rangeAimFix) {
+            if (viewAngles->x < pitch)  //my view is smaller than pitch.
+            {
+                viewAngles->x += pf;
+            }
+            else if (viewAngles->x > pitch)
+            {
+                viewAngles->x -= pf;
+            }
 		}
 
-		if (yawDistance <= 0.001f) {
-			viewAngles->y = yaw;
-		}
-		else
-		{
-			if (viewAngles->y < yaw)
-			{
-				if (sign(viewAngles->y) == -1 && sign(yaw) == 1 && viewAngles->y <= -90) //When yaw is like 170 and viewAngle steps over -180
-				{
-					viewAngles->y -= yf;
-				}
-				else
-				{
-					viewAngles->y += yf;
-				}
+		if (yawDistance > rangeAimFix) {
+            if (viewAngles->y < yaw)
+            {
+                if (sign(viewAngles->y) == -1 && sign(yaw) == 1 && viewAngles->y <= -90) //When yaw is like 170 and viewAngle steps over -180
+                {
+                    viewAngles->y -= yf;
+                } else {
+                    viewAngles->y += yf;
+                }
+            } else if (viewAngles->y > yaw) {
+                if (sign(viewAngles->y) == 1 && sign(yaw) == -1 && viewAngles->y >= 90)  //When yaw is like -170 and viewAngle steps over 180
+                {
+                    viewAngles->y += yf;
+                } else {
+                    viewAngles->y -= yf;
+                }
 
-			}
-			else if (viewAngles->y > yaw)
-			{
-				if (sign(viewAngles->y) == 1 && sign(yaw) == -1 && viewAngles->y >= 90)  //When yaw is like -170 and viewAngle steps over 180
-				{
-					viewAngles->y += yf;
-				}
-				else
-				{
-					viewAngles->y -= yf;
-				}
-
-			}
+            }
 		}
 	}
 }

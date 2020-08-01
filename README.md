@@ -9,7 +9,7 @@ Besides that, I'm not a skilled hacker as this cheat is not a high quality as of
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/HACK4CSGO/issues).
 
-### STILL WORKING: August 01, 2020
+### STILL WORKING: August 02, 2020
 
 # Support me :two_hearts:
 Any supports will be greatly appreciated. 
@@ -17,9 +17,10 @@ You can easily support/motivate me by either **starring my project**, **followin
 
 # Table of contents :pushpin:
 
-- [How to use this hack](#how-to-use-this-hack-key)
-- [Menu](#menu-green_book)
-- [Hacks](#hacks)
+- [How to build this hack](#how-to-build-this-hack-syringe)
+    - [Warning](#warning-rotating_light)
+- [Menu](#menu-scroll)
+- [Hacks](#hacks-computer)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
     - [Trigger bot](#trigger-bot)
@@ -94,16 +95,13 @@ You can toggle on/off and tweak parameters in the tabs with the name of each hac
 I've already been supporting a few hacks but unfortunately they're really like...under construction.
 
 Each of them could work correctly yet when they are on concurrently with others, they sometimes malfunction. I'll fix it shortly.
+
 ## Aimbot
 
 If you turn it on, it will automatically lock aim at a closest enemy unless you step really away from him.
 When you are away enough from enemies you get the control of angle back.
 
-- [ ] Create an unawareness zone that doesn't affect to croshair movement.
-- [x] Check if bDormant is true
-- [x] Aiming smoother rather than instantly stick crosshair to the target
-- [x] Require more humanistic way to aim
-- [x] Aim at closest enemy based on the position of crosshair not physical distance so that user can move their angle most of the time
+
 
 ## Glow hack
 
@@ -111,14 +109,12 @@ This feature allows you to see both opponents and teammate's outline through wal
 
 ![Glow hack](https://user-images.githubusercontent.com/33578715/89087560-48b51100-d3c7-11ea-9ada-8ef04acfa52c.png)
 
-- [x] want it to be capable of setting specific color of outline.
-
 ## Trigger bot
 
 Once you turn this on, you no longer have to press left click when you engage them.
 This feature will complete the job for you.
 
-- [ ] Fix the bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot
+- [ ] Fix a bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot
 
 ## Anti recoil
 
@@ -128,8 +124,12 @@ But this doesn't guarantee the 100% accuracy.
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
 
+# Contributors
+- [l1m0n3](https://github.com/l1m0n3)
+
 # Features being developed
 
+**overall**
 - [ ] Built-in pattern scanning system.
 - [ ] Enemy's health indicator.
 - [ ] Chams.
@@ -143,5 +143,13 @@ But this doesn't guarantee the 100% accuracy.
 - [x] Save setting automatically that user inputs to toml file.
 - [x] Add a "reset setting" button.
 
-# Contributors
-- [l1m0n3](https://github.com/l1m0n3)
+**Aimbot**
+- [x] Fix a bug that causes crosshair to snap to the x and y axis of an enemy's head
+- [x] Create an unawareness zone that doesn't affect to crosshair movement.
+- [x] Check if bDormant is true
+- [x] Aiming smoother rather than instantly stick crosshair to the target
+- [x] Require more humanistic way to aim
+- [x] Aim at closest enemy based on the position of crosshair not physical distance so that user can move their angle most of the time
+
+**Glow hack**
+- [x] want it to be capable of setting specific color of outline.
