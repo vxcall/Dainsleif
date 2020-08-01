@@ -91,12 +91,15 @@ You're accessible to the hack menu by pressing **INSERT** key on your keyboard.
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 
 # Hacks :computer:
+I've already been supporting a few hacks but unfortunately they're really like...under construction.
 
+Each of them could work correctly yet when they are on concurrently with others, they sometimes malfunction. I'll fix it shortly.
 ## Aimbot
 
 If you turn it on, it will automatically lock aim at a closest enemy unless you step really away from him.
 When you are away enough from enemies you get the control of angle back.
 
+- [ ] Create an unawareness zone that doesn't affect to croshair movement.
 - [x] Check if bDormant is true
 - [x] Aiming smoother rather than instantly stick crosshair to the target
 - [x] Require more humanistic way to aim
