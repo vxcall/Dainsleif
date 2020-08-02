@@ -1,51 +1,19 @@
 ﻿#include "pch.h"
+#include "RWtoml.h"
 #include "Hacks/Aimbot.h"
-#include "LocalPlayer.h"
 #include "GraphicHook.h"
 
 uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
 
-bool bQuit = false, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
+bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
-extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
-ImVec4 enemyGlowColor, localGlowColor;
+
 
 TCHAR dir[ MAX_PATH ];
-std::string filename;//const char* dir = "C:/Users/PC/HACK4CSGO"; //directory that savedata will be saved.
-
+std::string filename;//const char* dir = "C:/Users/PC/Dainsleif"; //directory savedata will be saved.
 extern bool g_ShowMenu; //decleard in GraphicHook.cpp
 
-void ParseFile() {
-    auto saveData = toml::parse(filename);
 
-    // find specified values associated with one keys, and assign them into each variable.
-    bAimbot = toml::find_or<bool>(saveData, "bAimbot", false);
-    aimSmoothness = toml::find_or<float>(saveData, "aimSmoothness", 0.2f);
-    bGlowHack = toml::find_or<bool>(saveData, "bGlowHack", false);
-    bAntiRecoil = toml::find_or<bool>(saveData, "bAntiRecoil", false);
-    bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", false);
-    fov = toml::find_or<int>(saveData, "fov", 90);
-
-    auto& enemyGlowColorTable = toml::find_or(saveData, "enemyGlowColor", {});
-    enemyGlowColor = ImVec4(toml::find_or<float>(enemyGlowColorTable, "Red", 0.8f), toml::find_or<float>(enemyGlowColorTable, "Green", 0.1f), toml::find_or<float>(enemyGlowColorTable, "Blue", 0.15f), toml::find_or<float>(enemyGlowColorTable, "Alpha", 1.0f));
-
-    auto& localGlowColorTable = toml::find_or(saveData, "localGlowColor", {});
-    localGlowColor = ImVec4(toml::find_or<float>(localGlowColorTable, "Red", 0.0f), toml::find_or<float>(localGlowColorTable, "Green", 0.255f), toml::find_or<float>(localGlowColorTable, "Blue", 0.7f), toml::find_or<float>(localGlowColorTable, "Alpha", 1.0f));
-}
-
-void WriteFile() {
-    //Make a variable holds keys and values.
-    const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
-                           {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot},
-                           {"fov", fov}, {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
-                           {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
-                           {"aimSmoothness", aimSmoothness}};
-    //Open file and write it in toml syntax.
-    std::ofstream file;
-    file.open(filename, std::ios::out);
-    file << data;
-    file.close();
-}
 
 VOID WINAPI Detach(LPVOID lpParameter)
 {
@@ -62,7 +30,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
 
     SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
-    filename = static_cast<std::string>(dir) + "/HACK4CSGO/savedata.toml"; //Set file path.
+    filename = static_cast<std::string>(dir) + "/Dainsleif/savedata.toml"; //Set file path.
 
     std::filesystem::path path{filename};
     std::filesystem::create_directories(path.parent_path());
@@ -72,7 +40,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         stream.close();
     }
 
-    ParseFile();
+    RWtoml::ParseFile(filename);
 
     hookEndScene();
 
@@ -84,7 +52,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bQuit)
         {
-            WriteFile();
+            RWtoml::WriteFile(filename);
             break;
         }
 
@@ -93,7 +61,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         if (gameState != 6) {
             if (!isStayingMainMenu)
             {
-                WriteFile();
+                RWtoml::WriteFile(filename);
                 isStayingMainMenu = true;
             }
             g_ShowMenu = false;
@@ -108,7 +76,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
                 isStayingMainMenu = false;
                 g_ShowMenu = !g_ShowMenu;
                 if (!g_ShowMenu)
-                    WriteFile();
+                    RWtoml::WriteFile(filename);
             }
         }
 

@@ -30,7 +30,7 @@ include_directories(${CMAKE_SOURCE_DIR}/Dependencies/toml11)
 #Hacks directory
 set(HACKS_FILES Hacks/Aimbot.cpp Hacks/Aimbot.h)
 
-add_library(Dainsleif SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h GraphicHook.cpp GraphicHook.h ImGuiTheme.cpp ImGuiTheme.h ${IMGUI_FILES} ${HACKS_FILES})
+add_library(Dainsleif SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h GraphicHook.cpp GraphicHook.h ImGuiTheme.cpp ImGuiTheme.h ${IMGUI_FILES} ${HACKS_FILES} RWtoml.cpp RWtoml.h)
 
 if (MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")
