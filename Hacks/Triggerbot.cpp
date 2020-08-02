@@ -6,7 +6,6 @@
 extern uintptr_t moduleBase;
 
 //If Trigger bot is on, Aimbot have to need this somehow.
-bool isTriggerBotON = false;
 void Triggerbot::Run(std::vector<Entity*> entityList)
 {
     LocalPlayer* lp = GetLocalPlayer();
