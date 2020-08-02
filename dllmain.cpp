@@ -2,9 +2,9 @@
 #include "RWtoml.h"
 #include "Hacks/Aimbot.h"
 #include "Hacks/Glow.h"
+#include "Hacks/AntiRecoil.h"
 #include "GraphicHook.h"
 
-uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
 bool g_ShowMenu = false;
@@ -64,11 +64,11 @@ DWORD WINAPI fMain(LPVOID lpParameter)
             g_ShowMenu = false;
         }
 
-        if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase))) continue;
+        if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer())) continue;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            if (gameState== 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer(moduleBase))) //6 means user's in game.
+            if (gameState== 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer())) //6 means user's in game.
             {
                 isStayingMainMenu = false;
                 g_ShowMenu = !g_ShowMenu;
@@ -79,17 +79,16 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         static bool bInitLocalPlayer = false;
         if (!bInitLocalPlayer) {
-            GetLocalPlayer(moduleBase)->SetFOV(fov);
+            GetLocalPlayer()->SetFOV(fov);
         }
 
         if (bAimbot || bTriggerBot || bGlowHack || bAntiRecoil) {
-            entityList = GetEntities(moduleBase);
+            entityList = GetEntities();
         }
 
         if (bAimbot)
         {
-            LocalPlayer* lp = GetLocalPlayer(moduleBase);
-            Aimbot::Run(entityList, lp);
+            Aimbot::Run(entityList);
         }
 
         if (bGlowHack)
@@ -102,12 +101,12 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bAntiRecoil)
         {
-            GetLocalPlayer(moduleBase)->NeutralizeRecoil();
+            AntiRecoil::Run();
         }
 
         if (bTriggerBot)
         {
-            GetLocalPlayer(moduleBase)->AutoPullTrigger(entityList);
+            GetLocalPlayer()->AutoPullTrigger(entityList);
         }
 
         Sleep(1); //sleep for performance aspect

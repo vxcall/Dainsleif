@@ -5,5 +5,6 @@
 
 namespace Aimbot
 {
-    void Run(std::vector<Entity*> entityList, LocalPlayer* lp);
+    //AimBot lets local player aim at enemy's head with full precision.
+    void Run(std::vector<Entity*> entityList);
 }

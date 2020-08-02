@@ -109,7 +109,7 @@ void ShowMenuBar()
 }
 
 void ShowTabMenu() {
-    LocalPlayer* lp = GetLocalPlayer(moduleBase);
+    LocalPlayer* lp = GetLocalPlayer();
     ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
     if (ImGui::BeginTabBar("Hack_tab_bar", tab_bar_flags))
     {

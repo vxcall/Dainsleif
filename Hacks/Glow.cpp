@@ -1,18 +1,16 @@
 #include "../pch.h"
 #include "../LocalPlayer.h"
-#include "../Entity.h"
 #include "Glow.h"
 
 ImVec4 enemyGlowColor, localGlowColor;
 
 void Glow::Run(Entity* entity)
 {
-    uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
-    uintptr_t glowObjectManager = GetGlowObjectManager(moduleBase);
+    uintptr_t glowObjectManager = GetGlowObjectManager();
     uintptr_t glowIndex = entity->GetGlowIndex();
     GlowObject go(glowObjectManager, glowIndex);
 
-    LocalPlayer* lp = GetLocalPlayer(moduleBase);
+    LocalPlayer* lp = GetLocalPlayer();
 
     int teamNum = entity->GetTeam();
 

@@ -1,15 +1,11 @@
 #include "pch.h"
 #include "LocalPlayer.h"
 
-LocalPlayer* GetLocalPlayer(uintptr_t moduleBase)
+uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
+
+LocalPlayer* GetLocalPlayer()
 {
 	return reinterpret_cast<LocalPlayer*>((moduleBase + dwLocalPlayer)); //get local player address and cast it to my original class type
-}
-
-float GetDistance(Vector3 targetPos, Vector3 basePos, Vector3& deltaVector)
-{
-    deltaVector = targetPos - basePos;
-    return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
 }
 
 Vector3* LocalPlayer::GetHeadPosition()
@@ -23,47 +19,6 @@ Vector3* LocalPlayer::GetHeadPosition()
 void LocalPlayer::SetFOV(int fov)
 {
     *reinterpret_cast<int*>(*(uintptr_t*)this + m_iFOV) = fov;
-}
-
-
-
-Vector3 oldPunch = { 0, 0, 0 };
-int oldShotCount = 0;
-
-void LocalPlayer::NeutralizeRecoil() {
-    static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
-
-    int* ShotCount = reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(this) + m_iShotsFired);
-
-    if (*ShotCount >= 1) {
-        if (*ShotCount != oldShotCount) {
-            //This refers to the cursor position after local player shot. Bullet's gonna be shot out over the cursor by twice.
-            Vector3 *AimPunchAngle = reinterpret_cast<Vector3 *>(*reinterpret_cast<uintptr_t *>(this) + m_aimPunchAngle);
-            Vector3 *viewAngle = reinterpret_cast<Vector3 *>((*reinterpret_cast<uintptr_t *>((engineModule + dwClientState)) + dwClientState_ViewAngles));
-            Vector3 rcsAngle;
-            rcsAngle.y = viewAngle->y + (oldPunch.y - AimPunchAngle->y * 2.f);
-            rcsAngle.x = viewAngle->x + (oldPunch.x - AimPunchAngle->x * 2.f);
-
-            while (viewAngle->y > 180)
-                viewAngle->y -= 360;
-            while (viewAngle->y < -180)
-                viewAngle->y += 360;
-
-            if (viewAngle->x > 89.f)
-                viewAngle->x = 89.f;
-            else if (viewAngle->x < -89.f)
-                viewAngle->x = -89.f;
-
-            oldPunch.y = AimPunchAngle->y * 2.f;
-            oldPunch.x = AimPunchAngle->x * 2.f;
-            viewAngle->y = rcsAngle.y;
-            viewAngle->x = rcsAngle.x;
-            oldShotCount = *ShotCount;
-        }
-    } else {
-        oldPunch = {0, 0, 0};
-        oldShotCount = 0;
-    }
 }
 
 //If Trigger bot is on, Aimbot have to need this somehow.

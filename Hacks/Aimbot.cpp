@@ -3,11 +3,18 @@
 #include "Aimbot.h"
 
 float aimSmoothness = 0.2f;
+extern uintptr_t moduleBase;
 
 // sign() checks if the argument is positive or negative
 int sign(float A)
 {
     return (A > 0) - (A < 0);
+}
+
+float GetDistance(Vector3 targetPos, Vector3 basePos, Vector3& deltaVector)
+{
+    deltaVector = targetPos - basePos;
+    return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
 }
 
 const double PI = 3.14159265358;
@@ -42,10 +49,13 @@ Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlaye
     return entityList[closestEntityIndex];
 }
 
-void Aimbot::Run(std::vector<Entity*> entityList, LocalPlayer* lp)
+void Aimbot::Run(std::vector<Entity*> entityList)
 {
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+
+    LocalPlayer* lp = GetLocalPlayer();
+
     Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList, lp);
     if (!closestEnt || *closestEnt->IsDormant())
         return;

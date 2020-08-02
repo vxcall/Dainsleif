@@ -28,7 +28,7 @@ set(IMGUI_FILES ${IMGUI_FILE_PATH}/imconfig.h ${IMGUI_FILE_PATH}/imgui.cpp ${IMG
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/toml11)
 
 #Hacks directory
-set(HACKS_FILES Hacks/Aimbot.cpp Hacks/Aimbot.h Hacks/Glow.cpp Hacks/Glow.h)
+set(HACKS_FILES Hacks/Aimbot.cpp Hacks/Aimbot.h Hacks/Glow.cpp Hacks/Glow.h Hacks/AntiRecoil.cpp Hacks/AntiRecoil.h)
 
 add_library(Dainsleif SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h GraphicHook.cpp GraphicHook.h ImGuiTheme.cpp ImGuiTheme.h ${IMGUI_FILES} ${HACKS_FILES} RWtoml.cpp RWtoml.h)
 

@@ -23,9 +23,9 @@ public:
 	uintptr_t GetGlowIndex();
 };
 
-uintptr_t GetGlowObjectManager(uintptr_t moduleBase);
+uintptr_t GetGlowObjectManager();
 
-std::vector<Entity*> GetEntities(uintptr_t moduleBase);
+std::vector<Entity*> GetEntities();
 
 int* GetMaxEntities();
 

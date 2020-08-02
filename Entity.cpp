@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Entity.h"
-#include "LocalPlayer.h"
+
+extern uintptr_t moduleBase;
 
 Vector3* Entity::GetBodyPosition()
 {
@@ -51,11 +52,11 @@ uintptr_t Entity::GetGlowIndex()
 	return *reinterpret_cast<uintptr_t*>(*(uintptr_t*)this + m_iGlowIndex);
 }
 
-uintptr_t GetGlowObjectManager(uintptr_t moduleBase) {
+uintptr_t GetGlowObjectManager() {
 	return *reinterpret_cast<uintptr_t*>(moduleBase + dwGlowObjectManager);
 }
 
-std::vector<Entity*> GetEntities(uintptr_t moduleBase)
+std::vector<Entity*> GetEntities()
 {
 	int maxnum = *GetMaxEntities(); //getting possible maximum number of entity. It was 64 when I tested.
 	std::vector<Entity*> entityList; //initialize vector by specifying the size with maxnum, and fill them with 0.
