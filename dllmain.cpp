@@ -3,6 +3,7 @@
 #include "Hacks/Aimbot.h"
 #include "Hacks/Glow.h"
 #include "Hacks/AntiRecoil.h"
+#include "Hacks/Triggerbot.h"
 #include "GraphicHook.h"
 
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
@@ -45,8 +46,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     while (true)
     {
-        static bool isStayingMainMenu = false;
-
+        static bool inGame = false;
         if (bQuit)
         {
             RWtoml::WriteFile(filename);
@@ -55,22 +55,25 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State));
 
-        if (gameState != 6) {
-            if (!isStayingMainMenu)
+        if (gameState != 6) {   //Not 6 means user's in menu.
+            if (inGame) //true means user used to be in game.
             {
                 RWtoml::WriteFile(filename);
-                isStayingMainMenu = true;
+                inGame = false;
             }
             g_ShowMenu = false;
+        }
+
+        if (gameState == 6 && !inGame) {
+            inGame = true;
         }
 
         if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer())) continue;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            if (gameState== 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer())) //6 means user's in game.
+            if (gameState == 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
             {
-                isStayingMainMenu = false;
                 g_ShowMenu = !g_ShowMenu;
                 if (!g_ShowMenu)
                     RWtoml::WriteFile(filename);
@@ -106,7 +109,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bTriggerBot)
         {
-            GetLocalPlayer()->AutoPullTrigger(entityList);
+            Triggerbot::Run(entityList);
         }
 
         Sleep(1); //sleep for performance aspect

@@ -26,8 +26,6 @@ Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlaye
     Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
     for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
     {
-        if (entityList[i]->GetTeam() == lp->GetTeam())
-            continue;
         Vector3 delta;
 
         Vector3* entityHeadPosition = entityList[i]->GetBonePosition();
@@ -49,14 +47,30 @@ Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlaye
     return entityList[closestEntityIndex];
 }
 
+std::vector<Entity*> FilterOutDeadman(std::vector<Entity*> entityList, LocalPlayer* lp) {
+
+    std::vector<Entity*> result;
+
+    for (int i = 0;i < static_cast<int>(entityList.size());i++) {
+        if (entityList[i]->GetTeam() == lp->GetTeam())
+            continue;
+        if (!*entityList[i]->GetHealth())
+            continue;
+        result.push_back(entityList[i]);
+    }
+    return result;
+}
+
 void Aimbot::Run(std::vector<Entity*> entityList)
 {
+    LocalPlayer* lp = GetLocalPlayer();
+
+    std::vector<Entity*> newEntityList = FilterOutDeadman(entityList, lp);
+    std::cout << "after filter is: " << newEntityList.size() << std::endl;
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 
-    LocalPlayer* lp = GetLocalPlayer();
-
-    Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList, lp);
+    Entity* closestEnt = GetClosestEnemyFromCrosshair(newEntityList, lp);
     if (!closestEnt || *closestEnt->IsDormant())
         return;
     Vector3 delta;
