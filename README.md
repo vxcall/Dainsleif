@@ -2,7 +2,7 @@
 ![Game](https://img.shields.io/badge/Game-CS%3AGO-blue.svg?style=flat)
 ![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
 
-# Dainsleif :zap:
+# :zap: Dainsleif
 First of all, if you are enough kind to motivate me, just **star** this project :) I would be very happy.
 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
@@ -14,11 +14,11 @@ If you have any question about this project, feel free to ask me through [issue]
 
 ### STILL WORKING: August 03, 2020
 
-# Support me :two_hearts:
+# :two_hearts: Support me
 Any supports will be greatly appreciated. 
 You can easily support/motivate me by either **starring my project**, **following me on github** or **sending PR to me**.
 
-# Table of contents :pushpin:
+# :pushpin: Table of contents
 
 - [How to build this hack](#how-to-build-this-hack-syringe)
     - [Warning](#warning-rotating_light)
@@ -32,7 +32,7 @@ You can easily support/motivate me by either **starring my project**, **followin
 - [Contributors](#contributors)
 
 
-# How to build this hack :syringe:
+# :syringe: How to build this hack
 
 **requirement**
 - [DirectxSDK](https://www.microsoft.com/en-au/download/details.aspx?id=6812)
@@ -78,7 +78,7 @@ You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/Dains
 **Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 **Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
-### WARNING :rotating_light:
+### :rotating_light: WARNING
 
 Keep your eyes on the `offset.h` in my repository.
 
@@ -86,16 +86,16 @@ If the menu doesn't show up when you press INSERT, or your game crashes immediat
 
 Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
 
-# Menu :scroll:
+# :scroll: Menu
 
-You're accessible to the hack menu by pressing **INSERT** key on your keyboard.
+You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your keyboard.
 **But you're allowed to access it only when you're in game. Even though you press INSERT when you are in main menu, nothing happens.**
 
 ![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
 
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 
-# Hacks :computer:
+# :computer: Hacks
 I've already been supporting a few hacks but unfortunately they're really like...under construction.
 
 Each of them could work correctly yet when they are on concurrently with others, they sometimes malfunction. I'll fix it shortly.
