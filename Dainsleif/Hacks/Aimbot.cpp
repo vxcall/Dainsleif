@@ -4,6 +4,7 @@
 
 float aimSmoothness = 0.2f;
 extern uintptr_t moduleBase;
+const double PI = 3.14159265358;
 
 // sign() checks if the argument is positive or negative
 int sign(float A)
@@ -17,7 +18,6 @@ float GetDistance(Vector3 targetPos, Vector3 basePos, Vector3& deltaVector)
     return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
 }
 
-const double PI = 3.14159265358;
 Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlayer* lp)
 {
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
@@ -48,8 +48,8 @@ Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlaye
 }
 
 // FilterOutDeadman basically filter out the dead enemy from entityList.
-void FilterOutDeadman(std::vector<Entity*>& entityList, LocalPlayer* lp) {
-
+void FilterOutDeadman(std::vector<Entity*>& entityList, LocalPlayer* lp)
+{
     for (int i = 0;i < static_cast<int>(entityList.size());) {
         if (entityList[i]->GetTeam() == lp->GetTeam() || !*entityList[i]->GetHealth()) {
             entityList.erase(entityList.begin() + i);
@@ -64,7 +64,6 @@ void Aimbot::Run(std::vector<Entity*> entityList)
     LocalPlayer* lp = GetLocalPlayer();
 
     FilterOutDeadman(entityList, lp);
-    std::cout << "after filter is: " << entityList.size() << std::endl;
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 

@@ -1,7 +1,7 @@
-#include "pch.h"
+#include "../pch.h"
 #include "ImGuiTheme.h"
 #include "GraphicHook.h"
-#include "LocalPlayer.h"
+#include "../LocalPlayer.h"
 
 /* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
          * ParseFile() in RWtoml.cpp
