@@ -8,7 +8,7 @@ First of all, if you are enough kind to motivate me, just **star** this project 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
 Since I don't intend to make this a malicious software, **this isn't considered to be performed in multi player mode**. Keep in that mind.
 
-Besides that, I'm not a skilled hacker as this cheat is not a high quality as of today. However, It may be interesting for you to see this project evolving day by day. (me as well XD)
+As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as your reference if you want.
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 
@@ -20,10 +20,10 @@ You can easily support/motivate me by either **starring my project**, **followin
 
 # :pushpin: Table of contents
 
-- [How to build this hack](#how-to-build-this-hack-syringe)
-    - [Warning](#warning-rotating_light)
-- [Menu](#menu-scroll)
-- [Hacks](#hacks-computer)
+- [How to build this hack](#syringe-how-to-build-this-hack)
+    - [Warning](#rotating_light-warning)
+- [Menu](#scroll-menu)
+- [Hacks](#computer-hacks)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
     - [Trigger bot](#trigger-bot)
@@ -76,24 +76,23 @@ You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/Dains
 (If latest release looks old, create an issue and ask me, I'll handle it.)
 
 **Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
-**Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
 ### :rotating_light: WARNING
 
 Keep your eyes on the `offset.h` in my repository.
 
-If the menu doesn't show up when you press INSERT, or your game crashes immediately just after you initiate the hack, that means your `offset.h` is outdated.
+If the menu doesn't show up when you press <kbd>INSERT</kbd>, or your game crashes immediately just after you initiate the hack, that means your `offset.h` is outdated.
 
 Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
 
 # :scroll: Menu
 
 You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your keyboard.
-**But you're allowed to access it only when you're in game. Even though you press INSERT when you are in main menu, nothing happens.**
-
-![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
+**But you're allowed to access it only when you're in game for safety reason right now. Even though you press <kbd>INSERT</kbd> when you are in main menu, nothing happens.**
 
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
+
+![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
 
 # :computer: Hacks
 I've already been supporting a few hacks but unfortunately they're really like...under construction.
