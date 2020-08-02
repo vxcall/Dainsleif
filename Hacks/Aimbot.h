@@ -5,5 +5,5 @@
 
 namespace Aimbot
 {
-    void Run(Vector3 TargetsHeadPosition, LocalPlayer* lp);
+    void Run(std::vector<Entity*> entityList, LocalPlayer* lp);
 }

@@ -11,12 +11,46 @@ int sign(float A)
 }
 
 const double PI = 3.14159265358;
-void Aimbot::Run(Vector3 TargetsHeadPosition, LocalPlayer* lp)
+Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlayer* lp)
+{
+    static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
+    float closestDistance = 1000000;
+    int closestEntityIndex = -1;
+    Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+    for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
+    {
+        if (entityList[i]->GetTeam() == lp->GetTeam())
+            continue;
+        Vector3 delta;
+
+        Vector3* entityHeadPosition = entityList[i]->GetBonePosition();
+        if (!entityHeadPosition) continue; //null pointer check
+
+        GetDistance(*entityHeadPosition, *lp->GetHeadPosition(), delta);
+        float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
+        int yawDistance = abs(static_cast<int>(yaw - viewAngles->y));
+
+        if (yawDistance < closestDistance) {
+            closestDistance = yawDistance;
+            closestEntityIndex = i;
+        }
+    }
+    if (closestEntityIndex == -1)
+    {
+        return nullptr;
+    }
+    return entityList[closestEntityIndex];
+}
+
+void Aimbot::Run(std::vector<Entity*> entityList, LocalPlayer* lp)
 {
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+    Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList, lp);
+    if (!closestEnt || *closestEnt->IsDormant())
+        return;
     Vector3 delta;
-    float hypotenuse = GetDistance(TargetsHeadPosition, *lp->GetHeadPosition(), delta);
+    float hypotenuse = GetDistance(*closestEnt->GetBonePosition(), *lp->GetHeadPosition(), delta);
     float pitch = -asin(delta.z / hypotenuse) * (180 / static_cast<float>(PI));
     float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
 

@@ -15,39 +15,6 @@ std::string filename;//const char* dir = "C:/Users/PC/HACK4CSGO"; //directory th
 
 extern bool g_ShowMenu; //decleard in GraphicHook.cpp
 
-const double PI = 3.14159265358;
-Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList)
-{
-    static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
-    float closestDistance = 1000000;
-    int closestEntityIndex = -1;
-    LocalPlayer* lp = GetLocalPlayer(moduleBase);
-    Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
-    for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
-    {
-        if (entityList[i]->GetTeam() == lp->GetTeam())
-            continue;
-        Vector3 delta;
-
-        Vector3* entityHeadPosition = entityList[i]->GetBonePosition();
-        if (!entityHeadPosition) continue; //null pointer check
-
-        GetDistance(*entityHeadPosition, *lp->GetHeadPosition(), delta);
-        float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
-        int yawDistance = abs(static_cast<int>(yaw - viewAngles->y));
-
-        if (yawDistance < closestDistance) {
-            closestDistance = yawDistance;
-            closestEntityIndex = i;
-        }
-    }
-    if (closestEntityIndex == -1)
-    {
-        return nullptr;
-    }
-    return entityList[closestEntityIndex];
-}
-
 void ParseFile() {
     auto saveData = toml::parse(filename);
 
@@ -156,11 +123,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bAimbot)
         {
-            Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList);
-            if (closestEnt != nullptr && !*closestEnt->IsDormant())
-            {
-                Aimbot::Run(*closestEnt->GetBonePosition(), GetLocalPlayer(moduleBase));
-            }
+            LocalPlayer* lp = GetLocalPlayer(moduleBase);
+            Aimbot::Run(entityList, lp);
         }
 
         if (bGlowHack)

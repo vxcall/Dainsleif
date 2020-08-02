@@ -107,6 +107,8 @@ This is the feature I can guarantee the highest quality in the hacks I offer her
 Turning this function on automatically lets you aim at enemy's head with 100% precision.
 It select the closest enemy from where your crosshair is as a target.
 
+- [ ] Stop aimbotting if target is over the wall.
+
 ![aimbot](https://user-images.githubusercontent.com/33578715/89108283-b31e8d80-d469-11ea-8e55-e4e469d74576.gif)
 
 ## Glow hack
