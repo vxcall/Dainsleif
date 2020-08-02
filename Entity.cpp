@@ -55,36 +55,6 @@ uintptr_t GetGlowObjectManager(uintptr_t moduleBase) {
 	return *reinterpret_cast<uintptr_t*>(moduleBase + dwGlowObjectManager);
 }
 
-extern ImVec4 enemyGlowColor; //declared in dll.main
-extern ImVec4 localGlowColor; //declared in dll.main
-
-void Entity::Glow(uintptr_t moduleBase)
-{
-    uintptr_t glowObjectManager = GetGlowObjectManager(moduleBase);
-    uintptr_t glowIndex = this->GetGlowIndex();
-    GlowObject go(glowObjectManager, glowIndex);
-
-    LocalPlayer* lp = GetLocalPlayer(moduleBase);
-    int teamNum = this->GetTeam();
-
-    if (teamNum == lp->GetTeam())
-    {
-        *go.Red = localGlowColor.x;
-        *go.Green = localGlowColor.y;
-        *go.Blue = localGlowColor.z;
-        *go.Alpha = localGlowColor.w;
-    }
-    else if (teamNum != lp->GetTeam() && !*this->IsDormant())
-    {
-        *go.Red = enemyGlowColor.x;
-        *go.Green = enemyGlowColor.y;
-        *go.Blue = enemyGlowColor.z;
-        *go.Alpha = enemyGlowColor.w;
-    }
-    *(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x24)) = true; //If I set this to false, the entire glow disappear
-    *(bool*)(glowObjectManager + ((glowIndex * 0x38) + 0x25)) = false; //if i set this true, the damage indicater go out of the outline.
-}
-
 std::vector<Entity*> GetEntities(uintptr_t moduleBase)
 {
 	int maxnum = *GetMaxEntities(); //getting possible maximum number of entity. It was 64 when I tested.

@@ -17,7 +17,7 @@ extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern std::string filename; //declared in dllmain.cpp
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 
-ImVec4 enemyGlowColor, localGlowColor;
+extern ImVec4 enemyGlowColor, localGlowColor;
 
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);

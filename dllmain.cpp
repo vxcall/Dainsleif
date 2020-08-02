@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "RWtoml.h"
 #include "Hacks/Aimbot.h"
+#include "Hacks/Glow.h"
 #include "GraphicHook.h"
 
 uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
@@ -95,7 +96,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         {
             for (unsigned int i = 0; i < entityList.size(); ++i)
             {
-                entityList[i]->Glow(moduleBase);
+                Glow::Run(entityList[i]);
             }
         }
 
