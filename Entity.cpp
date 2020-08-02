@@ -47,10 +47,6 @@ uintptr_t Entity::GetGlowIndex()
 	return *reinterpret_cast<uintptr_t*>(*(uintptr_t*)this + m_iGlowIndex);
 }
 
-uintptr_t GetGlowObjectManager() {
-	return *reinterpret_cast<uintptr_t*>(moduleBase + dwGlowObjectManager);
-}
-
 std::vector<Entity*> GetEntities()
 {
 	int maxnum = *GetMaxEntities(); //getting possible maximum number of entity. It was 64 when I tested.

@@ -3,6 +3,11 @@
 #include "Glow.h"
 
 ImVec4 enemyGlowColor, localGlowColor;
+extern uintptr_t moduleBase;
+
+uintptr_t GetGlowObjectManager() {
+    return *reinterpret_cast<uintptr_t*>(moduleBase + dwGlowObjectManager);
+}
 
 void Glow::Run(Entity* entity)
 {

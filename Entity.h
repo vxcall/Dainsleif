@@ -23,8 +23,6 @@ public:
 	uintptr_t GetGlowIndex();
 };
 
-uintptr_t GetGlowObjectManager();
-
 std::vector<Entity*> GetEntities();
 
 int* GetMaxEntities();
