@@ -6,7 +6,7 @@
 
 まず初めに、もしこのプロジェクトが気に入ったらStarしてくれると嬉しいです！
 
-Dainsleifは**_Counter-Strike: Global Offensive_** 用のチートプログラムです。
+Dainsleifは _Counter-Strike: Global Offensive_ 用のチートプログラムです。
 ただし、これはあくまでも僕の個人的な知識欲で作っているものであって実戦(マルチプレイヤーモード)で使うことは想定されていません。
 明示的な対策を行っているわけではないのでBANされる可能性が多分にあります。
 ただ、ボット戦で使うことは可能ですし、実際のチートと同じ手法で作られていてとてもシンプルなためコードの参考にはなるかと思います。
@@ -16,6 +16,18 @@ Dainsleifは**_Counter-Strike: Global Offensive_** 用のチートプログラ�
 
 # :two_hearts: サポート
 このプロジェクトにStarする、このアカウントをフォローする、プルリクエストを送るなどしていただけるととても励みになります。
+
+# :pushpin: 目次
+
+- [ビルド方法](#syringe-ビルド方法)
+- [ハックメニュー](#scroll-ハックメニュー)
+    - [注意事項](#rotating_light-注意事項)
+- [ハック](#computer-ハック)
+    - [エイムボット](#エイムボット)
+    - [発光ハック](#発光ハック)
+    - [トリガーボット](#トリガーボット)
+    - [アンチリコイル](#アンチリコイル)
+- [開発に貢献してくれた人](#開発に貢献してくれた人)
 
 # :syringe: ビルド方法
 
@@ -59,13 +71,6 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 
 `Dainsleif.dll`を生成出来たら、あとは [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) などのお好きなDLL injectorを使ってインジェクトしてください。
 
-
-### :rotating_light: 注意
-
-もし<kbd>INSERT</kbd>を押した際にハックメニューが表示されない、もしくはハックを起動した瞬間にクラッシュするようなことがあれば、おそらく原因は`Dainsleif/offset.h`ファイルにあります。
-
-その場合は僕の`Dainsleif/offset.h`ファイルの中身をコピペしてあげてください。もし僕の`Dainsleif/offset.h`が数週間の間更新されていない場合は、[Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)を使ってください。
-
 # :scroll: ハックメニュー
 
 ハックメニューへは<kbd>INSERT</kbd>キーを押すことでアクセスできます。
@@ -77,6 +82,13 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 調整項目はこれから増やしていく予定です。
 
 ![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
+
+### :rotating_light: 注意事項
+
+もし<kbd>INSERT</kbd>を押した際にハックメニューが表示されない、もしくはハックを起動した瞬間にクラッシュするようなことがあれば、おそらく原因は`Dainsleif/offset.h`ファイルにあります。
+
+その場合は僕の`Dainsleif/offset.h`ファイルの中身をコピペしてあげてください。もし僕の`Dainsleif/offset.h`が数週間の間更新されていない場合は、[Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)を使ってください。
+
 
 # :computer: ハック
 

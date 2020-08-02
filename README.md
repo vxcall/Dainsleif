@@ -2,6 +2,8 @@
 ![Game](https://img.shields.io/badge/Game-CS%3AGO-blue.svg?style=flat)
 ![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
 
+**[README in Japanese](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README_jp.md)**
+
 # :zap: Dainsleif
 First of all, if you are enough kind to motivate me, just **star** this project :) I would be very happy.
 
@@ -21,13 +23,13 @@ You can easily support/motivate me by either **starring my project**, **followin
 # :pushpin: Table of contents
 
 - [How to build this hack](#syringe-how-to-build-this-hack)
-    - [Warning](#rotating_light-warning)
 - [Menu](#scroll-menu)
+    - [Warning](#rotating_light-warning)
 - [Hacks](#computer-hacks)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
     - [Trigger bot](#trigger-bot)
-    - [Neutralize recoil](#anti-recoil)
+    - [Anti recoil](#anti-recoil)
 - [Features being developed](#features-being-developed)
 - [Contributors](#contributors)
 
@@ -77,14 +79,6 @@ You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/Dains
 
 **Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
-### :rotating_light: WARNING
-
-Keep your eyes on the `offset.h` in my repository.
-
-If the menu doesn't show up when you press <kbd>INSERT</kbd>, or your game crashes immediately just after you initiate the hack, that means your `offset.h` is outdated.
-
-Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
-
 # :scroll: Menu
 
 You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your keyboard.
@@ -93,6 +87,14 @@ You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your key
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 
 ![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
+
+### :rotating_light: WARNING
+
+Keep your eyes on the `offset.h` in my repository.
+
+If the menu doesn't show up when you press <kbd>INSERT</kbd>, or your game crashes immediately just after you initiate the hack, that means your `offset.h` is outdated.
+
+Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
 
 # :computer: Hacks
 I've already been supporting a few hacks but unfortunately they're really like...under construction.
