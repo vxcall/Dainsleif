@@ -30,7 +30,7 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/toml11)
 #Hacks directory
 set(HACKS_FILES Dainsleif/Hacks/Aimbot.cpp Dainsleif/Hacks/Aimbot.h Dainsleif/Hacks/Glow.cpp Dainsleif/Hacks/Glow.h Dainsleif/Hacks/AntiRecoil.cpp Dainsleif/Hacks/AntiRecoil.h Dainsleif/Hacks/Triggerbot.cpp Dainsleif/Hacks/Triggerbot.h)
 
-add_library(Dainsleif SHARED Dainsleif/dllmain.cpp Dainsleif/Entity.cpp Dainsleif/Entity.h Dainsleif/framework.h Dainsleif/LocalPlayer.cpp Dainsleif/LocalPlayer.h Dainsleif/offsets.h Dainsleif/pch.cpp Dainsleif/pch.h Dainsleif/vector3.cpp Dainsleif/vector3.h Dainsleif/Hook/GraphicHook.cpp Dainsleif/Hook/GraphicHook.h Dainsleif/Hook/ImGuiTheme.cpp Dainsleif/Hook/ImGuiTheme.h ${IMGUI_FILES} ${HACKS_FILES} Dainsleif/RWtoml.cpp Dainsleif/RWtoml.h)
+add_library(Dainsleif SHARED Dainsleif/dllmain.cpp Dainsleif/Entity.cpp Dainsleif/Entity.h Dainsleif/LocalPlayer.cpp Dainsleif/LocalPlayer.h Dainsleif/offsets.h Dainsleif/pch.cpp Dainsleif/pch.h Dainsleif/vector3.cpp Dainsleif/vector3.h Dainsleif/Hook/GraphicHook.cpp Dainsleif/Hook/GraphicHook.h Dainsleif/Hook/ImGuiTheme.cpp Dainsleif/Hook/ImGuiTheme.h ${IMGUI_FILES} ${HACKS_FILES} Dainsleif/RWtoml.cpp Dainsleif/RWtoml.h)
 
 if (MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")
