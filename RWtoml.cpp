@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "RWtoml.h"
 
-ImVec4 enemyGlowColor, localGlowColor;
+extern ImVec4 enemyGlowColor, localGlowColor;
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dllmain.cpp
 extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern int fov;

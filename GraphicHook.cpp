@@ -4,8 +4,8 @@
 #include "LocalPlayer.h"
 
 /* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
-         * ParseFile() in dllmain.cpp
-         * WriteFile() in dllmain.cpp
+         * ParseFile() in RWtoml.cpp
+         * WriteFile() in RWtoml.cpp
          * set everything to default section in hookedEndScene() in GraphicHook.cpp
          * set to default section of the item
 */
@@ -13,14 +13,17 @@
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
 extern uintptr_t moduleBase; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
-extern float aimSmoothness; //declared in LocalPlayer.cpp
+extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern std::string filename; //declared in dllmain.cpp
-extern ImVec4 enemyGlowColor, localGlowColor; //declared in dll.main
+extern bool g_ShowMenu; //decleard in dllmain.cpp
+
+ImVec4 enemyGlowColor, localGlowColor;
+
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
 
-bool g_ShowMenu = false;
+
 
 HWND window = NULL;
 WNDPROC originalWndProc = NULL;

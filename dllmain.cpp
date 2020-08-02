@@ -4,16 +4,12 @@
 #include "GraphicHook.h"
 
 uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll"));
-
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
-
+bool g_ShowMenu = false;
 
 TCHAR dir[ MAX_PATH ];
 std::string filename;//const char* dir = "C:/Users/PC/Dainsleif"; //directory savedata will be saved.
-extern bool g_ShowMenu; //decleard in GraphicHook.cpp
-
-
 
 VOID WINAPI Detach(LPVOID lpParameter)
 {
