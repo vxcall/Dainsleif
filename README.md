@@ -1,4 +1,7 @@
-[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+![Language](https://img.shields.io/badge/Language-C%2B%2B-%23ff40d9.svg?style=flat)
+![Game](https://img.shields.io/badge/Game-CS%3AGO-blue.svg?style=flat)
+![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
+
 # Dainsleif :zap:
 First of all, if you are enough kind to motivate me, just **star** this project :) I would be very happy.
 

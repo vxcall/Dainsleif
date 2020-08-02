@@ -154,7 +154,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         LoadTheme();
 
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar;
-        ImGui::Begin("HACK4CSGO", &g_ShowMenu, window_flags);
+        ImGui::Begin("Dainsleif", &g_ShowMenu, window_flags);
 
         ShowMenuBar(); //tab
 

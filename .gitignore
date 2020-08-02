@@ -384,3 +384,9 @@ cmake-build-debug/HACK4CSGO.dll
 cmake-build-debug/Makefile
 
 build/
+
+.idea/
+
+cmake-build-debug/CMakeFiles/Dainsleif.dir/
+
+cmake-build-debug/

@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "Hacks/Aimbot.h"
 #include "LocalPlayer.h"
 #include "GraphicHook.h"
 
@@ -6,7 +7,7 @@ uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("client.dll")
 
 bool bQuit = false, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
-extern float aimSmoothness; //declared in LocalPlayer.cpp
+extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 ImVec4 enemyGlowColor, localGlowColor;
 
 TCHAR dir[ MAX_PATH ];
@@ -94,7 +95,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
 
     SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
-    filename = static_cast<std::string>(dir) + "\\HACK4CSGO\\savedata.toml"; //Set file path.
+    filename = static_cast<std::string>(dir) + "/HACK4CSGO/savedata.toml"; //Set file path.
 
     std::filesystem::path path{filename};
     std::filesystem::create_directories(path.parent_path());
@@ -158,7 +159,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
             Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList);
             if (closestEnt != nullptr && !*closestEnt->IsDormant())
             {
-                GetLocalPlayer(moduleBase)->AimBot(*closestEnt->GetBonePosition());
+                Aimbot::Run(*closestEnt->GetBonePosition(), GetLocalPlayer(moduleBase));
             }
         }
 

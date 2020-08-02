@@ -19,12 +19,18 @@ link_directories(${CMAKE_SOURCE_DIR}/Dependencies/MSDetour/binary)
 #imGUI
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/imGUI)
 set(IMGUI_FILE_PATH ${CMAKE_SOURCE_DIR}/Dependencies/imGUI)
-set(IMGUI_FILES ${IMGUI_FILE_PATH}/imconfig.h ${IMGUI_FILE_PATH}/imgui.cpp ${IMGUI_FILE_PATH}/imgui.h ${IMGUI_FILE_PATH}/imgui_demo.cpp ${IMGUI_FILE_PATH}/imgui_draw.cpp ${IMGUI_FILE_PATH}/imgui_impl_dx9.cpp ${IMGUI_FILE_PATH}/imgui_impl_dx9.h ${IMGUI_FILE_PATH}/imgui_impl_win32.cpp ${IMGUI_FILE_PATH}/imgui_impl_win32.h ${IMGUI_FILE_PATH}/imgui_internal.h ${IMGUI_FILE_PATH}/imgui_widgets.cpp ${IMGUI_FILE_PATH}/imstb_rectpack.h ${IMGUI_FILE_PATH}/imstb_textedit.h ${IMGUI_FILE_PATH}/imstb_truetype.h ImGuiTheme.cpp ImGuiTheme.h)
+set(IMGUI_FILES ${IMGUI_FILE_PATH}/imconfig.h ${IMGUI_FILE_PATH}/imgui.cpp ${IMGUI_FILE_PATH}/imgui.h ${IMGUI_FILE_PATH}/imgui_demo.cpp
+        ${IMGUI_FILE_PATH}/imgui_draw.cpp ${IMGUI_FILE_PATH}/imgui_impl_dx9.cpp ${IMGUI_FILE_PATH}/imgui_impl_dx9.h
+        ${IMGUI_FILE_PATH}/imgui_impl_win32.cpp ${IMGUI_FILE_PATH}/imgui_impl_win32.h ${IMGUI_FILE_PATH}/imgui_internal.h
+        ${IMGUI_FILE_PATH}/imgui_widgets.cpp ${IMGUI_FILE_PATH}/imstb_rectpack.h ${IMGUI_FILE_PATH}/imstb_textedit.h ${IMGUI_FILE_PATH}/imstb_truetype.h)
 
 #toml11
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/toml11)
 
-add_library(Dainsleif SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h GraphicHook.cpp GraphicHook.h ${IMGUI_FILES})
+#Hacks directory
+set(HACKS_FILES Hacks/Aimbot.cpp Hacks/Aimbot.h)
+
+add_library(Dainsleif SHARED dllmain.cpp Entity.cpp Entity.h framework.h LocalPlayer.cpp LocalPlayer.h offsets.h pch.cpp pch.h vector3.cpp vector3.h GraphicHook.cpp GraphicHook.h ImGuiTheme.cpp ImGuiTheme.h ${IMGUI_FILES} ${HACKS_FILES})
 
 if (MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")

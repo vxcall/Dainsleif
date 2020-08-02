@@ -11,7 +11,6 @@ public:
 	Vector3* GetHeadPosition();
 
 	//AimBot lets local player aim at enemy's head with full precision.
-	void AimBot(Vector3 TargetsHeadPosition);
 
 	void NeutralizeRecoil();
 
