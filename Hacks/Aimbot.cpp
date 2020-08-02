@@ -47,30 +47,28 @@ Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlaye
     return entityList[closestEntityIndex];
 }
 
-std::vector<Entity*> FilterOutDeadman(std::vector<Entity*> entityList, LocalPlayer* lp) {
+// FilterOutDeadman basically filter out the dead enemy from entityList.
+void FilterOutDeadman(std::vector<Entity*>& entityList, LocalPlayer* lp) {
 
-    std::vector<Entity*> result;
-
-    for (int i = 0;i < static_cast<int>(entityList.size());i++) {
-        if (entityList[i]->GetTeam() == lp->GetTeam())
-            continue;
-        if (!*entityList[i]->GetHealth())
-            continue;
-        result.push_back(entityList[i]);
+    for (int i = 0;i < static_cast<int>(entityList.size());) {
+        if (entityList[i]->GetTeam() == lp->GetTeam() || !*entityList[i]->GetHealth()) {
+            entityList.erase(entityList.begin() + i);
+        } else {
+            ++i;
+        }
     }
-    return result;
 }
 
 void Aimbot::Run(std::vector<Entity*> entityList)
 {
     LocalPlayer* lp = GetLocalPlayer();
 
-    std::vector<Entity*> newEntityList = FilterOutDeadman(entityList, lp);
-    std::cout << "after filter is: " << newEntityList.size() << std::endl;
+    FilterOutDeadman(entityList, lp);
+    std::cout << "after filter is: " << entityList.size() << std::endl;
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 
-    Entity* closestEnt = GetClosestEnemyFromCrosshair(newEntityList, lp);
+    Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList, lp);
     if (!closestEnt || *closestEnt->IsDormant())
         return;
     Vector3 delta;
