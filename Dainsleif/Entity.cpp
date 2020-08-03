@@ -32,9 +32,9 @@ bool* Entity::IsDormant()
 	return reinterpret_cast<bool*>((*(uintptr_t*)this + m_bDormant));
 }
 
-int* Entity::GetHealth()
+int Entity::GetHealth()
 {
-	return reinterpret_cast<int*>((*(uintptr_t*)this + m_iHealth));
+	return *reinterpret_cast<int*>((*(uintptr_t*)this + m_iHealth));
 }
 
 int Entity::GetTeam()

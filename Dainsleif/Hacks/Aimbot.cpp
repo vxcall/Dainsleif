@@ -52,7 +52,7 @@ Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlaye
 void FilterOutIrrelevant(std::vector<Entity*>& entityList, LocalPlayer* lp)
 {
     for (int i = 0;i < static_cast<int>(entityList.size());) {
-        if (entityList[i]->GetTeam() == lp->GetTeam() || !*entityList[i]->GetHealth()) {
+        if (entityList[i]->GetTeam() == lp->GetTeam() || !entityList[i]->GetHealth()) {
             entityList.erase(entityList.begin() + i);
         } else {
             ++i;
@@ -93,8 +93,7 @@ void Aimbot::Run(std::vector<Entity*> entityList)
         num * max == 0.5f.
         Bigger:0.5 = Smoller:x
         */
-        float pf;
-        float yf;
+        float pf, yf;
         if (pitchDistance > yawDistance)
         {
             pf = aimSmoothness;

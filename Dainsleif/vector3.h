@@ -27,4 +27,16 @@ public:
 		z *= arg;
 		return *this;
 	}
+
+	void Normalize() {
+        while (y > 180)
+            y -= 360;
+        while (y < -180)
+            y += 360;
+
+        if (x > 89.f)
+            x = 89.f;
+        else if (x < -89.f)
+            x = -89.f;
+	}
 };

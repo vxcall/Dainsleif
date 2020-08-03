@@ -11,7 +11,7 @@ public:
 	Vector3* GetViewOffset();
 
 	//GetHealth retrieves local player's health.
-	int* GetHealth();
+	int GetHealth();
 
 	//GetTeam returns teamNumber so that I can distinguish either the entity is friendly or hostile.
 	int GetTeam();

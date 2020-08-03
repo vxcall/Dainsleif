@@ -10,8 +10,6 @@ public:
 	//GetHeadPosition calculates head position by view offset and body position.
 	Vector3* GetHeadPosition();
 
-    void AutoPullTrigger(std::vector<Entity*> entityList);
-
     void SetFOV(int fov);
 };
 

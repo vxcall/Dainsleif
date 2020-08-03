@@ -20,15 +20,7 @@ void AntiRecoil::Run() {
             rcsAngle.y = viewAngle->y + (oldPunch.y - AimPunchAngle->y * 2.f);
             rcsAngle.x = viewAngle->x + (oldPunch.x - AimPunchAngle->x * 2.f);
 
-            while (viewAngle->y > 180)
-                viewAngle->y -= 360;
-            while (viewAngle->y < -180)
-                viewAngle->y += 360;
-
-            if (viewAngle->x > 89.f)
-                viewAngle->x = 89.f;
-            else if (viewAngle->x < -89.f)
-                viewAngle->x = -89.f;
+            viewAngle->Normalize();
 
             oldPunch.y = AimPunchAngle->y * 2.f;
             oldPunch.x = AimPunchAngle->x * 2.f;
