@@ -54,7 +54,7 @@ std::vector<Entity*> GetEntities()
 	std::vector<Entity*> entityList;
 	for (int i = 1; i < maxnum; ++i)
 	{
-		Entity* entity = reinterpret_cast<Entity*>(((moduleBase + dwEntityList) + i * 0x10));
+		auto* entity = reinterpret_cast<Entity*>(((moduleBase + dwEntityList) + i * 0x10));
 		if (!*reinterpret_cast<uintptr_t*>(entity)) //Cast the address that possibly is entity into uintptr_t and check if it's null.
 		    continue;
 		entityList.push_back(entity);

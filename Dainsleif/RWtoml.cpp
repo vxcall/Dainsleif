@@ -7,7 +7,7 @@ extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern int fov; //declared in dllmain.cpp
 extern float range;
 
-void RWtoml::ParseFile(std::string filename) {
+void RWtoml::ParseFile(std::string& filename) {
     auto saveData = toml::parse(filename);
 
     // find specified values associated with one keys, and assign them into each variable.
@@ -26,7 +26,7 @@ void RWtoml::ParseFile(std::string filename) {
     localGlowColor = ImVec4(toml::find_or(localGlowColorTable, "Red", Default::localGlowColor.x), toml::find_or(localGlowColorTable, "Green", Default::localGlowColor.y), toml::find_or(localGlowColorTable, "Blue", Default::localGlowColor.z), toml::find_or(localGlowColorTable, "Alpha", Default::localGlowColor.w));
 }
 
-void RWtoml::WriteFile(std::string filename) {
+void RWtoml::WriteFile(std::string& filename) {
     //Make a variable holds keys and values.
     const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
                            {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot}, {"fov", fov},

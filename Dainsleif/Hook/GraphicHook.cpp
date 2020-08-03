@@ -1,6 +1,7 @@
 #include "../pch.h"
 #include "ImGuiTheme.h"
 #include "GraphicHook.h"
+#include "../LocalPlayer.h"
 
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
 extern uintptr_t moduleBase; //declared in dll.main
@@ -128,6 +129,7 @@ void ShowMenuBar()
 }
 
 void ShowTabMenu() {
+    LocalPlayer* lp = GetLocalPlayer();
     ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
     if (ImGui::BeginTabBar("Hack_tab_bar", tab_bar_flags))
     {
@@ -158,6 +160,7 @@ void ShowTabMenu() {
         if (ImGui::BeginTabItem("Field of View"))
         {
             if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120))
+                lp->SetFOV(fov);
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();

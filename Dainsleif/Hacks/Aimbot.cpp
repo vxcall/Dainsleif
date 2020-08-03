@@ -1,4 +1,3 @@
-#include "../pch.h"
 #include "../LocalPlayer.h"
 #include "Aimbot.h"
 
@@ -21,20 +20,20 @@ float GetDistance(Vector3 targetPos, Vector3 basePos, Vector3& deltaVector)
 
 Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlayer* lp)
 {
-    static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
-    float closestDistance = 1000000;
+    static auto engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
+    float closestDistance = 1000000.f;
     int closestEntityIndex = -1;
-    Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+    auto* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
     for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
     {
-        Vector3 delta;
+        Vector3 delta{};
 
         Vector3* entityHeadPosition = entityList[i]->GetBonePosition();
         if (!entityHeadPosition) continue; //null pointer check
 
         GetDistance(*entityHeadPosition, *lp->GetHeadPosition(), delta);
         float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
-        int yawDistance = abs(static_cast<int>(yaw - viewAngles->y));
+        float yawDistance = fabs(yaw - viewAngles->y);
 
         if (yawDistance < closestDistance) {
             closestDistance = yawDistance;
@@ -65,14 +64,14 @@ void Aimbot::Run(std::vector<Entity*> entityList)
     LocalPlayer* lp = GetLocalPlayer();
 
     FilterOutIrrelevant(entityList, lp);
-    static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
-    static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+    static auto engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
+    static auto* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 
     Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList, lp);
     if (!closestEnt || *closestEnt->IsDormant())
         return;
 
-    Vector3 delta;
+    Vector3 delta{};
     float hypotenuse = GetDistance(*closestEnt->GetBonePosition(), *lp->GetHeadPosition(), delta);
     float pitch = -asin(delta.z / hypotenuse) * (180 / static_cast<float>(PI));
     float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));

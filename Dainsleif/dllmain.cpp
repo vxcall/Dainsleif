@@ -64,11 +64,11 @@ DWORD WINAPI fMain(LPVOID lpParameter)
             g_ShowMenu = false;
         }
 
-        if (gameState == 6 && !inGame) {
+        if (gameState == 6 && !inGame)
             inGame = true;
-        }
 
-        if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer())) continue;
+        if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
+            continue;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
@@ -96,9 +96,9 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bGlowHack)
         {
-            for (unsigned int i = 0; i < entityList.size(); ++i)
+            for (Entity* ent : entityList)
             {
-                Glow::Run(entityList[i]);
+                Glow::Run(ent);
             }
         }
 
