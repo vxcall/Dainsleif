@@ -1,14 +1,6 @@
 #include "../pch.h"
 #include "ImGuiTheme.h"
 #include "GraphicHook.h"
-#include "../LocalPlayer.h"
-
-/* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
-         * ParseFile() in RWtoml.cpp
-         * WriteFile() in RWtoml.cpp
-         * set everything to default section in hookedEndScene() in GraphicHook.cpp
-         * set to default section of the item
-*/
 
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
 extern uintptr_t moduleBase; //declared in dll.main
@@ -32,9 +24,9 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     return CallWindowProc(originalWndProc, hWnd, msg, wParam, lParam);
 }
 
-static void HelpMarker(std::string desc)
+static void HelpMarker(char* title, std::string desc)
 {
-    ImGui::TextDisabled("(?)");
+    ImGui::TextDisabled(title);
     if (ImGui::IsItemHovered())
     {
         ImGui::BeginTooltip();
@@ -65,6 +57,12 @@ void ShutdownImGui()
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
 }
+
+/* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
+         * ParseFile() in RWtoml.cpp
+         * WriteFile() in RWtoml.cpp
+         * setToDefault function
+*/
 
 void setToDefault(Hack_label label) {
     switch (label) {
@@ -130,7 +128,6 @@ void ShowMenuBar()
 }
 
 void ShowTabMenu() {
-    LocalPlayer* lp = GetLocalPlayer();
     ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
     if (ImGui::BeginTabBar("Hack_tab_bar", tab_bar_flags))
     {
@@ -161,7 +158,6 @@ void ShowTabMenu() {
         if (ImGui::BeginTabItem("Field of View"))
         {
             if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120))
-                lp->SetFOV(fov);
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();
@@ -189,7 +185,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ImGui::Spacing();
         ImGui::Spacing();
         ImGui::Spacing();
-        HelpMarker("Setting file location: " + filename);
+        HelpMarker("[FILE LOCATION]", filename);
         ImGui::End();
 
         ImGui::EndFrame();
