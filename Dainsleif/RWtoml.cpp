@@ -10,18 +10,18 @@ void RWtoml::ParseFile(std::string filename) {
     auto saveData = toml::parse(filename);
 
     // find specified values associated with one keys, and assign them into each variable.
-    bAimbot = toml::find_or<bool>(saveData, "bAimbot", false);
-    aimSmoothness = toml::find_or<float>(saveData, "aimSmoothness", 0.2f);
-    bGlowHack = toml::find_or<bool>(saveData, "bGlowHack", false);
-    bAntiRecoil = toml::find_or<bool>(saveData, "bAntiRecoil", false);
-    bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", false);
-    fov = toml::find_or<int>(saveData, "fov", 90);
+    bAimbot = toml::find_or<bool>(saveData, "bAimbot", Default::bAimbot);
+    aimSmoothness = toml::find_or(saveData, "aimSmoothness", Default::aimSmoothness);
+    bGlowHack = toml::find_or<bool>(saveData, "bGlowHack", Default::bGlowhack);
+    bAntiRecoil = toml::find_or<bool>(saveData, "bAntiRecoil", Default::bAntiRecoil);
+    bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", Default::bTriggerBot);
+    fov = toml::find_or(saveData, "fov", Default::fov);
 
     auto& enemyGlowColorTable = toml::find_or(saveData, "enemyGlowColor", {});
-    enemyGlowColor = ImVec4(toml::find_or<float>(enemyGlowColorTable, "Red", 0.8f), toml::find_or<float>(enemyGlowColorTable, "Green", 0.1f), toml::find_or<float>(enemyGlowColorTable, "Blue", 0.15f), toml::find_or<float>(enemyGlowColorTable, "Alpha", 1.0f));
+    enemyGlowColor = ImVec4(toml::find_or(enemyGlowColorTable, "Red", Default::enemyGlowColor.x), toml::find_or(enemyGlowColorTable, "Green", Default::enemyGlowColor.y), toml::find_or(enemyGlowColorTable, "Blue", Default::enemyGlowColor.z), toml::find_or(enemyGlowColorTable, "Alpha", Default::enemyGlowColor.w));
 
     auto& localGlowColorTable = toml::find_or(saveData, "localGlowColor", {});
-    localGlowColor = ImVec4(toml::find_or<float>(localGlowColorTable, "Red", 0.0f), toml::find_or<float>(localGlowColorTable, "Green", 0.255f), toml::find_or<float>(localGlowColorTable, "Blue", 0.7f), toml::find_or<float>(localGlowColorTable, "Alpha", 1.0f));
+    localGlowColor = ImVec4(toml::find_or(localGlowColorTable, "Red", Default::localGlowColor.x), toml::find_or(localGlowColorTable, "Green", Default::localGlowColor.y), toml::find_or(localGlowColorTable, "Blue", Default::localGlowColor.z), toml::find_or(localGlowColorTable, "Alpha", Default::localGlowColor.w));
 }
 
 void RWtoml::WriteFile(std::string filename) {

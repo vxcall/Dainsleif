@@ -13,9 +13,10 @@
 #include <d3d9.h>
 #include <detours.h>
 
-//my heade
+//my header
 #include "Hook/ImGuiTheme.h"
 #include "vector3.h"
+#include "DefaultSettings.h"
 #include "offsets.h"
 
 //external library

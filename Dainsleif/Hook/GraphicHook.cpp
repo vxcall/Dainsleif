@@ -16,14 +16,10 @@ extern int fov; //declared in dllmain.cpp
 extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern std::string filename; //declared in dllmain.cpp
 extern bool g_ShowMenu; //decleard in dllmain.cpp
-
 extern ImVec4 enemyGlowColor, localGlowColor;
-
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
-
-
 
 HWND window = NULL;
 WNDPROC originalWndProc = NULL;
@@ -76,31 +72,31 @@ void ShowMenuBar()
         if (ImGui::BeginMenu("Menu")) {
             if (ImGui::BeginMenu("Set to default")) {
                 if (ImGui::MenuItem("Everything")) {
-                    bAimbot = false;
-                    aimSmoothness = 0.2f;
-                    bGlowHack = false;
-                    enemyGlowColor = ImVec4(0.8f,0.1f,0.15f,1.f);
-                    localGlowColor = ImVec4(0.f,0.255f,0.7f,1.f);
-                    bAntiRecoil = false;
-                    bTriggerBot = false;
-                    fov = 90;
+                    bAimbot = Default::bAimbot;
+                    aimSmoothness = Default::aimSmoothness;
+                    bGlowHack = Default::bGlowhack;
+                    enemyGlowColor = Default::enemyGlowColor;
+                    localGlowColor = Default::localGlowColor;
+                    bAntiRecoil = Default::bAntiRecoil;
+                    bTriggerBot = Default::bTriggerBot;
+                    fov = Default::fov;
                 } else if (ImGui::MenuItem("Aim bot")) {
-                    bAimbot = false;
-                    aimSmoothness = 0.2f;
-                } else if (ImGui::MenuItem("Glow hack")) {
-                    bGlowHack = false;
-                    enemyGlowColor = ImVec4(0.8f,0.1f,0.15f,1.f);
-                    localGlowColor = ImVec4(0.f,0.255f,0.7f,1.f);
+                    bAimbot = Default::bAimbot;
+                    aimSmoothness = Default::aimSmoothness;
+                } else if (ImGui::MenuItem("Glow hack")){
+                    bGlowHack = Default::bGlowhack;
+                    enemyGlowColor = Default::enemyGlowColor;
+                    localGlowColor = Default::localGlowColor;
                 } else if (ImGui::MenuItem("Anti Recoil")) {
-                    bAntiRecoil = false;
+                    bAntiRecoil = Default::bAntiRecoil;
                 } else if (ImGui::MenuItem("Trigger bot")) {
-                    bTriggerBot = false;
+                    bTriggerBot = Default::bTriggerBot;
                 } else if (ImGui::MenuItem("FOV")) {
-                    fov = 90;
+                    fov = Default::fov;
                 }
                 ImGui::EndMenu();
             }
-            if (ImGui::MenuItem("Quit"))
+            if (ImGui::MenuItem("Quit game"))
                 bQuit = true;
             ImGui::EndMenu();
         }
@@ -164,8 +160,10 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ShowTabMenu(); //main view
 
         ImGui::Separator();
-
-        HelpMarker("Setting file is in the following directory: " + filename);
+        ImGui::Spacing();
+        ImGui::Spacing();
+        ImGui::Spacing();
+        HelpMarker("Setting file location: " + filename);
         ImGui::End();
 
         ImGui::EndFrame();

@@ -47,10 +47,11 @@ uintptr_t Entity::GetGlowIndex()
 	return *reinterpret_cast<uintptr_t*>(*(uintptr_t*)this + m_iGlowIndex);
 }
 
+//GetEntities returns a list of entity that is participating the game. It even contains died players.
 std::vector<Entity*> GetEntities()
 {
 	int maxnum = *GetMaxEntities(); //getting possible maximum number of entity. It was 64 when I tested.
-	std::vector<Entity*> entityList; //initialize vector by specifying the size with maxnum, and fill them with 0.
+	std::vector<Entity*> entityList;
 	for (int i = 1; i < maxnum; ++i)
 	{
 		Entity* entity = reinterpret_cast<Entity*>(((moduleBase + dwEntityList) + i * 0x10));

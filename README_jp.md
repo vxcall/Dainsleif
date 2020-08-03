@@ -2,6 +2,8 @@
 ![Game](https://img.shields.io/badge/Game-CS%3AGO-blue.svg?style=flat)
 ![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
 
+[英語版README](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README.md)
+
 # :zap: Dainsleif
 
 まず初めに、もしこのプロジェクトが気に入ったらStarしてくれると嬉しいです！

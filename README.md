@@ -121,8 +121,6 @@ This feature allows you to see both opponents and teammate's outline through wal
 Once you turn this on, you no longer have to press left click when you engage them.
 This feature will complete the job for you.
 
-- [ ] Fix a bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot
-
 ## Anti recoil
 
 This is basically a recoil control system.
@@ -139,24 +137,7 @@ But this doesn't guarantee the 100% accuracy.
 **overall**
 - [ ] Built-in pattern scanning system.
 - [ ] Enemy's health indicator.
-- [ ] Chams.
-- [x] Place quit button on menu bar.
-- [x] Aim bot.
-- [x] Glow hack.
-- [x] Trigger bot.
-- [x] Neutralize recoil.
-- [x] GUI menu for more better user experience (by hooking Directx9 endScene function).
-- [x] Close GUI menu whenever user gets outta in game and goes back to main menu.
-- [x] Save setting automatically that user inputs to toml file.
-- [x] Add a "reset setting" button.
+- [ ] Chams feature.
 
-**Aimbot**
-- [x] Fix a bug that causes crosshair to snap to the x and y axis of an enemy's head
-- [x] Create an unawareness zone that doesn't affect to crosshair movement.
-- [x] Check if bDormant is true
-- [x] Aiming smoother rather than instantly stick crosshair to the target
-- [x] Require more humanistic way to aim
-- [x] Aim at closest enemy based on the position of crosshair not physical distance so that user can move their angle most of the time
-
-**Glow hack**
-- [x] want it to be capable of setting specific color of outline.
+**Trigger bot**
+- [ ] Fix a bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot

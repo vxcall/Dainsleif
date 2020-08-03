@@ -47,8 +47,8 @@ Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlaye
     return entityList[closestEntityIndex];
 }
 
-// FilterOutDeadman basically filter out the dead enemy from entityList.
-void FilterOutDeadman(std::vector<Entity*>& entityList, LocalPlayer* lp)
+// FilterOutIrrelevant basically filter out the dead enemies and allies from entityList.
+void FilterOutIrrelevant(std::vector<Entity*>& entityList, LocalPlayer* lp)
 {
     for (int i = 0;i < static_cast<int>(entityList.size());) {
         if (entityList[i]->GetTeam() == lp->GetTeam() || !*entityList[i]->GetHealth()) {
@@ -63,13 +63,14 @@ void Aimbot::Run(std::vector<Entity*> entityList)
 {
     LocalPlayer* lp = GetLocalPlayer();
 
-    FilterOutDeadman(entityList, lp);
+    FilterOutIrrelevant(entityList, lp);
     static uintptr_t engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     static Vector3* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
 
     Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList, lp);
     if (!closestEnt || *closestEnt->IsDormant())
         return;
+
     Vector3 delta;
     float hypotenuse = GetDistance(*closestEnt->GetBonePosition(), *lp->GetHeadPosition(), delta);
     float pitch = -asin(delta.z / hypotenuse) * (180 / static_cast<float>(PI));
