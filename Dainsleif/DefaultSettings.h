@@ -6,6 +6,7 @@ namespace Default {
     //Aimbot
     const bool bAimbot = false;
     const float aimSmoothness = 0.2f;
+    const float range = 10.f;
 
     //Glow hack
     const bool bGlowhack = false;

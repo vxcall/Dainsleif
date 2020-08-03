@@ -5,6 +5,7 @@
 float aimSmoothness = 0.2f;
 extern uintptr_t moduleBase;
 const double PI = 3.14159265358;
+float range;
 
 // sign() checks if the argument is positive or negative
 int sign(float A)
@@ -80,7 +81,7 @@ void Aimbot::Run(std::vector<Entity*> entityList)
     {
         float pitchDistance = fabs(pitch - viewAngles->x);
         float yawDistance = fabs(yaw - viewAngles->y);
-        if (pitchDistance >= 11 || yawDistance >= 11) {
+        if (pitchDistance >= range || yawDistance >= range) {
             return;
         }
 

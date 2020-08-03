@@ -4,7 +4,8 @@
 extern ImVec4 enemyGlowColor, localGlowColor;
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dllmain.cpp
 extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
-extern int fov;
+extern int fov; //declared in dllmain.cpp
+extern float range;
 
 void RWtoml::ParseFile(std::string filename) {
     auto saveData = toml::parse(filename);
@@ -12,6 +13,7 @@ void RWtoml::ParseFile(std::string filename) {
     // find specified values associated with one keys, and assign them into each variable.
     bAimbot = toml::find_or<bool>(saveData, "bAimbot", Default::bAimbot);
     aimSmoothness = toml::find_or(saveData, "aimSmoothness", Default::aimSmoothness);
+    range = toml::find_or(saveData, "range", Default::range);
     bGlowHack = toml::find_or<bool>(saveData, "bGlowHack", Default::bGlowhack);
     bAntiRecoil = toml::find_or<bool>(saveData, "bAntiRecoil", Default::bAntiRecoil);
     bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", Default::bTriggerBot);
@@ -30,7 +32,7 @@ void RWtoml::WriteFile(std::string filename) {
                            {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot}, {"fov", fov},
                            {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
                            {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
-                           {"aimSmoothness", aimSmoothness}};
+                           {"aimSmoothness", aimSmoothness}, {"range", range}};
     //Open file and write it in toml syntax.
     std::ofstream file;
     file.open(filename, std::ios::out);

@@ -13,7 +13,7 @@
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
 extern uintptr_t moduleBase; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
-extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
+extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
 extern std::string filename; //declared in dllmain.cpp
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 extern ImVec4 enemyGlowColor, localGlowColor;
@@ -74,6 +74,7 @@ void ShowMenuBar()
                 if (ImGui::MenuItem("Everything")) {
                     bAimbot = Default::bAimbot;
                     aimSmoothness = Default::aimSmoothness;
+                    range = Default::range;
                     bGlowHack = Default::bGlowhack;
                     enemyGlowColor = Default::enemyGlowColor;
                     localGlowColor = Default::localGlowColor;
@@ -83,6 +84,7 @@ void ShowMenuBar()
                 } else if (ImGui::MenuItem("Aim bot")) {
                     bAimbot = Default::bAimbot;
                     aimSmoothness = Default::aimSmoothness;
+                    range = Default::range;
                 } else if (ImGui::MenuItem("Glow hack")){
                     bGlowHack = Default::bGlowhack;
                     enemyGlowColor = Default::enemyGlowColor;
@@ -113,6 +115,7 @@ void ShowTabMenu() {
         {
             ImGui::Checkbox("Enable Aim bot", &bAimbot);
             ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.005f, 0.4f);
+            ImGui::SliderFloat("Range", &range, 1.f, 30.f);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Glow hack"))
