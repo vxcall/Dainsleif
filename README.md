@@ -1,4 +1,5 @@
-![Language](https://img.shields.io/badge/Language-C%2B%2B-%23ff40d9.svg?style=flat)
+![cpp](https://img.shields.io/badge/C%2B%2B-17-%23ff40d9.svg?style=flat)
+![cmake](https://img.shields.io/badge/cmake-3.16-yellow)
 ![Game](https://img.shields.io/badge/Game-CS%3AGO-blue.svg?style=flat)
 ![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
 
