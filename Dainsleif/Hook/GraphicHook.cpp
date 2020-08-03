@@ -66,35 +66,58 @@ void ShutdownImGui()
     ImGui::DestroyContext();
 }
 
+void setToDefault(Hack_label label) {
+    switch (label) {
+        case ALL:
+            bAimbot = Default::bAimbot;
+            aimSmoothness = Default::aimSmoothness;
+            range = Default::range;
+            bGlowHack = Default::bGlowhack;
+            enemyGlowColor = Default::enemyGlowColor;
+            localGlowColor = Default::localGlowColor;
+            bAntiRecoil = Default::bAntiRecoil;
+            bTriggerBot = Default::bTriggerBot;
+            fov = Default::fov;
+            break;
+        case AIMBOT:
+            bAimbot = Default::bAimbot;
+            aimSmoothness = Default::aimSmoothness;
+            range = Default::range;
+            break;
+        case GLOWHACK:
+            bGlowHack = Default::bGlowhack;
+            enemyGlowColor = Default::enemyGlowColor;
+            localGlowColor = Default::localGlowColor;
+            break;
+        case ANTIRECOIL:
+            bAntiRecoil = Default::bAntiRecoil;
+            break;
+        case TRIGGERBOT:
+            bTriggerBot = Default::bTriggerBot;
+            break;
+        case FOV:
+            fov = Default::fov;
+            break;
+    }
+}
+
 void ShowMenuBar()
 {
     if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("Menu")) {
             if (ImGui::BeginMenu("Set to default")) {
                 if (ImGui::MenuItem("Everything")) {
-                    bAimbot = Default::bAimbot;
-                    aimSmoothness = Default::aimSmoothness;
-                    range = Default::range;
-                    bGlowHack = Default::bGlowhack;
-                    enemyGlowColor = Default::enemyGlowColor;
-                    localGlowColor = Default::localGlowColor;
-                    bAntiRecoil = Default::bAntiRecoil;
-                    bTriggerBot = Default::bTriggerBot;
-                    fov = Default::fov;
+                    setToDefault(ALL);
                 } else if (ImGui::MenuItem("Aim bot")) {
-                    bAimbot = Default::bAimbot;
-                    aimSmoothness = Default::aimSmoothness;
-                    range = Default::range;
+                    setToDefault(AIMBOT);
                 } else if (ImGui::MenuItem("Glow hack")){
-                    bGlowHack = Default::bGlowhack;
-                    enemyGlowColor = Default::enemyGlowColor;
-                    localGlowColor = Default::localGlowColor;
+                    setToDefault(GLOWHACK);
                 } else if (ImGui::MenuItem("Anti Recoil")) {
-                    bAntiRecoil = Default::bAntiRecoil;
+                    setToDefault(ANTIRECOIL);
                 } else if (ImGui::MenuItem("Trigger bot")) {
-                    bTriggerBot = Default::bTriggerBot;
+                    setToDefault(TRIGGERBOT);
                 } else if (ImGui::MenuItem("FOV")) {
-                    fov = Default::fov;
+                    setToDefault(FOV);
                 }
                 ImGui::EndMenu();
             }
