@@ -5,7 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 if (CMAKE_GENERATOR MATCHES "Visual Studio")
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-  source_group(Dependencies REGULAR_EXPRESSION ${CMAKE_CURRENT_LIST_DIR}/Dependencies/*)
+  file(GLOB_RECURSE SOURCE_LIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c *.cpp *.h *.hpp)
+  source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCE_LIST})
 endif ()
 
 #Directx9
@@ -34,6 +35,6 @@ add_library(Dainsleif SHARED Dainsleif/dllmain.cpp Dainsleif/Entity.cpp Dainslei
 
 if (MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")
-endif (MSVC)
+endif ()
 
 target_link_libraries(${PROJECT_NAME} d3d9 detours)
