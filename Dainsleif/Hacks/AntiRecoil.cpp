@@ -2,10 +2,8 @@
 #include "../LocalPlayer.h"
 #include "AntiRecoil.h"
 
-
 Vector3 oldPunch = { 0, 0, 0 };
 int oldShotCount = 0;
-
 
 void AntiRecoil::Run() {
     static const WeaponID rejectWeaponList[11] = {GLOCK_HG, DUAL_BERETTAS_HG, P250_HG, TEC9_HG,DESERT_EAGLE_HG,

@@ -15,7 +15,7 @@ As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as 
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 
-### STILL WORKING: August 03, 2020
+### STILL WORKING: August 05, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 
