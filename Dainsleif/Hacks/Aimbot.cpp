@@ -63,8 +63,6 @@ void Aimbot::Run(std::vector<Entity*> entityList)
 {
     LocalPlayer* lp = GetLocalPlayer();
 
-    lp->GetWeapon();
-
     FilterOutIrrelevant(entityList, lp);
     static auto engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     static auto* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));

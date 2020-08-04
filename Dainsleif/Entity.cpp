@@ -47,18 +47,20 @@ uintptr_t Entity::GetGlowIndex()
 	return *reinterpret_cast<uintptr_t*>(*(uintptr_t*)this + m_iGlowIndex);
 }
 
-void Entity::GetWeapon() {
+WeaponID Entity::GetWeaponID() {
     uintptr_t hWeapon = *reinterpret_cast<uintptr_t *>(*reinterpret_cast<uintptr_t *>(this) + m_hActiveWeapon);
-    std::cout << (hWeapon & 0xFFF) -1 << std::endl;
     uintptr_t pEntityWeapon = *reinterpret_cast<uintptr_t*>(moduleBase + dwEntityList + ((hWeapon & 0xFFF) -1) * 0x10);
-    int weaponId = *reinterpret_cast<int*>(pEntityWeapon + m_iItemDefinitionIndex);
-    std::cout << weaponId << std::endl;
+    if (!pEntityWeapon) {
+        return NULLWEAPON;
+    }
+    WeaponID iWeaponID = *reinterpret_cast<WeaponID*>(pEntityWeapon + m_iItemDefinitionIndex);
+    return iWeaponID;
 }
 
 //GetEntities returns a list of entity that is participating the game. It even contains died players.
 std::vector<Entity*> GetEntities()
 {
-	int maxnum = *GetMaxEntities(); //getting possible maximum number of entity. It was 64 when I tested.
+	int maxnum = GetMaxEntities(); //getting possible maximum number of entity. It was 64 when I tested.
 	std::vector<Entity*> entityList;
 	for (int i = 1; i < maxnum; ++i)
 	{
@@ -70,7 +72,7 @@ std::vector<Entity*> GetEntities()
 	return entityList;
 }
 
-int* GetMaxEntities() {
+int GetMaxEntities() {
 	uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
-	return reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>((moduleBase + dwClientState)) + dwClientState_MaxPlayer));
+	return *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>((moduleBase + dwClientState)) + dwClientState_MaxPlayer));
 }
