@@ -47,6 +47,14 @@ uintptr_t Entity::GetGlowIndex()
 	return *reinterpret_cast<uintptr_t*>(*(uintptr_t*)this + m_iGlowIndex);
 }
 
+void Entity::GetWeapon() {
+    uintptr_t hWeapon = *reinterpret_cast<uintptr_t *>(*reinterpret_cast<uintptr_t *>(this) + m_hActiveWeapon);
+    std::cout << (hWeapon & 0xFFF) -1 << std::endl;
+    uintptr_t pEntityWeapon = *reinterpret_cast<uintptr_t*>(moduleBase + dwEntityList + ((hWeapon & 0xFFF) -1) * 0x10);
+    int weaponId = *reinterpret_cast<int*>(pEntityWeapon + m_iItemDefinitionIndex);
+    std::cout << weaponId << std::endl;
+}
+
 //GetEntities returns a list of entity that is participating the game. It even contains died players.
 std::vector<Entity*> GetEntities()
 {

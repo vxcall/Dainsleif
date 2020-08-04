@@ -21,6 +21,8 @@ public:
 	Vector3* GetBonePosition();
 
 	uintptr_t GetGlowIndex();
+
+    void GetWeapon();
 };
 
 std::vector<Entity*> GetEntities();
