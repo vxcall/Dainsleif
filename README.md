@@ -23,16 +23,16 @@ You can easily support/motivate me by either **starring my project**, **followin
 
 # :pushpin: Table of contents
 
-- [How to build this hack](#syringe-how-to-build-this-hack)
-- [Menu](#scroll-menu)
-    - [Warning](#rotating_light-warning)
-- [Hacks](#computer-hacks)
+- [:syringe: How to build this hack](#syringe-how-to-build-this-hack)
+- [:scroll: Menu](#scroll-menu)
+    - [:rotating_light: Warning](#rotating_light-warning)
+- [:computer: Hacks](#computer-hacks)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
     - [Trigger bot](#trigger-bot)
     - [Anti recoil](#anti-recoil)
-- [Features being developed](#hammer_and_wrench-features-being-developed)
-- [Contributors](#busts_in_silhouette-contributors)
+- [:hammer_and_wrench: Features being developed](#hammer_and_wrench-features-being-developed)
+- [:busts_in_silhouette: Contributors](#busts_in_silhouette-contributors)
 
 
 # :syringe: How to build this hack
