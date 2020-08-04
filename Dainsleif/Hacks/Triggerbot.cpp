@@ -5,12 +5,11 @@
 
 extern uintptr_t moduleBase;
 
-//If Trigger bot is on, Aimbot have to need this somehow.
 void Triggerbot::Run(std::vector<Entity*> entityList)
 {
     uintptr_t* fa = reinterpret_cast<uintptr_t *>(moduleBase + dwForceAttack);
     LocalPlayer* lp = GetLocalPlayer();
-    int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(lp) + m_iCrosshairId); //this int value holds index of entity list.
+    int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(lp) + m_iCrosshairId);
     if (crosshairID != 0) {
         //When you kill all enemy, it's somehow gonna be a number more than 300.
         if (crosshairID < 2 ||crosshairID - 2 > 9) return;
