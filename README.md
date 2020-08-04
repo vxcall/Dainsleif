@@ -31,8 +31,8 @@ You can easily support/motivate me by either **starring my project**, **followin
     - [Glow hack](#glow-hack)
     - [Trigger bot](#trigger-bot)
     - [Anti recoil](#anti-recoil)
-- [Features being developed](#features-being-developed)
-- [Contributors](#contributors)
+- [Features being developed](#hammer_and_wrench-features-being-developed)
+- [Contributors](#busts_in_silhouette-contributors)
 
 
 # :syringe: How to build this hack
@@ -130,10 +130,10 @@ But this doesn't guarantee the 100% accuracy.
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
 
-# Contributors
+# :busts_in_silhouette: Contributors
 - [l1m0n3](https://github.com/l1m0n3)
 
-# Features being developed
+# :hammer_and_wrench: Features being developed
 
 **overall**
 - [ ] Built-in pattern scanning system.
