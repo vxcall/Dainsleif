@@ -47,7 +47,7 @@ uintptr_t Entity::GetGlowIndex()
 	return *reinterpret_cast<uintptr_t*>(*(uintptr_t*)this + m_iGlowIndex);
 }
 
-WeaponID Entity::GetWeaponID() {
+WeaponID Entity::GetCurrentWeaponID() {
     uintptr_t hWeapon = *reinterpret_cast<uintptr_t *>(*reinterpret_cast<uintptr_t *>(this) + m_hActiveWeapon);
     uintptr_t pEntityWeapon = *reinterpret_cast<uintptr_t*>(moduleBase + dwEntityList + ((hWeapon & 0xFFF) -1) * 0x10);
     if (!pEntityWeapon) {

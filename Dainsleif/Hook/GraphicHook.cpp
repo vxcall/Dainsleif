@@ -120,7 +120,7 @@ void ShowMenuBar()
                 }
                 ImGui::EndMenu();
             }
-            if (ImGui::MenuItem("Quit game"))
+            if (ImGui::MenuItem("Remove hack"))
                 bQuit = true;
             ImGui::EndMenu();
         }

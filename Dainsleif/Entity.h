@@ -64,7 +64,7 @@ public:
 
 	uintptr_t GetGlowIndex();
 
-    WeaponID GetWeaponID();
+    WeaponID GetCurrentWeaponID();
 };
 
 std::vector<Entity*> GetEntities();

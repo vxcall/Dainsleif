@@ -5,6 +5,7 @@ constexpr uintptr_t dwppDirect3DDevice9 = 0xA7030;
 constexpr uintptr_t dwEntityList = 0x4D534EC;
 constexpr uintptr_t dwLocalPlayer = 0xD3EC6C;
 constexpr uintptr_t dwGlowObjectManager = 0x529B3C8;
+constexpr uintptr_t dwForceAttack = 0x3184A80;
 
 constexpr uintptr_t m_vecOrigin = 0x138;
 constexpr uintptr_t m_iHealth = 0x100;
@@ -17,6 +18,9 @@ constexpr uintptr_t m_iShotsFired = 0xA390;
 constexpr uintptr_t m_iCrosshairId = 0xB3E4;
 constexpr uintptr_t m_iFOV = 0x332C;
 constexpr uintptr_t m_bDormant = 0xED;
+constexpr uintptr_t m_flNextAttack = 0x2D70;
+
+
 constexpr uintptr_t m_hActiveWeapon = 0x2EF8;
 constexpr uintptr_t m_iItemDefinitionIndex = 0x2FAA;
 
