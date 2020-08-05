@@ -89,6 +89,11 @@ DWORD WINAPI fMain(LPVOID lpParameter)
             entityList = GetEntities();
         }
 
+        if (bTriggerBot)
+        {
+            Triggerbot::Run(entityList);
+        }
+
         if (bAimbot)
         {
             Aimbot::Run(entityList);
@@ -105,11 +110,6 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         if (bAntiRecoil)
         {
             AntiRecoil::Run();
-        }
-
-        if (bTriggerBot)
-        {
-            Triggerbot::Run(entityList);
         }
 
         Sleep(1); //sleep for performance aspect
