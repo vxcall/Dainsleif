@@ -98,9 +98,6 @@ If the menu doesn't show up when you press <kbd>INSERT</kbd>, or your game crash
 Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
 
 # :computer: Hacks
-I've already been supporting a few hacks but unfortunately they're really like...under construction.
-
-Each of them could work correctly yet when they are on concurrently with others, they sometimes malfunction. I'll fix it shortly.
 
 ## Aimbot
 
@@ -108,6 +105,9 @@ This is the feature I can guarantee the highest quality in the hacks I offer her
 
 Turning this function on automatically lets you aim at enemy's head with 100% precision.
 It select the closest enemy from where your crosshair is as a target.
+
+Tweaking Smoothness bar affects the smoothness of sticking aim.
+By changing the value of the Range bar, you can change the range in which the aimbot will react
 
 ![aimbot](https://user-images.githubusercontent.com/33578715/89108283-b31e8d80-d469-11ea-8e55-e4e469d74576.gif)
 
@@ -121,6 +121,8 @@ This feature allows you to see both opponents and teammate's outline through wal
 
 Once you turn this on, you no longer have to press left click when you engage them.
 This feature will complete the job for you.
+
+This is designed to use in conjunction with Aimbot.
 
 ## Anti recoil
 
@@ -141,4 +143,4 @@ But this doesn't guarantee the 100% accuracy.
 - [ ] Chams feature.
 
 **Trigger bot**
-- [ ] Fix a bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot
+- [x] Fix a bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot

@@ -4,10 +4,12 @@
 #include "Triggerbot.h"
 
 extern uintptr_t moduleBase;
+extern bool bAimbot;
 
 void Triggerbot::Run(std::vector<Entity*> entityList)
 {
-    uintptr_t* fa = reinterpret_cast<uintptr_t *>(moduleBase + dwForceAttack);
+    static bool bFreeMouse;
+    auto* fa = reinterpret_cast<uintptr_t *>(moduleBase + dwForceAttack);
     LocalPlayer* lp = GetLocalPlayer();
     int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(lp) + m_iCrosshairId);
     if (crosshairID != 0) {
@@ -15,14 +17,17 @@ void Triggerbot::Run(std::vector<Entity*> entityList)
         if (crosshairID < 2 ||crosshairID - 2 > 9) return;
         if (lp->GetTeam() != entityList[crosshairID - 2]->GetTeam())
         {
-            std::cout << *fa << std::endl;
+            bFreeMouse = false;
             if (*fa == 4) {
+                    Sleep(35);
                 *fa = 5;
             } else if (*fa == 5) {
                 *fa = 4;
             }
         }
-    } else if (!crosshairID) {
+    }
+    if (crosshairID == 0 && !bFreeMouse) {
         *fa = 4;
+        bFreeMouse = true;
     }
 }
