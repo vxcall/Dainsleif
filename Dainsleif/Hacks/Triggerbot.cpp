@@ -17,7 +17,7 @@ void Triggerbot::Run(std::vector<Entity*> entityList)
     //check if you're aiming at living hostile.
     if (crosshairID > 1 && crosshairID - 2 < (static_cast<int>(entityList.size()) + 1) && lp->GetTeam() != entityList[crosshairID - 2]->GetTeam()) {
         bFreeMouse = false;
-        if (*fa == 4)
+        if (bAimbot && *fa == 4)
             Sleep(60);
         *fa = 5;
     }

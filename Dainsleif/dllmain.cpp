@@ -9,6 +9,7 @@
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
 bool g_ShowMenu = false;
+bool inGame = false;
 
 TCHAR dir[ MAX_PATH ];
 std::string filename;//const char* dir = "C:/Users/PC/Dainsleif"; //directory savedata will be saved.
@@ -46,7 +47,6 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     while (true)
     {
-        static bool inGame = false;
         if (bQuit)
         {
             RWtoml::WriteFile(filename);
@@ -61,24 +61,20 @@ DWORD WINAPI fMain(LPVOID lpParameter)
                 RWtoml::WriteFile(filename);
                 inGame = false;
             }
-            g_ShowMenu = false;
         }
-
-        if (gameState == 6 && !inGame)
-            inGame = true;
-
-        if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
-            continue;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            if (gameState == 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
-            {
-                g_ShowMenu = !g_ShowMenu;
-                if (!g_ShowMenu)
-                    RWtoml::WriteFile(filename);
-            }
+            g_ShowMenu = !g_ShowMenu;
+            if (!g_ShowMenu)
+                RWtoml::WriteFile(filename);
         }
+
+        if (gameState != 6 || !*reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
+            continue;
+
+        if (!inGame)
+            inGame = true;
 
         static bool bInitLocalPlayer = false;
         if (!bInitLocalPlayer) {
