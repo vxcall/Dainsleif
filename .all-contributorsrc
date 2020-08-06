@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "l1m0n3",
+      "name": "L1m0n3",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13360351?v=4",
+      "profile": "https://github.com/l1m0n3",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "Dainsleif",
+  "projectOwner": "s3pt3mb3r",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
