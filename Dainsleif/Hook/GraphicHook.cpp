@@ -75,10 +75,8 @@ void setToDefault(Hack_label label) {
             localGlowColor = Default::localGlowColor;
             bAntiRecoil = Default::bAntiRecoil;
             bTriggerBot = Default::bTriggerBot;
-
             fov = Default::fov;
-            if (Player::GetLocalPlayer())
-                Player::GetLocalPlayer()->SetFOV(Default::fov);
+            Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
         case AIMBOT:
             bAimbot = Default::bAimbot;
@@ -98,8 +96,7 @@ void setToDefault(Hack_label label) {
             break;
         case FOV:
             fov = Default::fov;
-            if (Player::GetLocalPlayer())
-                Player::GetLocalPlayer()->SetFOV(Default::fov);
+            Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
     }
 }

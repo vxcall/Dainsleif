@@ -101,5 +101,6 @@ Weapon* Player::GetActiveWeapon()
 
 void Player::SetFOV(int fov)
 {
-    WriteValue<int>(m_iFOV, fov);
+    if (this)
+        WriteValue<int>(m_iFOV, fov);
 }
