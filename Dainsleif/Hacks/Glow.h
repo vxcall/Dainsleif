@@ -1,9 +1,8 @@
 #pragma once
-#include "../Entity.h"
-#include "../LocalPlayer.h"
+#include "../Player.h"
 
 namespace Glow {
-    void Run(Entity* entity);
+    void Run(Player* player);
 }
 
 //This is a struct to treat glow stuff cleaner maybe XD.

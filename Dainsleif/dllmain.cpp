@@ -5,6 +5,7 @@
 #include "Hacks/AntiRecoil.h"
 #include "Hacks/Triggerbot.h"
 #include "Hook/GraphicHook.h"
+#include "Player.h"
 
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
@@ -23,7 +24,7 @@ VOID WINAPI Detach(LPVOID lpParameter)
 }
 
 void InitSetting() {
-    GetLocalPlayer()->SetFOV(fov);
+    Player::GetLocalPlayer()->SetFOV(fov);
 }
 
 DWORD WINAPI fMain(LPVOID lpParameter)
@@ -45,24 +46,26 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     RWtoml::ParseFile(filename);
 
+    Modules::Initialize();
+
     hookEndScene();
 
-    std::vector<Entity*> entityList;
+    std::vector<Player*> playerList;
 
     //MUST save this to use as a flag cuz the value of local player's gonna be stored at the same address even the match ended.
-    uintptr_t oldLocalPlayer = 0;
+    Player* oldLocalPlayer = nullptr;
 
     //Hack loop entry point.
     while (true)
     {
-        if (bQuit)
+        if (GetAsyncKeyState(VK_DELETE) & 1 || bQuit)
         {
             RWtoml::WriteFile(filename);
             break;
         }
 
-        int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State));
-        uintptr_t localPlayer = *reinterpret_cast<uintptr_t*>(GetLocalPlayer());
+        int gameState = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
+        Player* localPlayer = Player::GetLocalPlayer();
 
         if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
             RWtoml::WriteFile(filename);
@@ -87,24 +90,24 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         }
 
         if (bAimbot || bTriggerBot || bGlowHack || bAntiRecoil) {
-            entityList = GetEntities();
+            playerList = Player::GetAll();
         }
 
         if (bTriggerBot)
         {
-            Triggerbot::Run(entityList);
+            Triggerbot::Run();
         }
 
         if (bAimbot)
         {
-            Aimbot::Run(entityList);
+            Aimbot::Run(playerList);
         }
 
         if (bGlowHack)
         {
-            for (Entity* ent : entityList)
+            for (Player* player : playerList)
             {
-                Glow::Run(ent);
+                Glow::Run(player);
             }
         }
 

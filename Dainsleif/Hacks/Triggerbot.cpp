@@ -1,29 +1,32 @@
 #include "../pch.h"
-#include "../Entity.h"
-#include "../LocalPlayer.h"
 #include "Triggerbot.h"
 
-extern uintptr_t moduleBase;
 extern bool bAimbot;
 
-void Triggerbot::Run(std::vector<Entity*> entityList)
+void Triggerbot::Run()
 {
     //if bFreeMouse is false, mouse move will set to be free.
     static bool bFreeMouse;
-
-    LocalPlayer* lp = GetLocalPlayer();
-    int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(lp) + m_iCrosshairId);
-    auto* fa = reinterpret_cast<uintptr_t *>(moduleBase + dwForceAttack);
-    //check if you're aiming at living hostile.
-    if (crosshairID > 1 && crosshairID - 2 < (static_cast<int>(entityList.size()) + 1) && lp->GetTeam() != entityList[crosshairID - 2]->GetTeam()) {
-        bFreeMouse = false;
-        if (bAimbot && *fa == 4)
-            Sleep(60);
-        *fa = 5;
+    auto* forceAttack = reinterpret_cast<uintptr_t*>(Modules::client + dwForceAttack);
+    Player* localPlayer = Player::GetLocalPlayer();
+    int crosshairID = localPlayer->GetCrosshairID();
+    if (crosshairID != 0) {
+        //When you kill all enemy, it's somehow gonna be a number more than 300.
+        //if (crosshairID < 2 ||crosshairID - 2 > 9) return;
+        Entity* target = Entity::GetByIndex(crosshairID - 1);
+        if (target->GetClientClass()->m_ClassID == ClassID::CCSPlayer && localPlayer->GetTeam() != target->Cast<Player*>()->GetTeam())
+        {
+            bFreeMouse = false;
+            if (bAimbot && *forceAttack == 4)
+            {
+                Sleep(60);
+            }
+            *forceAttack = 5;
+        }
     }
 
     if (crosshairID == 0 && !bFreeMouse) {
-        *fa = 4;
+        *forceAttack = 4;
         bFreeMouse = true;
     }
 }

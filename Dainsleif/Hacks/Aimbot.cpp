@@ -1,9 +1,7 @@
-#include "../LocalPlayer.h"
 #include "Aimbot.h"
 
-float aimSmoothness = 0.2f;
-extern uintptr_t moduleBase;
 const double PI = 3.14159265358;
+float aimSmoothness = 0.2f;
 float range;
 
 // sign() checks if the argument is positive or negative
@@ -18,61 +16,61 @@ float GetDistance(Vector3 targetPos, Vector3 basePos, Vector3& deltaVector)
     return sqrt(deltaVector.x * deltaVector.x + deltaVector.y * deltaVector.y + deltaVector.z * deltaVector.z);
 }
 
-Entity* GetClosestEnemyFromCrosshair(std::vector<Entity*> entityList, LocalPlayer* lp)
+Player* GetClosestEnemyFromCrosshair(std::vector<Player*> playerList, Player* localPlayer)
 {
-    static auto engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
     float closestDistance = 1000000.f;
-    int closestEntityIndex = -1;
-    auto* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
-    for (int i = 0; i < static_cast<int>(entityList.size()); ++i)
+    int closestPlayerIndex = -1;
+    auto* viewAngles = reinterpret_cast<Vector3*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_ViewAngles);
+    for (int i = 0; i < playerList.size(); ++i)
     {
         Vector3 delta{};
 
-        Vector3* entityHeadPosition = entityList[i]->GetBonePosition();
-        if (!entityHeadPosition) continue; //null pointer check
+        if (!playerList[i]->GetBoneMatrix()) continue; //null pointer check
 
-        GetDistance(*entityHeadPosition, *lp->GetHeadPosition(), delta);
+        Vector3 playerHeadPosition = playerList[i]->GetBonePosition();
+
+        GetDistance(playerHeadPosition, localPlayer->GetHeadPosition(), delta);
         float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
         float yawDistance = fabs(yaw - viewAngles->y);
 
         if (yawDistance < closestDistance) {
             closestDistance = yawDistance;
-            closestEntityIndex = i;
+            closestPlayerIndex = i;
         }
     }
-    if (closestEntityIndex == -1)
+    if (closestPlayerIndex == -1)
     {
         return nullptr;
     }
-    return entityList[closestEntityIndex];
+    return playerList[closestPlayerIndex];
 }
 
-// FilterOutIrrelevant basically filter out the dead enemies and allies from entityList.
-void FilterOutIrrelevant(std::vector<Entity*>& entityList, LocalPlayer* lp)
+// FilterOutIrrelevant basically filter out the dead enemies and allies from playerList.
+void FilterOutIrrelevant(std::vector<Player*>& playerList, Player* localPlayer)
 {
-    for (int i = 0;i < static_cast<int>(entityList.size());) {
-        if (entityList[i]->GetTeam() == lp->GetTeam() || !entityList[i]->GetHealth()) {
-            entityList.erase(entityList.begin() + i);
+    for (int i = 0;i < static_cast<int>(playerList.size());) {
+        if (playerList[i]->GetTeam() == localPlayer->GetTeam() || !playerList[i]->GetHealth()) {
+            playerList.erase(playerList.begin() + i);
         } else {
             ++i;
         }
     }
 }
 
-void Aimbot::Run(std::vector<Entity*> entityList)
+void Aimbot::Run(std::vector<Player*> playerList)
 {
-    LocalPlayer* lp = GetLocalPlayer();
+    Player* localPlayer = Player::GetLocalPlayer();
 
-    FilterOutIrrelevant(entityList, lp);
-    static auto engineModule = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
-    static auto* viewAngles = reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>((engineModule + dwClientState)) + dwClientState_ViewAngles));
+    FilterOutIrrelevant(playerList, localPlayer);
 
-    Entity* closestEnt = GetClosestEnemyFromCrosshair(entityList, lp);
-    if (!closestEnt || *closestEnt->IsDormant())
+    static auto* viewAngles = reinterpret_cast<Vector3*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_ViewAngles);
+
+    Player* closestEnt = GetClosestEnemyFromCrosshair(playerList, localPlayer);
+    if (!closestEnt || closestEnt->IsDormant())
         return;
 
     Vector3 delta{};
-    float hypotenuse = GetDistance(*closestEnt->GetBonePosition(), *lp->GetHeadPosition(), delta);
+    float hypotenuse = GetDistance(closestEnt->GetBonePosition(), localPlayer->GetHeadPosition(), delta);
     float pitch = -asin(delta.z / hypotenuse) * (180 / static_cast<float>(PI));
     float yaw = atan2(delta.y, delta.x) * (180 / static_cast<float>(PI));
 

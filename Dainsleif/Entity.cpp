@@ -1,78 +1,42 @@
 #include "pch.h"
 #include "Entity.h"
 
-extern uintptr_t moduleBase;
-
-Vector3* Entity::GetBodyPosition()
+Entity* Entity::GetByIndex(int index)
 {
-	return reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>(this) + m_vecOrigin));
+    return *reinterpret_cast<Entity**>(Modules::client + dwEntityList + sizeof(EntInfo) * index);
 }
 
-Vector3* Entity::GetViewOffset()
+std::vector<Entity*> Entity::GetAll()
 {
-	return reinterpret_cast<Vector3*>((*reinterpret_cast<uintptr_t*>(this) + m_vecViewOffset));
-}
+    std::vector<Entity*> allEntities;
+    for (EntInfo* entInfo = reinterpret_cast<EntInfo*>(Modules::client + dwEntityList); entInfo; entInfo = entInfo->m_pNext)
+    {
+        if (entInfo->m_pEntity == nullptr)
+        {
+            continue;
+        }
 
-#define boneID 8
-Vector3* Entity::GetBonePosition()
-{
-	uintptr_t boneMatrix = *reinterpret_cast<uintptr_t*>(*reinterpret_cast<uintptr_t*>(this) + m_dwBoneMatrix);
-	if (!boneMatrix) { //When started the game while bAimbot is on, the game is gonna crash.
-	    return nullptr;
-	}
-	static Vector3 bonePos;
-    bonePos.x = *reinterpret_cast<float*>(boneMatrix + 0x30 * boneID + 0x0C);
-    bonePos.y = *reinterpret_cast<float*>(boneMatrix + 0x30 * boneID + 0x1C);
-    bonePos.z = *reinterpret_cast<float*>(boneMatrix + 0x30 * boneID + 0x2C);
-	return &bonePos;
-}
+        allEntities.push_back(entInfo->m_pEntity);
 
-bool* Entity::IsDormant()
-{
-	return reinterpret_cast<bool*>((*(uintptr_t*)this + m_bDormant));
-}
-
-int Entity::GetHealth()
-{
-	return *reinterpret_cast<int*>((*(uintptr_t*)this + m_iHealth));
-}
-
-int Entity::GetTeam()
-{
-	return *reinterpret_cast<int*>((*(uintptr_t*)this + m_iTeamNum));
-}
-
-uintptr_t Entity::GetGlowIndex()
-{
-	return *reinterpret_cast<uintptr_t*>(*(uintptr_t*)this + m_iGlowIndex);
-}
-
-WeaponID Entity::GetCurrentWeaponID() {
-    uintptr_t hWeapon = *reinterpret_cast<uintptr_t *>(*reinterpret_cast<uintptr_t *>(this) + m_hActiveWeapon);
-    uintptr_t pEntityWeapon = *reinterpret_cast<uintptr_t*>(moduleBase + dwEntityList + ((hWeapon & 0xFFF) -1) * 0x10);
-    if (!pEntityWeapon) {
-        return NULLWEAPON;
+        if (entInfo->m_pNext == nullptr || entInfo->m_pNext == entInfo->m_pPrev)
+        {
+            break;
+        }
     }
-    WeaponID iWeaponID = *reinterpret_cast<WeaponID*>(pEntityWeapon + m_iItemDefinitionIndex);
-    return iWeaponID;
+    return allEntities;
 }
 
-//GetEntities returns a list of entity that is participating the game. It even contains died players.
-std::vector<Entity*> GetEntities()
+void* Entity::GetClientNetworkable()
 {
-	int maxnum = GetMaxEntities(); //getting possible maximum number of entity. It was 64 when I tested.
-	std::vector<Entity*> entityList;
-	for (int i = 1; i < maxnum; ++i)
-	{
-		auto* entity = reinterpret_cast<Entity*>(((moduleBase + dwEntityList) + i * 0x10));
-		if (!*reinterpret_cast<uintptr_t*>(entity)) //Cast the address that possibly is entity into uintptr_t and check if it's null.
-		    continue;
-		entityList.push_back(entity);
-	}
-	return entityList;
+    return this + 0x8;
 }
 
-int GetMaxEntities() {
-	uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll"));
-	return *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>((moduleBase + dwClientState)) + dwClientState_MaxPlayer));
+ClientClass* Entity::GetClientClass()
+{
+    return Utils::CallVFunc<ClientClass*>(GetClientNetworkable(), 2);
+}
+
+bool Entity::IsDormant()
+{
+    return ReadValue<bool>(m_bDormant);
 }

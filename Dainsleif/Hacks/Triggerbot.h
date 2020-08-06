@@ -1,5 +1,6 @@
 #pragma once
+#include "../Player.h"
 
 namespace Triggerbot {
-    void Run(std::vector<Entity*> entityList);
+    void Run();
 }
