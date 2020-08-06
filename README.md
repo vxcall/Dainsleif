@@ -34,9 +34,8 @@ You can easily support/motivate me by either **starring my project**, **followin
     - [Glow hack](#glow-hack)
     - [Trigger bot](#trigger-bot)
     - [Anti recoil](#anti-recoil)
+- [:busts_in_silhouette: Contributors](#busts_in_silhouette-Contributors)
 - [:hammer_and_wrench: Features being developed](#hammer_and_wrench-features-being-developed)
-- [:busts_in_silhouette: Co-developer](#busts_in_silhouette-Co-developer)
-
 
 # :syringe: How to build this hack
 
@@ -134,23 +133,9 @@ But this doesn't guarantee the 100% accuracy.
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
 
-# :busts_in_silhouette: Co-developer
+# :busts_in_silhouette: Contributors
 
-- [l1m0n3](https://github.com/l1m0n3)
-
-I couldn't have get this far without him for sure.
-Big thanks to him.
-
-# :hammer_and_wrench: Features being developed
-
-**overall**
-- [ ] Built-in pattern scanning system.
-- [ ] Enemy's health indicator.
-- [ ] Chams feature.
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+I couldn't have got this far without them ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -165,4 +150,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+# :hammer_and_wrench: Features being developed
+
+**overall**
+- [ ] Built-in pattern scanning system.
+- [ ] Enemy's health indicator.
+- [ ] Chams feature.
+
