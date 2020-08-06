@@ -5,6 +5,7 @@
 #include "Hacks/AntiRecoil.h"
 #include "Hacks/Triggerbot.h"
 #include "Hook/GraphicHook.h"
+#include "Player.h"
 
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
@@ -40,20 +41,22 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     RWtoml::ParseFile(filename);
 
+    Modules::Initialize();
+
     hookEndScene();
 
-    std::vector<Entity*> entityList;
+    std::vector<Player*> playerList;
 
     while (true)
     {
         static bool inGame = false;
-        if (bQuit)
+        if (GetAsyncKeyState(VK_DELETE) & 1 || bQuit)
         {
             RWtoml::WriteFile(filename);
             break;
         }
 
-        int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State));
+        int gameState = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
 
         if (gameState != 6) {   //Not 6 means user's in menu.
             if (inGame) //true means user used to be in game.
@@ -67,12 +70,12 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         if (gameState == 6 && !inGame)
             inGame = true;
 
-        if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
+        if (!Player::GetLocalPlayer())
             continue;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            if (gameState == 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
+            if (gameState == 6)
             {
                 g_ShowMenu = !g_ShowMenu;
                 if (!g_ShowMenu)
@@ -82,23 +85,23 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         static bool bInitLocalPlayer = false;
         if (!bInitLocalPlayer) {
-            GetLocalPlayer()->SetFOV(fov);
+            Player::GetLocalPlayer()->SetFOV(fov);
         }
 
         if (bAimbot || bTriggerBot || bGlowHack || bAntiRecoil) {
-            entityList = GetEntities();
+            playerList = Player::GetAll();
         }
 
         if (bAimbot)
         {
-            Aimbot::Run(entityList);
+            Aimbot::Run(playerList);
         }
 
         if (bGlowHack)
         {
-            for (Entity* ent : entityList)
+            for (Player* player : playerList)
             {
-                Glow::Run(ent);
+                Glow::Run(player);
             }
         }
 
@@ -109,7 +112,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bTriggerBot)
         {
-            Triggerbot::Run(entityList);
+            Triggerbot::Run();
         }
 
         Sleep(1); //sleep for performance aspect

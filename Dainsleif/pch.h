@@ -18,6 +18,8 @@
 #include "vector3.h"
 #include "DefaultSettings.h"
 #include "offsets.h"
+#include "Modules.h"
+#include "Utils.h"
 
 //external library
 #include "imgui.h"
