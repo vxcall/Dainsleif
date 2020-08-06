@@ -54,13 +54,11 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         }
 
         int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State));
+        uintptr_t localPlayer = *reinterpret_cast<uintptr_t*>(GetLocalPlayer());
 
-        if (gameState != 6) {   //Not 6 means user's in menu.
-            if (inGame) //true means user used to be in game.
-            {
-                RWtoml::WriteFile(filename);
-                inGame = false;
-            }
+        if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
+            RWtoml::WriteFile(filename);
+            inGame = false;
         }
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
@@ -70,15 +68,13 @@ DWORD WINAPI fMain(LPVOID lpParameter)
                 RWtoml::WriteFile(filename);
         }
 
-        if (gameState != 6 || !*reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
+        if (gameState != 6 || !localPlayer)
             continue;
 
-        if (!inGame)
-            inGame = true;
-
-        static bool bInitLocalPlayer = false;
-        if (!bInitLocalPlayer) {
+        //If we got values to set in initializing phase, write here.
+        if (!inGame) {
             GetLocalPlayer()->SetFOV(fov);
+            inGame = true;
         }
 
         if (bAimbot || bTriggerBot || bGlowHack || bAntiRecoil) {
