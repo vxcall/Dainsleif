@@ -83,7 +83,6 @@ You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/Dains
 # :scroll: Menu
 
 You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your keyboard.
-**But you're allowed to access it only when you're in game for safety reason right now. Even though you press <kbd>INSERT</kbd> when you are in main menu, nothing happens.**
 
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 

@@ -8,24 +8,20 @@ extern bool bAimbot;
 
 void Triggerbot::Run(std::vector<Entity*> entityList)
 {
+    //if bFreeMouse is false, mouse move will set to be free.
     static bool bFreeMouse;
-    auto* fa = reinterpret_cast<uintptr_t *>(moduleBase + dwForceAttack);
+
     LocalPlayer* lp = GetLocalPlayer();
     int crosshairID = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(lp) + m_iCrosshairId);
-    if (crosshairID != 0) {
-        //When you kill all enemy, it's somehow gonna be a number more than 300.
-        if (crosshairID < 2 ||crosshairID - 2 > 9) return;
-        if (lp->GetTeam() != entityList[crosshairID - 2]->GetTeam())
-        {
-            bFreeMouse = false;
-            if (*fa == 4) {
-                    Sleep(35);
-                *fa = 5;
-            } else if (*fa == 5) {
-                *fa = 4;
-            }
-        }
+    auto* fa = reinterpret_cast<uintptr_t *>(moduleBase + dwForceAttack);
+    //check if you're aiming at living hostile.
+    if (crosshairID > 1 && crosshairID - 2 < (static_cast<int>(entityList.size()) + 1) && lp->GetTeam() != entityList[crosshairID - 2]->GetTeam()) {
+        bFreeMouse = false;
+        if (bAimbot && *fa == 4)
+            Sleep(60);
+        *fa = 5;
     }
+
     if (crosshairID == 0 && !bFreeMouse) {
         *fa = 4;
         bFreeMouse = true;

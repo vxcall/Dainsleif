@@ -9,6 +9,7 @@
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
 bool g_ShowMenu = false;
+bool inGame = false;
 
 TCHAR dir[ MAX_PATH ];
 std::string filename;//const char* dir = "C:/Users/PC/Dainsleif"; //directory savedata will be saved.
@@ -19,6 +20,10 @@ VOID WINAPI Detach(LPVOID lpParameter)
 
     fclose(stdout);
     FreeConsole();
+}
+
+void InitSetting() {
+    GetLocalPlayer()->SetFOV(fov);
 }
 
 DWORD WINAPI fMain(LPVOID lpParameter)
@@ -44,9 +49,12 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     std::vector<Entity*> entityList;
 
+    //MUST save this to use as a flag cuz the value of local player's gonna be stored at the same address even the match ended.
+    uintptr_t oldLocalPlayer = 0;
+
+    //Hack loop entry point.
     while (true)
     {
-        static bool inGame = false;
         if (bQuit)
         {
             RWtoml::WriteFile(filename);
@@ -54,39 +62,37 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         }
 
         int gameState = *reinterpret_cast<int*>((*reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(GetModuleHandle("engine.dll")) + dwClientState) + dwClientState_State));
+        uintptr_t localPlayer = *reinterpret_cast<uintptr_t*>(GetLocalPlayer());
 
-        if (gameState != 6) {   //Not 6 means user's in menu.
-            if (inGame) //true means user used to be in game.
-            {
-                RWtoml::WriteFile(filename);
-                inGame = false;
-            }
-            g_ShowMenu = false;
+        if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
+            RWtoml::WriteFile(filename);
+            oldLocalPlayer = localPlayer;
+            inGame = false;
         }
-
-        if (gameState == 6 && !inGame)
-            inGame = true;
-
-        if (!*reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
-            continue;
 
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
-            if (gameState == 6 && *reinterpret_cast<uintptr_t*>(GetLocalPlayer()))
-            {
-                g_ShowMenu = !g_ShowMenu;
-                if (!g_ShowMenu)
-                    RWtoml::WriteFile(filename);
-            }
+            g_ShowMenu = !g_ShowMenu;
+            if (!g_ShowMenu)
+                RWtoml::WriteFile(filename);
         }
 
-        static bool bInitLocalPlayer = false;
-        if (!bInitLocalPlayer) {
-            GetLocalPlayer()->SetFOV(fov);
+        if (gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer)
+            continue;
+
+        //If we have values to set in initializing phase, have to be written here.
+        if (!inGame) {
+            InitSetting();
+            inGame = true;
         }
 
         if (bAimbot || bTriggerBot || bGlowHack || bAntiRecoil) {
             entityList = GetEntities();
+        }
+
+        if (bTriggerBot)
+        {
+            Triggerbot::Run(entityList);
         }
 
         if (bAimbot)
@@ -105,11 +111,6 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         if (bAntiRecoil)
         {
             AntiRecoil::Run();
-        }
-
-        if (bTriggerBot)
-        {
-            Triggerbot::Run(entityList);
         }
 
         Sleep(1); //sleep for performance aspect
