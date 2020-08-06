@@ -22,6 +22,10 @@ VOID WINAPI Detach(LPVOID lpParameter)
     FreeConsole();
 }
 
+void InitSetting() {
+    GetLocalPlayer()->SetFOV(fov);
+}
+
 DWORD WINAPI fMain(LPVOID lpParameter)
 {
     //Create console window
@@ -45,6 +49,10 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     std::vector<Entity*> entityList;
 
+    //MUST save this to use as a flag cuz the value of local player's gonna be stored at the same address even the match ended.
+    uintptr_t oldLocalPlayer = 0;
+
+    //Hack loop entry point.
     while (true)
     {
         if (bQuit)
@@ -58,6 +66,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
             RWtoml::WriteFile(filename);
+            oldLocalPlayer = localPlayer;
             inGame = false;
         }
 
@@ -68,12 +77,12 @@ DWORD WINAPI fMain(LPVOID lpParameter)
                 RWtoml::WriteFile(filename);
         }
 
-        if (gameState != 6 || !localPlayer)
+        if (gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer)
             continue;
 
-        //If we got values to set in initializing phase, write here.
+        //If we have values to set in initializing phase, have to be written here.
         if (!inGame) {
-            GetLocalPlayer()->SetFOV(fov);
+            InitSetting();
             inGame = true;
         }
 
