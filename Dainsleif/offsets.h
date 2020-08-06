@@ -18,7 +18,6 @@ constexpr uintptr_t m_iShotsFired = 0xA390;
 constexpr uintptr_t m_iCrosshairId = 0xB3E4;
 constexpr uintptr_t m_iFOV = 0x332C;
 constexpr uintptr_t m_bDormant = 0xED;
-constexpr uintptr_t m_flNextAttack = 0x2D70;
 
 
 constexpr uintptr_t m_hActiveWeapon = 0x2EF8;

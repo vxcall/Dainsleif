@@ -5,6 +5,7 @@ extern bool bAimbot;
 
 void Triggerbot::Run()
 {
+    //if bFreeMouse is false, mouse move will set to be free.
     static bool bFreeMouse;
     auto* forceAttack = reinterpret_cast<uintptr_t*>(Modules::client + dwForceAttack);
     Player* localPlayer = Player::GetLocalPlayer();
@@ -16,15 +17,14 @@ void Triggerbot::Run()
         if (target->GetClientClass()->m_ClassID == ClassID::CCSPlayer && localPlayer->GetTeam() != target->Cast<Player*>()->GetTeam())
         {
             bFreeMouse = false;
-            if (*forceAttack == 4) {
-                Sleep(35);
-                *forceAttack = 5;
+            if (bAimbot && *forceAttack == 4)
+            {
+                Sleep(60);
             }
-            else if (*forceAttack == 5) {
-                *forceAttack = 4;
-            }
+            *forceAttack = 5;
         }
     }
+
     if (crosshairID == 0 && !bFreeMouse) {
         *forceAttack = 4;
         bFreeMouse = true;

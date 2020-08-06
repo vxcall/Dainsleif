@@ -9,12 +9,13 @@ extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
 extern std::string filename; //declared in dllmain.cpp
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 extern ImVec4 enemyGlowColor, localGlowColor;
+extern bool inGame;
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
 
-HWND window = NULL;
-WNDPROC originalWndProc = NULL;
+HWND window = nullptr;
+WNDPROC originalWndProc = nullptr;
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -48,7 +49,6 @@ void InitImGui(IDirect3DDevice9* pDevice)
 
     ImGui_ImplWin32_Init(window);
     ImGui_ImplDX9_Init(pDevice);
-    return;
 }
 
 void ShutdownImGui()
@@ -158,7 +158,7 @@ void ShowTabMenu() {
         }
         if (ImGui::BeginTabItem("Field of View"))
         {
-            if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120))
+            if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120) && inGame)
                 localPlayer->SetFOV(fov);
             ImGui::EndTabItem();
         }
@@ -198,7 +198,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
 }
 
 void hookEndScene() {
-    uintptr_t shaderapidx9 = reinterpret_cast<uintptr_t>(GetModuleHandle("shaderapidx9.dll"));
+    auto shaderapidx9 = reinterpret_cast<uintptr_t>(GetModuleHandle("shaderapidx9.dll"));
     IDirect3DDevice9* pDevice = *reinterpret_cast<IDirect3DDevice9**>(shaderapidx9 + dwppDirect3DDevice9);
 
     D3DDEVICE_CREATION_PARAMETERS parameters;
