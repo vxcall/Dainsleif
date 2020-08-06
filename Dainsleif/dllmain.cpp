@@ -5,7 +5,6 @@
 #include "Hacks/AntiRecoil.h"
 #include "Hacks/Triggerbot.h"
 #include "Hook/GraphicHook.h"
-#include "Player.h"
 
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
@@ -81,6 +80,9 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         }
 
         if (gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer)
+            continue;
+
+        if (!localPlayer->GetActiveWeapon())
             continue;
 
         //If we have values to set in initializing phase, have to be written here.

@@ -32,7 +32,7 @@ You can easily support/motivate me by either **starring my project**, **followin
     - [Trigger bot](#trigger-bot)
     - [Anti recoil](#anti-recoil)
 - [:hammer_and_wrench: Features being developed](#hammer_and_wrench-features-being-developed)
-- [:busts_in_silhouette: Contributors](#busts_in_silhouette-contributors)
+- [:busts_in_silhouette: Co-developer](#busts_in_silhouette-Co-developer)
 
 
 # :syringe: How to build this hack
@@ -131,8 +131,12 @@ But this doesn't guarantee the 100% accuracy.
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
 
-# :busts_in_silhouette: Contributors
+# :busts_in_silhouette: Co-developer
+
 - [l1m0n3](https://github.com/l1m0n3)
+
+I couldn't have get this far without him for sure.
+Big thanks to him.
 
 # :hammer_and_wrench: Features being developed
 
@@ -140,6 +144,3 @@ But this doesn't guarantee the 100% accuracy.
 - [ ] Built-in pattern scanning system.
 - [ ] Enemy's health indicator.
 - [ ] Chams feature.
-
-**Trigger bot**
-- [x] Fix a bug that keep shooting over hostile's head when you use Trigger bot in conjunction with Aimbot

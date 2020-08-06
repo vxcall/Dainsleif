@@ -1,14 +1,13 @@
 #include "../pch.h"
 #include "../Player.h"
-#include "../Weapon.h"
 #include "AntiRecoil.h"
 
 Vector3 oldPunch = { 0, 0, 0 };
 int oldShotCount = 0;
 
 void AntiRecoil::Run() {
-    static const WeaponID rejectWeaponList[11] = {GLOCK_HG, DUAL_BERETTAS_HG, P250_HG, TEC9_HG,DESERT_EAGLE_HG,
-                                                  NOVA_SG, XM1014_SG, SAWED_OFF_SG, SSG08_SR, AWP_SR, G3SG1_SR};
+    static const WeaponID rejectWeaponList[11] = {HG_GLOCK, HG_DUAL_BERETTAS, HG_P250, HG_TEC9,HG_DESERT_EAGLE,
+                                                  SG_NOVA, SG_XM1014, SG_SAWED_OFF, SR_SSG08, SR_AWP, SR_G3SG1};
     Player* localPlayer = Player::GetLocalPlayer();
     Weapon* activeWeapon = localPlayer->GetActiveWeapon();
     WeaponID activeWeaponID = activeWeapon->GetWeaponID();

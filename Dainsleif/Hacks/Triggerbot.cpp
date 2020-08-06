@@ -5,10 +5,19 @@ extern bool bAimbot;
 
 void Triggerbot::Run()
 {
+    Player* localPlayer = Player::GetLocalPlayer();
+    Weapon* weapon = localPlayer->GetActiveWeapon();
+    WeaponID weaponId = weapon->GetWeaponID();
+    static const WeaponID rejectWeaponList[8] = {KNIFE, C4, GN_DECOY, GN_FLASH_, GN_HE, GN_MOLOTOV, GN_SMOKE};
+    for (WeaponID rejW : rejectWeaponList) {
+        if (rejW == weaponId)
+            return;
+    }
+
     //if bFreeMouse is false, mouse move will set to be free.
     static bool bFreeMouse;
     auto* forceAttack = reinterpret_cast<uintptr_t*>(Modules::client + dwForceAttack);
-    Player* localPlayer = Player::GetLocalPlayer();
+
     int crosshairID = localPlayer->GetCrosshairID();
     if (crosshairID != 0) {
         //When you kill all enemy, it's somehow gonna be a number more than 300.
