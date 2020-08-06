@@ -11,11 +11,13 @@ std::vector<Player*> Player::GetAll()
     std::vector<Player*> allPlayers;
     for (int i = 1; i <= GetMaxPlayers(); i++)
     {
-        Player* player = Entity::GetByIndex(i)->Cast<Player*>();
-        if (!player)
+        Entity* entity = Entity::GetByIndex(i);
+        if (!entity || entity->GetClientClass()->m_ClassID != ClassID::CCSPlayer)
         {
             continue;
         }
+
+        Player* player = entity->Cast<Player*>();
         allPlayers.push_back(player);
     }
     return allPlayers;
