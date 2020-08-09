@@ -1,10 +1,11 @@
 ![cpp](https://img.shields.io/badge/C%2B%2B-17-%23ff40d9.svg?style=flat)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![cmake](https://img.shields.io/badge/cmake-3.16-yellow)
 ![Game](https://img.shields.io/badge/Game-CS%3AGO-blue.svg?style=flat)
 ![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 **[README in Japanese](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README_jp.md)**
 
@@ -18,7 +19,7 @@ As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as 
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 
-### STILL WORKING: August 05, 2020
+### STILL WORKING: August 09, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 

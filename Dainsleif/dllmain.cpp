@@ -5,6 +5,7 @@
 #include "Hacks/AntiRecoil.h"
 #include "Hacks/Triggerbot.h"
 #include "Hook/GraphicHook.h"
+#include "PatternScanner.h"
 
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
 int fov;
