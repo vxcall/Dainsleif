@@ -2,35 +2,38 @@
 #include <Windows.h>
 #include "Modules.h"
 #include <Psapi.h>
-#include <string>
 
 //expect value like this -> \x0F\x11\x05????\x83\xC8\x01
-uintptr_t PatternScanner::FindPattern(const char* pattern) {
-    static auto id = 0;
-    ++id;
+uintptr_t PatternScanner::FindPattern(const char* pattern)
+{
+    HMODULE hModule = GetModuleHandle("client");
+    if (!hModule) {
+        return 0;
+    }
+    MODULEINFO moduleInfo;
+    if (!GetModuleInformation(GetCurrentProcess(), hModule, &moduleInfo, sizeof(moduleInfo))) {
+        return 0;
+    }
 
-    if (HMODULE moduleHandle = GetModuleHandleA("client.dll")) {
-        if (MODULEINFO moduleInfo; GetModuleInformation(GetCurrentProcess(), moduleHandle, &moduleInfo, sizeof(moduleInfo))) {
-            auto start = static_cast<const char*>(moduleInfo.lpBaseOfDll);
-            const auto end = start + moduleInfo.SizeOfImage;
+    auto beginningOfModule = static_cast<const char*>(moduleInfo.lpBaseOfDll);
+    const auto end = beginningOfModule + moduleInfo.SizeOfImage; //This is the last element of beginningOfModule array.
 
-            auto first = start;
-            auto second = pattern;
+    auto current = beginningOfModule;
+    auto patternCopy = pattern;
 
-            while (first < end && *second) {
-                if (*first == *second || *second == '?') {
-                    ++first;
-                    ++second;
-                } else {
-                    first = ++start;
-                    second = pattern;
-                }
-            }
-
-            if (!*second)
-                return reinterpret_cast<std::uintptr_t>(start);
+    while (current < end && *patternCopy) {
+        //*current refers to the each element of current array and basically cycle through the char array to check if they are matched.
+        if (*current == *patternCopy || *patternCopy == '?') {
+            ++current;
+            ++patternCopy;
+        } else {
+            current = ++beginningOfModule; //increment beginningOfModule value and assign to current
+            patternCopy = pattern; //"pattern" variable holds the original value of pattern.
         }
     }
-    MessageBoxA(NULL, ("Failed to find pattern #" + std::to_string(id) + '!').c_str(), "Osiris", MB_OK | MB_ICONWARNING);
-    return 0;
+
+    //rewind the address of current to where it was located by subtracting the length of pattern.
+    current -= strlen(pattern);
+
+    return reinterpret_cast<uintptr_t>(current);
 }

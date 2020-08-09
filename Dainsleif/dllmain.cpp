@@ -80,6 +80,10 @@ DWORD WINAPI fMain(LPVOID lpParameter)
                 RWtoml::WriteFile(filename);
         }
 
+        if (GetAsyncKeyState(VK_HOME) & 1) {
+            PatternScanner::FindPattern("\x0F\x11\x05????\x83\xC8\x01");
+        }
+
         if (gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer)
             continue;
 
