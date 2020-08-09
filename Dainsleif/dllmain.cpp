@@ -80,9 +80,10 @@ DWORD WINAPI fMain(LPVOID lpParameter)
                 RWtoml::WriteFile(filename);
         }
 
-        if (GetAsyncKeyState(VK_HOME) & 1) {
-            PatternScanner::FindPattern("\x0F\x11\x05????\x83\xC8\x01");
-        }
+//        if (GetAsyncKeyState(VK_HOME) & 1) {
+//            int* forceAttack = PatternScanner::FindPattern<int>("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2);
+//            *forceAttack = 5;
+//        }
 
         if (gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer)
             continue;

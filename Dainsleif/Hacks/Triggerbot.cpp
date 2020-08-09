@@ -16,7 +16,7 @@ void Triggerbot::Run()
 
     //if bFreeMouse is false, mouse move will set to be free.
     static bool bFreeMouse;
-    auto* forceAttack = reinterpret_cast<uintptr_t*>(Modules::client + dwForceAttack);
+    auto* forceAttack = reinterpret_cast<int*>(Modules::client + dwForceAttack);
 
     int crosshairID = localPlayer->GetCrosshairID();
     if (crosshairID != 0) {
