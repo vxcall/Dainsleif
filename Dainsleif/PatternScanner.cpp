@@ -27,7 +27,7 @@ uintptr_t PatternScanner::FindPattern()
         }
     }
 
-    //rewind the address of current to where it was located by subtracting the length of pattern.
+    //back to the address of where current was located by subtracting the length of original pattern.
     current -= strlen(this->pattern);
 
     return *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(current) + this->offset);

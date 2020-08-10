@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "RWtoml.h"
+#include "PatternScanner.h"
 
 extern ImVec4 enemyGlowColor, localGlowColor;
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dllmain.cpp
@@ -7,7 +8,7 @@ extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern int fov; //declared in dllmain.cpp
 extern float range;
 
-void RWtoml::ParseFile(std::string& filename) {
+void RWtoml::ReadSettings(std::string& filename) {
     auto saveData = toml::parse(filename);
 
     // find specified values associated with one keys, and assign them into each variable.
@@ -26,7 +27,7 @@ void RWtoml::ParseFile(std::string& filename) {
     localGlowColor = ImVec4(toml::find_or(localGlowColorTable, "Red", Default::localGlowColor.x), toml::find_or(localGlowColorTable, "Green", Default::localGlowColor.y), toml::find_or(localGlowColorTable, "Blue", Default::localGlowColor.z), toml::find_or(localGlowColorTable, "Alpha", Default::localGlowColor.w));
 }
 
-void RWtoml::WriteFile(std::string& filename) {
+void RWtoml::WriteSettings(std::string& filename) {
     //Make a variable holds keys and values.
     const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
                            {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot}, {"fov", fov},
@@ -34,6 +35,21 @@ void RWtoml::WriteFile(std::string& filename) {
                            {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
                            {"aimSmoothness", aimSmoothness}, {"range", range}};
     //Open file and write it in toml syntax.
+    std::ofstream file;
+    file.open(filename, std::ios::out);
+    file << data;
+    file.close();
+}
+
+void RWtoml::ReadOffsets(std::string& filename) {
+    auto saveData = toml::parse(filename);
+    auto& Offsets = toml::find_or(saveData, "Offsets", {});
+    dwForceAttack = toml::find_or(Offsets, "dwForceAttack", dwForceAttack);
+}
+
+void RWtoml::WriteOffsets(std::string& filename) {
+    uintptr_t forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client);
+    const toml::value data {{"Offsets", {{"dwForceAttack", forceAttack}}}};
     std::ofstream file;
     file.open(filename, std::ios::out);
     file << data;

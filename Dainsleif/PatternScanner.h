@@ -13,5 +13,6 @@ public:
     PatternScanner(char* moduleName, const char* pattern, int offset)
     : moduleName(moduleName), pattern(pattern), offset(offset)
     {}
+
     uintptr_t CalculateOffset(uintptr_t base);
 };

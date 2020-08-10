@@ -3,6 +3,7 @@
 #include "GraphicHook.h"
 #include "../Player.h"
 #include "../PatternScanner.h"
+#include "../RWtoml.h"
 
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
@@ -57,6 +58,11 @@ void ShutdownImGui()
     ImGui_ImplDX9_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
+}
+
+void UpdateOffsets() {
+    RWtoml::WriteOffsets(filename);
+    RWtoml::ReadOffsets(filename);
 }
 
 /* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
@@ -123,8 +129,7 @@ void ShowMenuBar()
                 ImGui::EndMenu();
             }
             if (ImGui::MenuItem("Update offsets")) {
-                auto forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client);
-                std::cout << std::hex << forceAttack << std::endl;
+                UpdateOffsets();
             }
             if (ImGui::MenuItem("Remove hack"))
                 bQuit = true;

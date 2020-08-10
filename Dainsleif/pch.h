@@ -17,7 +17,7 @@
 #include "Hook/ImGuiTheme.h"
 #include "vector3.h"
 #include "DefaultSettings.h"
-#include "offsets.h"
+#include "Offsets.h"
 #include "Modules.h"
 #include "Utils.h"
 
