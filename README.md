@@ -93,12 +93,13 @@ You can toggle on/off and tweak parameters in the tabs with the name of each hac
 
 ### :rotating_light: WARNING
 
-Keep your eyes on the `offset.h` in my repository.
+Keep your eyes on the `offset.cpp` in my repository.
 
-If the menu doesn't show up when you press <kbd>INSERT</kbd>, or your game crashes immediately just after you initiate the hack, that means your `offset.h` is outdated.
+If the menu doesn't show up when you press <kbd>INSERT</kbd>, or your game crashes immediately just after you initiate the hack, that means your `offset.cpp` is outdated.
 
 Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
 
+Also, I'm currently developing offset auto update system. It's almost done, and once it completes you no longer copy & paste `offset.cpp`.
 # :computer: Hacks
 
 ## Aimbot
@@ -154,7 +155,7 @@ I couldn't have got this far without them ([emoji key](https://allcontributors.o
 # :hammer_and_wrench: Features being developed
 
 **overall**
-- [ ] Built-in pattern scanning system.
+- [x] Built-in pattern scanning system.
 - [ ] Enemy's health indicator.
 - [ ] Chams feature.
 

@@ -44,7 +44,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         std::ofstream stream{path1};
         stream.close();
     }
-    if (!std::filesystem::exists(path1))
+    if (!std::filesystem::exists(path2))
     {
         std::ofstream stream{path2};
         stream.close();
