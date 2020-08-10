@@ -2,6 +2,7 @@
 #include "ImGuiTheme.h"
 #include "GraphicHook.h"
 #include "../Player.h"
+#include "../PatternScanner.h"
 
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
@@ -120,6 +121,10 @@ void ShowMenuBar()
                     setToDefault(FOV);
                 }
                 ImGui::EndMenu();
+            }
+            if (ImGui::MenuItem("Update offsets")) {
+                auto forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client);
+                std::cout << std::hex << forceAttack << std::endl;
             }
             if (ImGui::MenuItem("Remove hack"))
                 bQuit = true;
