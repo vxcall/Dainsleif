@@ -85,10 +85,11 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 
 ### :rotating_light: 注意事項
 
-もし<kbd>INSERT</kbd>を押した際にハックメニューが表示されない、もしくはハックを起動した瞬間にクラッシュするようなことがあれば、おそらく原因は`Dainsleif/offset.h`ファイルにあります。
+もし<kbd>INSERT</kbd>を押した際にハックメニューが表示されない、もしくはハックを起動した瞬間にクラッシュするようなことがあれば、おそらく原因は`Dainsleif/offset.cpp`ファイルにあります。
 
-その場合は僕の`Dainsleif/offset.h`ファイルの中身をコピペしてあげてください。もし僕の`Dainsleif/offset.h`が数週間の間更新されていない場合は、[Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)を使ってください。
+その場合は僕の`Dainsleif/offset.cpp`ファイルの中身をコピペしてあげてください。もし僕の`Dainsleif/offset.cpp`が数週間の間更新されていない場合は、[Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)を使ってください。
 
+また、現在自動でオフセットを更新する機能を開発中です。その機能があればもはやコピペの必要はなく、ボタン一つで解決することができます。
 
 # :computer: ハック
 

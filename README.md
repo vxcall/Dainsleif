@@ -97,7 +97,7 @@ Keep your eyes on the `offset.cpp` in my repository.
 
 If the menu doesn't show up when you press <kbd>INSERT</kbd>, or your game crashes immediately just after you initiate the hack, that means your `offset.cpp` is outdated.
 
-Copy and Paste contents in `offset.h` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
+Copy and Paste contents in `offset.cpp` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
 
 Also, I'm currently developing offset auto update system. It's almost done, and once it completes you no longer copy & paste `offset.cpp`.
 # :computer: Hacks
