@@ -12,8 +12,8 @@ int fov;
 bool g_ShowMenu = false;
 bool inGame = false;
 
-TCHAR dir[ MAX_PATH ];
-std::string filename;//const char* dir = "C:/Users/PC/Dainsleif"; //directory savedata will be saved.
+std::string settingsFile;
+std::string offsetsFile;
 
 VOID WINAPI Detach(LPVOID lpParameter)
 {
@@ -33,18 +33,24 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     AllocConsole();
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
 
+    TCHAR dir[ MAX_PATH ];
     SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
-    filename = static_cast<std::string>(dir) + "/Dainsleif/savedata.toml"; //Set file path.
-
-    std::filesystem::path path{filename};
-    std::filesystem::create_directories(path.parent_path());
-    if (!std::filesystem::exists(path))
+    settingsFile = static_cast<std::string>(dir) + "/Dainsleif/savedata.toml"; //Set file path.
+    offsetsFile = static_cast<std::string>(dir) + "/Dainsleif/offsets.toml";
+    std::filesystem::path path1{settingsFile}, path2{offsetsFile};
+    std::filesystem::create_directories(path1.parent_path());
+    if (!std::filesystem::exists(path1))
     {
-        std::ofstream stream{path};
+        std::ofstream stream{path1};
         stream.close();
     }
-
-    RWtoml::ReadSettings(filename);
+    if (!std::filesystem::exists(path1))
+    {
+        std::ofstream stream{path2};
+        stream.close();
+    }
+    RWtoml::ReadOffsets(offsetsFile);
+    RWtoml::ReadSettings(settingsFile);
 
     Modules::Initialize();
 
@@ -60,7 +66,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     {
         if (GetAsyncKeyState(VK_DELETE) & 1 || bQuit)
         {
-            RWtoml::WriteSettings(filename);
+            RWtoml::WriteSettings(settingsFile);
             break;
         }
 
@@ -68,7 +74,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         Player* localPlayer = Player::GetLocalPlayer();
 
         if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
-            RWtoml::WriteSettings(filename);
+            RWtoml::WriteSettings(settingsFile);
             oldLocalPlayer = localPlayer;
             inGame = false;
         }
@@ -77,7 +83,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         {
             g_ShowMenu = !g_ShowMenu;
             if (!g_ShowMenu)
-                RWtoml::WriteSettings(filename);
+                RWtoml::WriteSettings(settingsFile);
         }
 
         if (gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer)

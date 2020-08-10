@@ -8,7 +8,7 @@
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
 extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
-extern std::string filename; //declared in dllmain.cpp
+extern std::string settingsFile, offsetsFile; //declared in dllmain.cpp
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 extern ImVec4 enemyGlowColor, localGlowColor;
 extern bool inGame;
@@ -61,8 +61,19 @@ void ShutdownImGui()
 }
 
 void UpdateOffsets() {
-    RWtoml::WriteOffsets(filename);
-    RWtoml::ReadOffsets(filename);
+    TCHAR dir[ MAX_PATH ];
+    SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
+    offsetsFile = static_cast<std::string>(dir) + "/Dainsleif/offsets.toml"; //Set file path.
+
+    std::filesystem::path path{offsetsFile};
+    std::filesystem::create_directories(path.parent_path());
+    if (!std::filesystem::exists(path))
+    {
+        std::ofstream stream{path};
+        stream.close();
+    }
+    RWtoml::WriteOffsets(offsetsFile);
+    RWtoml::ReadOffsets(offsetsFile);
 }
 
 /* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
@@ -199,7 +210,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ImGui::Spacing();
         ImGui::Spacing();
         ImGui::Spacing();
-        HelpMarker("[FILE LOCATION]", filename);
+        HelpMarker("[FILE LOCATION]", settingsFile);
         ImGui::End();
 
         ImGui::EndFrame();
