@@ -8,7 +8,7 @@
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
 extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
-extern std::string settingsFile, offsetsFile; //declared in dllmain.cpp
+extern std::string offsetsFile; //declared in dllmain.cpp
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 extern ImVec4 enemyGlowColor, localGlowColor;
 extern bool inGame;
@@ -210,7 +210,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ImGui::Spacing();
         ImGui::Spacing();
         ImGui::Spacing();
-        HelpMarker("[FILE LOCATION]", settingsFile);
+        HelpMarker("[HACK NOT WORKING?]", "Click \"Update offset\" in the menu bar");
         ImGui::End();
 
         ImGui::EndFrame();
