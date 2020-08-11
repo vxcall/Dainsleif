@@ -85,7 +85,7 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 
 ### :rotating_light: 注意事項
 
-もしハックが正常に動作しない場合は、メニューバーの`Update offsets`を押してください。それで治ると思います。
+もしハックが正常に動作しない場合は、BOT戦などの試合中にメニューバーの`Update offsets`を押してください。それで治ると思います。
 
 ハックを注入した直後にゲームがクラッシュする場合は、[hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) の`dwClientState`の値をコピーして、Dainsleifフォルダーの`Offsets.cpp`内の同じ変数にペーストしてください。
 

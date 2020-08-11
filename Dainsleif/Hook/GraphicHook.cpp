@@ -63,6 +63,7 @@ void ShutdownImGui()
 void UpdateOffsets() {
     RWtoml::WriteOffsets(offsetsFile);
     RWtoml::ReadOffsets(offsetsFile);
+    MessageBox(NULL, TEXT("Successfully updated offsets"), TEXT("Dainsleif"), MB_OK | MB_ICONINFORMATION);
 }
 
 /* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.

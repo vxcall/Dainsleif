@@ -93,7 +93,7 @@ You can toggle on/off and tweak parameters in the tabs with the name of each hac
 
 ### :rotating_light: WARNING
 
-If the hacks doesn't work correctly, click `Update offsets` in the menu bar. Then everything should be ok.
+If the hacks doesn't work correctly, click `Update offsets` in the menu bar when you are in game (BOT practice is fine). Then everything should be ok.
 
 If the game crashed as soon as you inject the hack, go to [hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) 
 and copy `dwClientState` from hazedumper to your local `Offsets.cpp` in the Dainsleif directory.
