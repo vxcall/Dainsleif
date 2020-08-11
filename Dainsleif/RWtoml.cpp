@@ -43,13 +43,21 @@ void RWtoml::WriteSettings(std::string& filename) {
 
 void RWtoml::ReadOffsets(std::string& filename) {
     auto saveData = toml::parse(filename);
-    auto& Offsets = toml::find_or(saveData, "Offsets", {});
-    dwForceAttack = toml::find_or(Offsets, "dwForceAttack", dwForceAttack);
+    dwForceAttack = toml::find_or(saveData, "dwForceAttack", dwForceAttack);
+    dwEntityList = toml::find_or(saveData, "dwEntityList", dwEntityList);
+    dwGlowObjectManager = toml::find_or(saveData, "dwGlowObjectManager", dwGlowObjectManager);
+    dwClientState = toml::find_or(saveData, "dwClientState", dwClientState);
 }
 
-void RWtoml::WriteOffsets(std::string& filename) {
-    uintptr_t forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client);
-    const toml::value data {{"Offsets", {{"dwForceAttack", forceAttack}}}};
+void RWtoml::WriteOffsets(std::string& filename)
+{
+    int64_t a_forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client);
+    int64_t a_entityList = PatternScanner("client.dll", "\xBB????\x83??\x7C?", 1).CalculateOffset(Modules::client);
+    int64_t a_glowObjectManager = PatternScanner("client.dll", "\x11?????\x83??\xC7?????????\x0F\x28?????\x68????", 2).CalculateOffset(Modules::client);
+    int64_t a_clientState = PatternScanner("engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1).CalculateOffset(Modules::engine);
+
+    const toml::value data {{"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList}, {"dwGlowObjectManager", a_glowObjectManager}, {"dwClientState", a_clientState}};
+
     std::ofstream file;
     file.open(filename, std::ios::out);
     file << data;

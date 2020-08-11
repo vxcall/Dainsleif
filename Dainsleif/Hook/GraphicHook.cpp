@@ -61,17 +61,6 @@ void ShutdownImGui()
 }
 
 void UpdateOffsets() {
-    TCHAR dir[ MAX_PATH ];
-    SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
-    offsetsFile = static_cast<std::string>(dir) + "/Dainsleif/offsets.toml"; //Set file path.
-
-    std::filesystem::path path{offsetsFile};
-    std::filesystem::create_directories(path.parent_path());
-    if (!std::filesystem::exists(path))
-    {
-        std::ofstream stream{path};
-        stream.close();
-    }
     RWtoml::WriteOffsets(offsetsFile);
     RWtoml::ReadOffsets(offsetsFile);
 }
