@@ -19,7 +19,7 @@ As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as 
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 
-### STILL WORKING: August 10, 2020
+### STILL WORKING: August 11, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 
@@ -93,13 +93,11 @@ You can toggle on/off and tweak parameters in the tabs with the name of each hac
 
 ### :rotating_light: WARNING
 
-Keep your eyes on the `offset.cpp` in my repository.
+If the hacks doesn't work correctly, click `Update offsets` in the menu bar. Then everything should be ok.
 
-If the menu doesn't show up when you press <kbd>INSERT</kbd>, or your game crashes immediately just after you initiate the hack, that means your `offset.cpp` is outdated.
+If the game crashed as soon as you inject the hack, go to [hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) 
+and copy `dwClientState` from hazedumper to your local `Offsets.cpp` in the Dainsleif directory.
 
-Copy and Paste contents in `offset.cpp` from mine to yours. Or if mine doesn't look updated, copy from [Hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp)
-
-Also, I'm currently developing offset auto update system. It's almost done, and once it completes you no longer copy & paste `offset.cpp`.
 # :computer: Hacks
 
 ## Aimbot
