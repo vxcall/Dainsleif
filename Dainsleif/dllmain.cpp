@@ -54,6 +54,9 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     Modules::Initialize();
 
+    std::cout << "client.dll: " << std::hex << Modules::client << std::endl;
+    std::cout << "engine.dll: " << std::hex << Modules::engine << std::endl;
+
     hookEndScene();
 
     std::vector<Player*> playerList;

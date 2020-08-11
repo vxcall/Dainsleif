@@ -46,17 +46,19 @@ void RWtoml::ReadOffsets(std::string& filename) {
     dwForceAttack = toml::find_or(saveData, "dwForceAttack", dwForceAttack);
     dwEntityList = toml::find_or(saveData, "dwEntityList", dwEntityList);
     dwGlowObjectManager = toml::find_or(saveData, "dwGlowObjectManager", dwGlowObjectManager);
+    dwLocalPlayer = toml::find_or(saveData, "dwLocalPlayer", dwLocalPlayer);
     dwClientState = toml::find_or(saveData, "dwClientState", dwClientState);
 }
 
 void RWtoml::WriteOffsets(std::string& filename)
 {
-    int64_t a_forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client);
-    int64_t a_entityList = PatternScanner("client.dll", "\xBB????\x83??\x7C?", 1).CalculateOffset(Modules::client);
-    int64_t a_glowObjectManager = PatternScanner("client.dll", "\x11?????\x83??\xC7?????????\x0F\x28?????\x68????", 2).CalculateOffset(Modules::client);
-    int64_t a_clientState = PatternScanner("engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1).CalculateOffset(Modules::engine);
+    int64_t a_forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client, 0);
+    int64_t a_entityList = PatternScanner("client.dll", "\xBB????\x83??\x7C?", 1).CalculateOffset(Modules::client, 0);
+    int64_t a_glowObjectManager = PatternScanner("client.dll", "\x11?????\x83??\xC7?????????\x0F\x28?????\x68????", 2).CalculateOffset(Modules::client, 0);
+    int64_t a_localPlayer = PatternScanner("client.dll", "\x8D\x34\x85????\x89\x15????\x8B\x41\x08\x8B\x48\x04\x83\xF9\xFF", 3).CalculateOffset(Modules::client, 4);
+    int64_t a_clientState = PatternScanner("engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1).CalculateOffset(Modules::engine, 0);
 
-    const toml::value data {{"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList}, {"dwGlowObjectManager", a_glowObjectManager}, {"dwClientState", a_clientState}};
+    const toml::value data {{"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList}, {"dwGlowObjectManager", a_glowObjectManager}, {"dwLocalPlayer", a_localPlayer}, {"dwClientState", a_clientState}};
 
     std::ofstream file;
     file.open(filename, std::ios::out);
