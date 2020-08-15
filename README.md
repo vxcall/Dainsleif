@@ -4,13 +4,15 @@
 ![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#busts_in_silhouette-Contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 **[README in Japanese](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README_jp.md)**
 
+![Banner](https://user-images.githubusercontent.com/33578715/90305355-50f76b00-def4-11ea-92cd-44eda4e3c32a.png) 
+
 # :zap: Dainsleif
-First of all, if you are enough kind to motivate me, just **star** this project :) I would be very happy.
+First of all, if you are kind enough to motivate me, just **star** this project :) I would be very happy.
 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
 Since I don't intend to make this a malicious software, **this isn't considered to be performed in multi player mode**. Keep in that mind.
