@@ -15,7 +15,8 @@
 First of all, if you are kind enough to motivate me, just **star** this project :) I would be very happy.
 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
-Since I don't intend to make this a malicious software, **this isn't considered to be performed in multi player mode**. Keep in that mind.
+Since I don't intend to make this a malicious software, **this isn't considered to be performed in multi player mode**. 
+We won't take any responsibility if a problem occurs because of this software. Keep in that mind.
 
 As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as your reference if you want.
 
