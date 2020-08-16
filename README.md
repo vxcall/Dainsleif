@@ -7,9 +7,9 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#busts_in_silhouette-Contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-**[README in Japanese](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README_jp.md)**
+**[日本語版README](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README_jp.md)**
 
-![Banner](https://user-images.githubusercontent.com/33578715/90305355-50f76b00-def4-11ea-92cd-44eda4e3c32a.png) 
+[![Banner](https://user-images.githubusercontent.com/33578715/90335687-424ea800-e009-11ea-8aad-b7cd1d27a044.png)](https://github.com/s3pt3mb3r/Dainsleif)
 
 # :zap: Dainsleif
 First of all, if you are kind enough to motivate me, just **star** this project :) I would be very happy.
