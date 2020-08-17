@@ -9,7 +9,7 @@
 
 **[日本語版README](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README_jp.md)**
 
-[![Banner](https://user-images.githubusercontent.com/33578715/90341136-99677380-e02f-11ea-9b8e-134e904a1ec0.png)](https://github.com/s3pt3mb3r/Dainsleif)
+[![Banner](https://user-images.githubusercontent.com/33578715/90368163-44ae1200-e09c-11ea-9cc6-d876010f09c4.png)](https://github.com/s3pt3mb3r/Dainsleif)
 
 # :zap: Dainsleif
 First of all, if you are kind enough to motivate me, just **star** this project :) I would be very happy.
@@ -22,7 +22,7 @@ As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as 
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 
-### STILL WORKING: August 11, 2020
+### STILL WORKING: August 17, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 

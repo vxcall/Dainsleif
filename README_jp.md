@@ -5,6 +5,8 @@
 
 [README in English](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README.md)
 
+[![Banner](https://user-images.githubusercontent.com/33578715/90368163-44ae1200-e09c-11ea-9cc6-d876010f09c4.png)](https://github.com/s3pt3mb3r/Dainsleif)
+
 # :zap: Dainsleif
 
 まず初めに、もしこのプロジェクトが気に入ったらStarしてくれると嬉しいです！
