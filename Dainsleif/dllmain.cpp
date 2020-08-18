@@ -74,6 +74,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         }
 
         int gameState = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
+
         Player* localPlayer = Player::GetLocalPlayer();
 
         if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
