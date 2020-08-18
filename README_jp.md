@@ -89,7 +89,11 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 
 もしハックが正常に動作しない場合は、BOT戦などの試合中にメニューバーの`Update offsets`を押してください。それで治ると思います。
 
-ハックを注入した直後にゲームがクラッシュする場合は、[hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) の`dwClientState`の値をコピーして、Dainsleifフォルダーの`Offsets.cpp`内の同じ変数にペーストしてください。
+ハックを注入した直後にゲームがクラッシュする場合は、以下の手順を実行してください。
+1. [hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) にアクセスし、`dwClientState`の値をコピーしてください。0x???のような形の部分です。
+2. 適当なエディタで `C://Users/Public/Documents/Dainsleif/offsets.toml` ファイルを開いてください。
+3. `dwClientState = ???` のような部分があると思いますので、???の部分に先ほどコピーした値をペーストしてください。
+4. 最後に、BOT戦などの試合中にメニューバーの`Update offsets`を押してください。
 
 
 # :computer: ハック

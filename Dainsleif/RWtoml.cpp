@@ -43,14 +43,30 @@ void RWtoml::WriteSettings(std::string& filename) {
 
 void RWtoml::ReadOffsets(std::string& filename) {
     auto saveData = toml::parse(filename);
-    dwForceAttack = toml::find_or(saveData, "dwForceAttack", dwForceAttack);
-    dwEntityList = toml::find_or(saveData, "dwEntityList", dwEntityList);
-    dwGlowObjectManager = toml::find_or(saveData, "dwGlowObjectManager", dwGlowObjectManager);
-    dwLocalPlayer = toml::find_or(saveData, "dwLocalPlayer", dwLocalPlayer);
     dwClientState = toml::find_or(saveData, "dwClientState", dwClientState);
+    dwClientState_State = toml::find_or(saveData, "dwClientState_State", dwClientState_State);
+    dwClientState_MaxPlayer = toml::find_or(saveData, "dwClientState_MaxPlayer", dwClientState_MaxPlayer);
+    dwClientState_ViewAngles = toml::find_or(saveData, "dwClientState_ViewAngles", dwClientState_ViewAngles);
+    dwppDirect3DDevice9 = toml::find_or(saveData, "dwppDirect3DDevice9", dwppDirect3DDevice9);
+    dwEntityList = toml::find_or(saveData, "dwEntityList", dwEntityList);
+    dwLocalPlayer = toml::find_or(saveData, "dwLocalPlayer", dwLocalPlayer);
+    dwGlowObjectManager = toml::find_or(saveData, "dwGlowObjectManager", dwGlowObjectManager);
+    dwForceAttack = toml::find_or(saveData, "dwForceAttack", dwForceAttack);
+    m_vecOrigin = toml::find_or(saveData, "m_vecOrigin", m_vecOrigin);
+    m_vecViewOffset = toml::find_or(saveData, "m_vecViewOffset", m_vecViewOffset);
+    m_dwBoneMatrix = toml::find_or(saveData, "m_dwBoneMatrix", m_dwBoneMatrix);
+    m_iTeamNum = toml::find_or(saveData, "m_iTeamNum", m_iTeamNum);
+    m_iGlowIndex = toml::find_or(saveData, "m_iGlowIndex", m_iGlowIndex);
+    m_aimPunchAngle = toml::find_or(saveData, "m_aimPunchAngle", m_aimPunchAngle);
+    m_iShotsFired = toml::find_or(saveData, "m_iShotsFired", m_iShotsFired);
+    m_iCrosshairId = toml::find_or(saveData, "m_iCrosshairId", m_iCrosshairId);
+    m_iFOV = toml::find_or(saveData, "m_iFOV", m_iFOV);
+    m_bDormant = toml::find_or(saveData, "m_bDormant", m_bDormant);
+    m_hActiveWeapon = toml::find_or(saveData, "m_hActiveWeapon", m_hActiveWeapon);
+    m_iItemDefinitionIndex = toml::find_or(saveData, "m_iItemDefinitionIndex", m_iItemDefinitionIndex);
 }
 
-void RWtoml::WriteOffsets(std::string& filename)
+void RWtoml::UpdateOffsets(std::string& filename)
 {
     int64_t a_forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client, 0);
     int64_t a_entityList = PatternScanner("client.dll", "\xBB????\x83??\x7C?", 1).CalculateOffset(Modules::client, 0);
@@ -58,7 +74,43 @@ void RWtoml::WriteOffsets(std::string& filename)
     int64_t a_localPlayer = PatternScanner("client.dll", "\x8D\x34\x85????\x89\x15????\x8B\x41\x08\x8B\x48\x04\x83\xF9\xFF", 3).CalculateOffset(Modules::client, 4);
     int64_t a_clientState = PatternScanner("engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1).CalculateOffset(Modules::engine, 0);
 
-    const toml::value data {{"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList}, {"dwGlowObjectManager", a_glowObjectManager}, {"dwLocalPlayer", a_localPlayer}, {"dwClientState", a_clientState}};
+    const toml::value data {
+                    {"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList},
+                    {"dwGlowObjectManager", a_glowObjectManager}, {"dwLocalPlayer", a_localPlayer},
+                    {"dwClientState", a_clientState},
+
+                    {"dwClientState_State", 0x108},
+                    {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
+                    {"dwppDirect3DDevice9", 0xA7030}, {"m_vecOrigin", 0x138},
+                    {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
+                    {"m_dwBoneMatrix", 0x26A8}, {"m_iTeamNum", 0xF4},
+                    {"m_iGlowIndex", 0xA438}, {"m_aimPunchAngle", 0x302C},
+                    {"m_iShotsFired", 0xA390}, {"m_iCrosshairId", 0xB3E4},
+                    {"m_iFOV", 0x332C}, {"m_bDormant", 0xED},
+                    {"m_hActiveWeapon", 0x2EF8}, {"m_iItemDefinitionIndex", 0x2FAA}
+    };
+
+    std::ofstream file;
+    file.open(filename, std::ios::out);
+    file << data;
+    file.close();
+}
+
+void RWtoml::InitializeOffsets(std::string& filename)
+{
+    const toml::value data {
+                    {"dwClientState", 0x589DD4}, {"dwClientState_State", 0x108},
+                    {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
+                    {"dwppDirect3DDevice9", 0xA7030}, {"dwEntityList", 0x4D5450C},
+                    {"dwLocalPlayer", 0xD3FC5C}, {"dwGlowObjectManager", 0x529C3D0},
+                    {"dwForceAttack", 0x3185AA0}, {"m_vecOrigin", 0x138},
+                    {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
+                    {"m_dwBoneMatrix", 0x26A8}, {"m_iTeamNum", 0xF4},
+                    {"m_iGlowIndex", 0xA438}, {"m_aimPunchAngle", 0x302C},
+                    {"m_iShotsFired", 0xA390}, {"m_iCrosshairId", 0xB3E4},
+                    {"m_iFOV", 0x332C}, {"m_bDormant", 0xED},
+                    {"m_hActiveWeapon", 0x2EF8}, {"m_iItemDefinitionIndex", 0x2FAA}
+    };
 
     std::ofstream file;
     file.open(filename, std::ios::out);

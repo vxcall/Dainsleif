@@ -61,7 +61,7 @@ void ShutdownImGui()
 }
 
 void UpdateOffsets() {
-    RWtoml::WriteOffsets(offsetsFile);
+    RWtoml::UpdateOffsets(offsetsFile);
     RWtoml::ReadOffsets(offsetsFile);
     MessageBox(NULL, TEXT("Successfully updated offsets"), TEXT("Dainsleif"), MB_OK | MB_ICONINFORMATION);
 }

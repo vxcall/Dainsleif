@@ -32,7 +32,7 @@ You can easily support/motivate me by either **starring my project**, **followin
 
 - [:syringe: How to build this hack](#syringe-how-to-build-this-hack)
 - [:scroll: Menu](#scroll-menu)
-    - [:rotating_light: Warning](#rotating_light-warning)
+    - [:rotating_light: Warning](#rotating_light-trouble-shooting)
 - [:computer: Hacks](#computer-hacks)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
@@ -94,12 +94,15 @@ You can toggle on/off and tweak parameters in the tabs with the name of each hac
 
 ![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
 
-### :rotating_light: WARNING
+# :rotating_light: TROUBLE SHOOTING
 
 If the hacks doesn't work correctly, click `Update offsets` in the menu bar when you are in game (BOT practice is fine). Then everything should be ok.
 
-If the game crashed as soon as you inject the hack, go to [hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) 
-and copy `dwClientState` from hazedumper to your local `Offsets.cpp` in the Dainsleif directory.
+If the game crashed as soon as you inject the hack do following steps.
+1. Access [hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) and copy the value of `dwClientState`. It looks like 0x???.
+2. Open file `C://Users/Public/Documents/Dainsleif/offsets.toml` with any editor.
+3. In the file, you will find `dwClientState = ???` then paste the value copied earlier into the place represented by `???`.
+4. Lastly, hit `Update offsets` in the menu bar when you are in game (BOT practice is fine).
 
 # :computer: Hacks
 
