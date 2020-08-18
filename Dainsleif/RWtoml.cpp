@@ -53,6 +53,7 @@ void RWtoml::ReadOffsets(std::string& filename) {
     dwGlowObjectManager = toml::find_or(saveData, "dwGlowObjectManager", dwGlowObjectManager);
     dwForceAttack = toml::find_or(saveData, "dwForceAttack", dwForceAttack);
     m_vecOrigin = toml::find_or(saveData, "m_vecOrigin", m_vecOrigin);
+    m_iHealth = toml::find_or(saveData, "m_iHealth", m_iHealth);
     m_vecViewOffset = toml::find_or(saveData, "m_vecViewOffset", m_vecViewOffset);
     m_dwBoneMatrix = toml::find_or(saveData, "m_dwBoneMatrix", m_dwBoneMatrix);
     m_iTeamNum = toml::find_or(saveData, "m_iTeamNum", m_iTeamNum);
