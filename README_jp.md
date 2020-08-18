@@ -26,7 +26,7 @@ Dainsleifは _Counter-Strike: Global Offensive_ 用のチートプログラム�
 
 - [:syringe: ビルド方法](#syringe-ビルド方法)
 - [:scroll: ハックメニュー](#scroll-ハックメニュー)
-    - [:rotating_light: 注意事項](#rotating_light-注意事項)
+    - [:rotating_light: トラブルシューティング](#rotating_light-トラブルシューティング)
 - [:computer: ハック](#computer-ハック)
     - [エイムボット](#エイムボット)
     - [発光ハック](#発光ハック)
@@ -85,7 +85,7 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 
 ![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
 
-### :rotating_light: 注意事項
+### :rotating_light: トラブルシューティング
 
 もしハックが正常に動作しない場合は、BOT戦などの試合中にメニューバーの`Update offsets`を押してください。それで治ると思います。
 

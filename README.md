@@ -32,7 +32,7 @@ You can easily support/motivate me by either **starring my project**, **followin
 
 - [:syringe: How to build this hack](#syringe-how-to-build-this-hack)
 - [:scroll: Menu](#scroll-menu)
-    - [:rotating_light: Warning](#rotating_light-trouble-shooting)
+    - [:rotating_light: TROUBLE SHOOTING](#rotating_light-trouble-shooting)
 - [:computer: Hacks](#computer-hacks)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
