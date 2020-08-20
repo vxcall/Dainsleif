@@ -25,8 +25,8 @@ Dainsleifは _Counter-Strike: Global Offensive_ 用のチートプログラム�
 # :pushpin: 目次
 
 - [:syringe: ビルド方法](#syringe-ビルド方法)
+- [:rotating_light: トラブルシューティング](#rotating_light-トラブルシューティング)
 - [:scroll: ハックメニュー](#scroll-ハックメニュー)
-    - [:rotating_light: トラブルシューティング](#rotating_light-トラブルシューティング)
 - [:computer: ハック](#computer-ハック)
     - [エイムボット](#エイムボット)
     - [発光ハック](#発光ハック)
@@ -76,16 +76,7 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 
 `Dainsleif.dll`を生成出来たら、あとは [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) などのお好きなDLL injectorを使ってインジェクトしてください。
 
-# :scroll: ハックメニュー
-
-ハックメニューへは<kbd>INSERT</kbd>キーを押すことでアクセスできます。
-
-各タブを押すことで各ハックのオン/オフや細かい調整ができます。
-調整項目はこれから増やしていく予定です。
-
-![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
-
-### :rotating_light: トラブルシューティング
+# :rotating_light: トラブルシューティング
 
 もしハックが正常に動作しない場合は、BOT戦などの試合中にメニューバーの`Update offsets`を押してください。それで治ると思います。
 
@@ -95,6 +86,14 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 3. `dwClientState = ???` のような部分があると思いますので、???の部分に先ほどコピーした値をペーストしてください。
 4. 最後に、BOT戦などの試合中にメニューバーの`Update offsets`を押してください。
 
+# :scroll: ハックメニュー
+
+ハックメニューへは<kbd>INSERT</kbd>キーを押すことでアクセスできます。
+
+各タブを押すことで各ハックのオン/オフや細かい調整ができます。
+調整項目はこれから増やしていく予定です。
+
+![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
 
 # :computer: ハック
 

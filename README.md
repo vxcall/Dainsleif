@@ -22,7 +22,7 @@ As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as 
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 
-### STILL WORKING: August 17, 2020
+### STILL WORKING: August 21, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 
@@ -31,8 +31,8 @@ You can easily support/motivate me by either **starring my project**, **followin
 # :pushpin: Table of contents
 
 - [:syringe: How to build this hack](#syringe-how-to-build-this-hack)
+- [:rotating_light: TROUBLE SHOOTING](#rotating_light-trouble-shooting)
 - [:scroll: Menu](#scroll-menu)
-    - [:rotating_light: TROUBLE SHOOTING](#rotating_light-trouble-shooting)
 - [:computer: Hacks](#computer-hacks)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
@@ -86,14 +86,6 @@ You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/Dains
 
 **Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
-# :scroll: Menu
-
-You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your keyboard.
-
-You can toggle on/off and tweak parameters in the tabs with the name of each hack.
-
-![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
-
 # :rotating_light: TROUBLE SHOOTING
 
 If the hacks doesn't work correctly, click `Update offsets` in the menu bar when you are in game (BOT practice is fine). Then everything should be ok.
@@ -103,6 +95,14 @@ If the game crashed as soon as you inject the hack do following steps.
 2. Open file `C://Users/Public/Documents/Dainsleif/offsets.toml` with any editor.
 3. In the file, you will find `dwClientState = ???` then paste the value copied earlier into the place represented by `???`.
 4. Lastly, hit `Update offsets` in the menu bar when you are in game (BOT practice is fine).
+
+# :scroll: Menu
+
+You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your keyboard.
+
+You can toggle on/off and tweak parameters in the tabs with the name of each hack.
+
+![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
 
 # :computer: Hacks
 
