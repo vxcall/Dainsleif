@@ -88,13 +88,7 @@ You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/Dains
 
 # :rotating_light: TROUBLE SHOOTING
 
-If the hacks doesn't work correctly, click `Update offsets` in the menu bar when you are in game (BOT practice is fine). Then everything should be ok.
-
-If the game crashed as soon as you inject the hack do following steps.
-1. Access [hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) and copy the value of `dwClientState`. It looks like 0x???.
-2. Open file `C://Users/Public/Documents/Dainsleif/offsets.toml` with any editor.
-3. In the file, you will find `dwClientState = ???` then paste the value copied earlier into the place represented by `???`.
-4. Lastly, hit `Update offsets` in the menu bar when you are in game (BOT practice is fine).
+**Something goes wrong? We've prepared [Wiki](https://github.com/s3pt3mb3r/Dainsleif/wiki/Trouble-shooting) for you :sunglasses:**
 
 # :scroll: Menu
 
