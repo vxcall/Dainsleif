@@ -22,7 +22,7 @@ As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as 
 
 If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 
-### STILL WORKING: August 21, 2020
+### STILL WORKING: August 22, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 
