@@ -60,16 +60,48 @@ void ShutdownImGui()
     ImGui::DestroyContext();
 }
 
-void UpdateOffsets() {
+bool show_updated_modal = false;
+
+std::vector<uintptr_t> UpdateOffsets() {
     RWtoml::UpdateOffsets(offsetsFile);
-    RWtoml::ReadOffsets(offsetsFile);
-    MessageBox(NULL, TEXT("Successfully updated offsets"), TEXT("Dainsleif"), MB_OK | MB_ICONINFORMATION);
+    std::vector<uintptr_t> offsets = RWtoml::ReadOffsets(offsetsFile);
+    show_updated_modal = true;
+    return offsets;
+}
+
+void ShowModal(const char* message) {
+    ImGui::OpenPopup("Modal");
+
+    // Always center this window when appearing
+    ImVec2 center(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f);
+    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+    if (ImGui::BeginPopupModal("Modal", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::Spacing();
+        ImGui::Spacing();
+        ImGui::TextColored((ImVec4)ImColor::HSV(0.57f, 0.6f, 0.8f), "%s", message);
+        ImGui::Spacing();
+        ImGui::Spacing();
+
+        ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.57f, 0.6f, 0.6f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.57f, 0.7f, 0.7f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.57f, 0.8f, 0.8f));
+        if (ImGui::Button("OK", ImVec2(170, 0))) {
+            ImGui::CloseCurrentPopup();
+            show_updated_modal = false;
+        }
+        ImGui::PopStyleColor(3);
+        ImGui::SetItemDefaultFocus();
+        ImGui::EndPopup();
+    }
 }
 
 /* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
-         * ParseFile() in RWtoml.cpp
-         * WriteFile() in RWtoml.cpp
+         * ReadSettings() in RWtoml.cpp
+         * WriteSettings() in RWtoml.cpp
          * setToDefault function
+         * DefaultSettings.h
 */
 
 void setToDefault(Hack_label label) {
@@ -111,6 +143,14 @@ void setToDefault(Hack_label label) {
 
 void ShowMenuBar()
 {
+    static std::vector<uintptr_t> newOffsets;
+    if(show_updated_modal) {
+//        char offsetString[30];
+//        for (uintptr_t offset : newOffsets) {
+//            strcat_s(offsetString, std::to_string(offset));
+//        }
+        ShowModal("Offsets successfully updated!");
+    }
     if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("Menu")) {
             if (ImGui::BeginMenu("Set to default")) {
@@ -130,7 +170,7 @@ void ShowMenuBar()
                 ImGui::EndMenu();
             }
             if (ImGui::MenuItem("Update offsets")) {
-                UpdateOffsets();
+                newOffsets = UpdateOffsets();
             }
             if (ImGui::MenuItem("Remove hack"))
                 bQuit = true;

@@ -15,7 +15,7 @@ bool inGame = false;
 std::string settingsFile;
 std::string offsetsFile;
 
-VOID WINAPI Detach(LPVOID lpParameter)
+VOID WINAPI Detach()
 {
     unhookEndScene();
 
@@ -152,7 +152,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
     }
     else if (dwReason == DLL_PROCESS_DETACH && !lpReserved)
     {
-        Detach(hModule);
+        Detach();
     }
     return TRUE;
 }

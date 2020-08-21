@@ -41,7 +41,7 @@ void RWtoml::WriteSettings(std::string& filename) {
     file.close();
 }
 
-void RWtoml::ReadOffsets(std::string& filename) {
+std::vector<uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
     auto saveData = toml::parse(filename);
     dwClientState = toml::find_or(saveData, "dwClientState", dwClientState);
     dwClientState_State = toml::find_or(saveData, "dwClientState_State", dwClientState_State);
@@ -65,6 +65,8 @@ void RWtoml::ReadOffsets(std::string& filename) {
     m_bDormant = toml::find_or(saveData, "m_bDormant", m_bDormant);
     m_hActiveWeapon = toml::find_or(saveData, "m_hActiveWeapon", m_hActiveWeapon);
     m_iItemDefinitionIndex = toml::find_or(saveData, "m_iItemDefinitionIndex", m_iItemDefinitionIndex);
+
+    return std::vector<uintptr_t> {dwClientState, dwForceAttack, dwEntityList, dwGlowObjectManager, dwLocalPlayer};
 }
 
 void RWtoml::UpdateOffsets(std::string& filename)
