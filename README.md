@@ -9,7 +9,7 @@
 
 **[日本語版README](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README_jp.md)**
 
-[![Banner](https://user-images.githubusercontent.com/33578715/90368163-44ae1200-e09c-11ea-9cc6-d876010f09c4.png)](https://github.com/s3pt3mb3r/Dainsleif)
+[![Banner](https://user-images.githubusercontent.com/33578715/90916494-b9be7600-e413-11ea-8dee-ffea384afb2e.png)](https://github.com/s3pt3mb3r/Dainsleif)
 
 # :zap: Dainsleif
 First of all, if you are kind enough to motivate me, just **star** this project :) I would be very happy.
