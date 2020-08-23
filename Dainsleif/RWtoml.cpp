@@ -1,4 +1,5 @@
 #include "pch.h"
+#include <map>
 #include "RWtoml.h"
 #include "PatternScanner.h"
 
@@ -41,7 +42,7 @@ void RWtoml::WriteSettings(std::string& filename) {
     file.close();
 }
 
-std::vector<uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
+std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
     auto saveData = toml::parse(filename);
     dwClientState = toml::find_or(saveData, "dwClientState", dwClientState);
     dwClientState_State = toml::find_or(saveData, "dwClientState_State", dwClientState_State);
@@ -66,7 +67,9 @@ std::vector<uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
     m_hActiveWeapon = toml::find_or(saveData, "m_hActiveWeapon", m_hActiveWeapon);
     m_iItemDefinitionIndex = toml::find_or(saveData, "m_iItemDefinitionIndex", m_iItemDefinitionIndex);
 
-    return std::vector<uintptr_t> {dwClientState, dwForceAttack, dwEntityList, dwGlowObjectManager, dwLocalPlayer};
+    return std::map<std::string, uintptr_t> {{"dwClientState", dwClientState}, {"dwForceAttack", dwForceAttack},
+                                             {"dwEntityList", dwEntityList}, {"dwGlowObjectManager", dwGlowObjectManager},
+                                             {"dwLocalPlayer", dwLocalPlayer}};
 }
 
 void RWtoml::UpdateOffsets(std::string& filename)

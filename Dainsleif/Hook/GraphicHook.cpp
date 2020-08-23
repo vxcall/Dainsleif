@@ -1,5 +1,6 @@
 #include "../pch.h"
 #include "ImGuiTheme.h"
+#include <map>
 #include "GraphicHook.h"
 #include "../Player.h"
 #include "../PatternScanner.h"
@@ -62,9 +63,9 @@ void ShutdownImGui()
 
 bool show_updated_modal = false;
 
-std::vector<uintptr_t> UpdateOffsets() {
+std::map<std::string, uintptr_t> UpdateOffsets() {
     RWtoml::UpdateOffsets(offsetsFile);
-    std::vector<uintptr_t> offsets = RWtoml::ReadOffsets(offsetsFile);
+    std::map<std::string, uintptr_t> offsets = RWtoml::ReadOffsets(offsetsFile);
     show_updated_modal = true;
     return offsets;
 }
@@ -143,13 +144,16 @@ void setToDefault(Hack_label label) {
 
 void ShowMenuBar()
 {
-    static std::vector<uintptr_t> newOffsets;
+    static std::map<std::string, uintptr_t> newOffsets;
     if(show_updated_modal) {
-//        char offsetString[30];
-//        for (uintptr_t offset : newOffsets) {
-//            strcat_s(offsetString, std::to_string(offset));
-//        }
-        ShowModal("Offsets successfully updated!");
+        std::string offsetString = "Updating offsets has done!\nNew offsets:\n\n";
+        for (auto& offset : newOffsets) {
+            offsetString += offset.first;
+            offsetString += ": ";
+            offsetString += std::to_string(offset.second);
+            offsetString += "\n";
+        }
+        ShowModal(offsetString.data());
     }
     if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("Menu")) {
