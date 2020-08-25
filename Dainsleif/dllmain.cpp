@@ -6,8 +6,10 @@
 #include "Hacks/Triggerbot.h"
 #include "Hook/GraphicHook.h"
 #include "PatternScanner.h"
+#include "Hacks/AntiAFK.h"
+#include <thread>
 
-bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot;
+bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK;
 int fov;
 bool g_ShowMenu = false;
 bool inGame = false;
@@ -130,6 +132,15 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         if (bAntiRecoil)
         {
             AntiRecoil::Run();
+        }
+
+        static bool checkState_bAntiAFK;
+        if (!checkState_bAntiAFK && bAntiAFK) { //First loop after user ticks the checkbox.
+            std::thread worker(AntiAFK::Run, &bAntiAFK);
+            worker.detach();
+            checkState_bAntiAFK = true;
+        } else if (checkState_bAntiAFK && !bAntiAFK) { //First loop after user unticks the checkbox.
+            checkState_bAntiAFK = false;
         }
 
         Sleep(1); //sleep for performance aspect

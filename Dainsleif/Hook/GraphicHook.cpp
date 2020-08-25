@@ -6,7 +6,8 @@
 #include "../PatternScanner.h"
 #include "../RWtoml.h"
 
-extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dll.main
+
+extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
 extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
 extern std::string offsetsFile; //declared in dllmain.cpp
@@ -116,6 +117,7 @@ void setToDefault(Hack_label label) {
             localGlowColor = Default::localGlowColor;
             bAntiRecoil = Default::bAntiRecoil;
             bTriggerBot = Default::bTriggerBot;
+            bAntiAFK = Default::bAntiAFK;
             fov = Default::fov;
             Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
@@ -139,6 +141,8 @@ void setToDefault(Hack_label label) {
             fov = Default::fov;
             Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
+        case ANTIAFK:
+            bAntiAFK = Default::bAntiAFK;
     }
 }
 
@@ -146,7 +150,9 @@ void ShowMenuBar()
 {
     static std::map<std::string, uintptr_t> newOffsets;
     if(show_updated_modal) {
-        std::string offsetString = "Updating offsets has done!\nNew offsets:\n\n";
+        std::string offsetString;
+        offsetString.reserve(200); //allocating memory beforehand for performance reason.
+        offsetString = "Updating offsets has done!\nNew offsets:\n\n";
         for (auto& offset : newOffsets) {
             offsetString += offset.first;
             offsetString += ": ";
@@ -168,6 +174,8 @@ void ShowMenuBar()
                     setToDefault(ANTIRECOIL);
                 } else if (ImGui::MenuItem("Trigger bot")) {
                     setToDefault(TRIGGERBOT);
+                } else if (ImGui::MenuItem("Anti AFK")) {
+                    setToDefault(ANTIAFK);
                 } else if (ImGui::MenuItem("FOV")) {
                     setToDefault(FOV);
                 }
@@ -217,6 +225,11 @@ void ShowTabMenu() {
         {
             if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120) && inGame)
                 localPlayer->SetFOV(fov);
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Anti AFK"))
+        {
+            ImGui::Checkbox("Enable AntiAFK", &bAntiAFK);
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();

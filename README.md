@@ -21,9 +21,10 @@ This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been w
 
 As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as your reference if you want.
 
-If you have any question about this project, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
+If you have any request or question, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
+Please understand that it may take a certain days because I'm doing this as completely my hobby without profit or reward, you know? 
 
-### STILL WORKING: August 23, 2020
+### STILL WORKING: August 25, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 

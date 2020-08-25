@@ -4,7 +4,7 @@
 #include "PatternScanner.h"
 
 extern ImVec4 enemyGlowColor, localGlowColor;
-extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot; //declared in dllmain.cpp
+extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK; //declared in dllmain.cpp
 extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern int fov; //declared in dllmain.cpp
 extern float range;
@@ -19,6 +19,7 @@ void RWtoml::ReadSettings(std::string& filename) {
     bGlowHack = toml::find_or<bool>(saveData, "bGlowHack", Default::bGlowhack);
     bAntiRecoil = toml::find_or<bool>(saveData, "bAntiRecoil", Default::bAntiRecoil);
     bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", Default::bTriggerBot);
+    bAntiAFK = toml::find_or<bool>(saveData, "bAntiAFK", Default::bAntiAFK);
     fov = toml::find_or(saveData, "fov", Default::fov);
 
     auto& enemyGlowColorTable = toml::find_or(saveData, "enemyGlowColor", {});
@@ -31,7 +32,7 @@ void RWtoml::ReadSettings(std::string& filename) {
 void RWtoml::WriteSettings(std::string& filename) {
     //Make a variable holds keys and values.
     const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
-                           {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot}, {"fov", fov},
+                           {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot}, {"bAntiAFK", bAntiAFK}, {"fov", fov},
                            {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
                            {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
                            {"aimSmoothness", aimSmoothness}, {"range", range}};
@@ -53,6 +54,11 @@ std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
     dwLocalPlayer = toml::find_or(saveData, "dwLocalPlayer", dwLocalPlayer);
     dwGlowObjectManager = toml::find_or(saveData, "dwGlowObjectManager", dwGlowObjectManager);
     dwForceAttack = toml::find_or(saveData, "dwForceAttack", dwForceAttack);
+    dwForceForward = toml::find_or(saveData, "dwForceForward", dwForceForward);
+    dwForceBackward = toml::find_or(saveData, "dwForceBackward", dwForceBackward);
+    dwForceRight = toml::find_or(saveData, "dwForceRight", dwForceRight);
+    dwForceLeft = toml::find_or(saveData, "dwForceLeft", dwForceLeft);
+    dwForceJump = toml::find_or(saveData, "dwForceJump", dwForceJump);
     m_vecOrigin = toml::find_or(saveData, "m_vecOrigin", m_vecOrigin);
     m_iHealth = toml::find_or(saveData, "m_iHealth", m_iHealth);
     m_vecViewOffset = toml::find_or(saveData, "m_vecViewOffset", m_vecViewOffset);
@@ -85,7 +91,9 @@ void RWtoml::UpdateOffsets(std::string& filename)
                     {"dwGlowObjectManager", a_glowObjectManager}, {"dwLocalPlayer", a_localPlayer},
                     {"dwClientState", a_clientState},
 
-                    {"dwClientState_State", 0x108},
+                    {"dwClientState_State", 0x108}, {"dwForceBackward", 0x3185A58},
+                    {"dwForceRight", 0x3185A70}, {"dwForceForward", 0x3185AC4},
+                    {"dwForceJump", 0x51FE22C}, {"dwForceLeft", 0x3185A4C},
                     {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
                     {"dwppDirect3DDevice9", 0xA7030}, {"m_vecOrigin", 0x138},
                     {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
@@ -105,7 +113,9 @@ void RWtoml::UpdateOffsets(std::string& filename)
 void RWtoml::InitializeOffsets(std::string& filename)
 {
     const toml::value data {
-                    {"dwClientState", 0x589DD4}, {"dwClientState_State", 0x108},
+                    {"dwClientState", 0x589DD4}, {"dwClientState_State", 0x108}, {"dwForceBackward", 0x3185A58},
+                    {"dwForceRight", 0x3185A70}, {"dwForceForward", 0x3185AC4},
+                    {"dwForceJump", 0x51FE22C}, {"dwForceLeft", 0x3185A4C},
                     {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
                     {"dwppDirect3DDevice9", 0xA7030}, {"dwEntityList", 0x4D5450C},
                     {"dwLocalPlayer", 0xD3FC5C}, {"dwGlowObjectManager", 0x529C3D0},

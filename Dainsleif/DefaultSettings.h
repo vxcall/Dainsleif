@@ -21,4 +21,7 @@ namespace Default {
 
     //FOV
     const int fov = 90;
+
+    //Anti AFK
+    const bool bAntiAFK = false;
 }
