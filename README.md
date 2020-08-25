@@ -24,7 +24,7 @@ As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as 
 If you have any request or question, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 Please understand that it may take a certain days because I'm doing this as completely my hobby without profit or reward, you know? 
 
-### STILL WORKING: August 25, 2020
+### STILL WORKING: August 26, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 
@@ -135,6 +135,14 @@ But this doesn't guarantee the 100% accuracy.
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
 
+## Anti AFK
+
+This feature basically make you move randomly every 50 seconds so that you probably not gonna banned automatically I guess.
+
+## FOV
+
+You can change your field of view from 60 to 120 degrees.
+
 # :busts_in_silhouette: Contributors
 
 I couldn't have got this far without them ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -155,7 +163,7 @@ I couldn't have got this far without them ([emoji key](https://allcontributors.o
 # :hammer_and_wrench: Features being developed
 
 **overall**
-- [x] Built-in pattern scanning system.
-- [ ] Enemy's health indicator.
-- [ ] Chams feature.
+- [ ] Enable switching visible hack tab by choosing various hacks in menu bar.
+- [ ] Enemy's health indicator. <- postponed
+- [ ] Chams feature. <- postponed
 

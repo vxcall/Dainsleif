@@ -221,15 +221,15 @@ void ShowTabMenu() {
             ImGui::Checkbox("Enable Trigger bot", &bTriggerBot);
             ImGui::EndTabItem();
         }
+        if (ImGui::BeginTabItem("Anti AFK"))
+        {
+            ImGui::Checkbox("Enable AntiAFK", &bAntiAFK);
+            ImGui::EndTabItem();
+        }
         if (ImGui::BeginTabItem("Field of View"))
         {
             if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120) && inGame)
                 localPlayer->SetFOV(fov);
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Anti AFK"))
-        {
-            ImGui::Checkbox("Enable AntiAFK", &bAntiAFK);
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();

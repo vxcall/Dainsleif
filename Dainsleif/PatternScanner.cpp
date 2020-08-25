@@ -1,8 +1,9 @@
 #include "PatternScanner.h"
+#include <optional>
 
 //FindPattern expects an input like this -> \x0F\x11\x05????\x83\xC8\x01
 //For example: BB [0C45572F] 83 FF 01 -> offset should be 1. offset has to be the number of byte before address we need.
-uintptr_t PatternScanner::FindPattern()
+std::optional<uintptr_t> PatternScanner::FindPattern()
 {
     HMODULE hModule = GetModuleHandle(this->moduleName);
     if (!hModule)
@@ -28,6 +29,11 @@ uintptr_t PatternScanner::FindPattern()
         }
     }
 
+    // If nothing found, return optional containing nothing
+    if (beginningOfModule == end){
+        return {};
+    }
+
     //back to the address of where current was located by subtracting the length of original pattern.
     current -= strlen(this->pattern);
 
@@ -36,5 +42,10 @@ uintptr_t PatternScanner::FindPattern()
 
 //Sometimes desired pointer is not illustrated in the module, so find an address which is located near desired one, and add extra bytes to reach the address.
 uintptr_t PatternScanner::CalculateOffset(uintptr_t base, int extra) {
-    return FindPattern() - base + extra;
+    std::optional<uintptr_t> o_pattern = FindPattern();
+    if (o_pattern) {
+        return o_pattern.value() - base + extra;
+    } else {
+        return 0000000;
+    }
 }

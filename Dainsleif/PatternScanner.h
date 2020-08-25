@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <Psapi.h>
+#include <optional>
 
 class PatternScanner {
     char* moduleName;
@@ -9,7 +10,7 @@ class PatternScanner {
     int offset;
 
     //FindPattern basically find passed pattern and return the 4 bytes address.
-    uintptr_t FindPattern();
+    std::optional<uintptr_t> FindPattern();
 public:
     PatternScanner(char* moduleName, const char* pattern, int offset)
     : moduleName(moduleName), pattern(pattern), offset(offset)
