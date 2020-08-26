@@ -5,15 +5,16 @@
 
 [README in English](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README.md)
 
-[![Banner](https://user-images.githubusercontent.com/33578715/90368163-44ae1200-e09c-11ea-9cc6-d876010f09c4.png)](https://github.com/s3pt3mb3r/Dainsleif)
+[![Banner](https://user-images.githubusercontent.com/33578715/90953346-22056a00-e49d-11ea-9b63-56f33187e667.png)
+この絵は僕の親友である[@suzuharuR](https://twitter.com/suzuharuR)から頂いたものです。
 
 # :zap: Dainsleif
 
-まず初めに、もしこのプロジェクトが気に入ったらStarしてくれると嬉しいです！
+まず初めに、もしこのプロジェクトが気に入ったら **Star** してくれると嬉しいです！
 
 Dainsleifは _Counter-Strike: Global Offensive_ 用のチートプログラムです。
 ただし、これはあくまでも僕の個人的な知識欲で作っているものであって実戦(マルチプレイヤーモード)で使うことは想定されていません。
-明示的な対策を行っているわけではないのでBANされる可能性が多分にあります。このソフトウェアによって発生したいかなる問題に対しても、開発者一同は責任を負いかねます。注意してご使用ください。
+明示的な対策を行っているわけではないのでBANされる可能性が多分にあります。 **このソフトウェアによって発生したいかなる問題に対しても、開発者一同は責任を負いかねます。** 注意してご使用ください。
 ただ、ボット戦で使うことは可能ですし、実際のチートと同じ手法で作られていてとてもシンプルなためコードの参考にはなるかと思います。
 
 もしこのプロジェクトについて質問等ありましたら気軽に [issue](https://github.com/s3pt3mb3r/Dainsleif/issues) ください！
@@ -78,13 +79,7 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 
 # :rotating_light: トラブルシューティング
 
-もしハックが正常に動作しない場合は、BOT戦などの試合中にメニューバーの`Update offsets`を押してください。それで治ると思います。
-
-ハックを注入した直後にゲームがクラッシュする場合は、以下の手順を実行してください。
-1. [hazedumper](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) にアクセスし、`dwClientState`の値をコピーしてください。0x???のような形の部分です。
-2. 適当なエディタで `C://Users/Public/Documents/Dainsleif/offsets.toml` ファイルを開いてください。
-3. `dwClientState = ???` のような部分があると思いますので、???の部分に先ほどコピーした値をペーストしてください。
-4. 最後に、BOT戦などの試合中にメニューバーの`Update offsets`を押してください。
+ハックがうまく動きませんか？ 大丈夫です、そんなときのために[Wiki](https://github.com/s3pt3mb3r/Dainsleif/wiki/Trouble-shooting)を用意してあります。
 
 # :scroll: ハックメニュー
 
@@ -94,6 +89,10 @@ Visual Studioユーザー用のフォルダを用意しています。(もし最
 調整項目はこれから増やしていく予定です。
 
 ![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
+
+メニューバーからタブのオンオフを切り替えることができます。
+いくつかのハックはデフォルトでオフになっています。
+![menu visible](https://user-images.githubusercontent.com/33578715/91351549-0f7f8d80-e81b-11ea-9216-e7d77a0566d1.png)
 
 # :computer: ハック
 
@@ -130,6 +129,14 @@ Rangeの項目を変えると、エイムボットが反応する範囲を変え
 実際のスプレー結果↓
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
+
+## 視野角調整(Field of view)
+
+このハックでは、本来変更できないプレイヤーの視野角を60～120まで調整できるようにするものです。
+
+## アンチ放置キック(Anti AFK)
+
+このハックをオンにすると、50秒ごとにプレイヤーを自動で動かすことによって放置キックされないようなります。
 
 # :busts_in_silhouette: 共同開発者
 
