@@ -59,6 +59,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     Modules::Initialize();
 
+    dwClientState = PatternScanner("engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1).CalculateOffset(Modules::engine, 0);
+
     std::cout << "client.dll: " << std::hex << Modules::client << std::endl;
     std::cout << "engine.dll: " << std::hex << Modules::engine << std::endl;
 
