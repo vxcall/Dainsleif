@@ -164,7 +164,7 @@ I couldn't have got this far without them ([emoji key](https://allcontributors.o
 # :hammer_and_wrench: Features being developed
 
 **overall**
-- [ ] Enable switching visible hack tab by choosing various hacks in menu bar.
+- [x] Enable switching visible hack tab by choosing various hacks in menu bar.
 - [ ] Enemy's health indicator. <- postponed
 - [ ] Chams feature. <- postponed
 

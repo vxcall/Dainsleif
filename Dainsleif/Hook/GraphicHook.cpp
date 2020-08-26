@@ -2,6 +2,7 @@
 #include "ImGuiTheme.h"
 #include "GraphicHook.h"
 #include "DrawGUI.h"
+#include <map>
 
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 
@@ -52,13 +53,15 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar;
         ImGui::Begin("Dainsleif", &g_ShowMenu, window_flags);
 
-//        static bool visibleHacks[6];
-//        for (int i = 0;i < 5;++i) {
-//            visibleHacks[i] = true;
-//        }
-        ShowMenuBar(); //tab
+        static std::map<const std::string, bool> visibleHacks = {{"Aim bot", true},
+                                                           {"Glow hack", true},
+                                                           {"Anti Recoil", true},
+                                                           {"Trigger bot", true},
+                                                           {"Anti AFK", false},
+                                                           {"Field of View", false}};
+        ShowMenuBar(visibleHacks); //tab
 
-        ShowTabMenu(); //main view
+        ShowTabMenu(visibleHacks); //main view
 
         ImGui::Separator();
         ImGui::Spacing();

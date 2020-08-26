@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 
 enum Hack_label {
     ALL,
@@ -12,6 +13,6 @@ enum Hack_label {
     FOV
 };
 
-void ShowMenuBar();
-void ShowTabMenu();
-static void HelpMarker(char* title, std::string desc);
+void ShowMenuBar(std::map<const std::string, bool>& visibleHacks);
+void ShowTabMenu(std::map<const std::string, bool>& visibleHacks);
+void HelpMarker(const char* title, const std::string& desc);

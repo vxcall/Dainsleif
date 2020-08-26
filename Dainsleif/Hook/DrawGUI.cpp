@@ -13,9 +13,9 @@ extern std::string offsetsFile; //declared in dllmain.cpp
 
 
 
-static void HelpMarker(char* title, std::string desc)
+void HelpMarker(const char* title, const std::string& desc)
 {
-    ImGui::TextDisabled(title);
+    ImGui::TextDisabled("%s", title);
     if (ImGui::IsItemHovered())
     {
         ImGui::BeginTooltip();
@@ -110,7 +110,7 @@ void setToDefault(Hack_label label) {
     }
 }
 
-void ShowMenuBar()
+void ShowMenuBar(std::map<const std::string, bool>& visibleHacks)
 {
     static std::map<std::string, uintptr_t> newOffsets;
     if(show_updated_modal) {
@@ -137,7 +137,7 @@ void ShowMenuBar()
                     setToDefault(AIMBOT);
                 } else if (ImGui::MenuItem("Glow hack")){
                     setToDefault(GLOWHACK);
-                } else if (ImGui::MenuItem("Anti Recoil")) {
+                } else if (ImGui::MenuItem("Anti recoil")) {
                     setToDefault(ANTIRECOIL);
                 } else if (ImGui::MenuItem("Trigger bot")) {
                     setToDefault(TRIGGERBOT);
@@ -156,49 +156,51 @@ void ShowMenuBar()
             ImGui::EndMenu();
         }
         // Menu 2
-//        if (ImGui::BeginMenu("Hacks")) {
-//
-//            ImGui::EndMenu();
-//        }
+        if (ImGui::BeginMenu("Hacks")) {
+            for (auto& [key, value] : visibleHacks) {
+                ImGui::MenuItem(key.data(), NULL, &value);
+            }
+            ImGui::EndMenu();
+        }
         ImGui::EndMenuBar();
     }
 }
 
-void ShowTabMenu() {
+void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
     Player* localPlayer = Player::GetLocalPlayer();
-    ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
+    static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
     if (ImGui::BeginTabBar("Hack_tab_bar", tab_bar_flags))
     {
-        if (ImGui::BeginTabItem("Aim bot"))
+        if (ImGui::BeginTabItem("Aim bot", &visibleHacks.at("Aim bot")))
         {
             ImGui::Checkbox("Enable Aim bot", &bAimbot);
             ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.005f, 0.4f);
             ImGui::SliderFloat("Range", &range, 1.f, 30.f);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Glow hack"))
+        if (ImGui::BeginTabItem("Glow hack", &visibleHacks.at("Glow hack")))
         {
             ImGui::Checkbox("Enable Glow hack", &bGlowHack);
             ImGui::ColorEdit4("Enemy Color", (float*)&enemyGlowColor);
             ImGui::ColorEdit4("Teammate color", (float*)&localGlowColor);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Anti Recoil"))
+        if (ImGui::BeginTabItem("Anti Recoil", &visibleHacks.at("Anti Recoil")))
         {
             ImGui::Checkbox("Enable Anti recoil", &bAntiRecoil);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Trigger bot"))
+        if (ImGui::BeginTabItem("Trigger bot", &visibleHacks.at("Trigger bot")))
         {
             ImGui::Checkbox("Enable Trigger bot", &bTriggerBot);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Anti AFK"))
+        if (ImGui::BeginTabItem("Anti AFK", &visibleHacks.at("Anti AFK")))
         {
             ImGui::Checkbox("Enable AntiAFK", &bAntiAFK);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Field of View"))
+        if (ImGui::BeginTabItem("Field of View", &visibleHacks.at("Field of View")))
         {
             if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120) && inGame)
                 localPlayer->SetFOV(fov);
