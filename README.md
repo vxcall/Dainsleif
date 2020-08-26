@@ -142,7 +142,7 @@ But this doesn't guarantee the 100% accuracy.
 
 ## Anti AFK
 
-This feature basically make you move randomly every 50 seconds so that you probably not gonna banned automatically I guess.
+This feature basically make you move randomly every 50 seconds so that you probably not gonna get kicked automatically I guess.
 
 ## FOV
 
