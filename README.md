@@ -13,7 +13,7 @@
 Image's gifted by my big friend [@suzuharuR](https://twitter.com/suzuharuR)
 
 # :zap: Dainsleif
-First of all, if you are kind enough to motivate me, just **star** this project :) I would be very happy.
+First of all, if you are kind enough to motivate me, just **:star: star :star:** this project :) I would be very happy.
 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
 
