@@ -101,6 +101,10 @@ You can toggle on/off and tweak parameters in the tabs with the name of each hac
 
 ![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
 
+You can choose what hacks to be visible with the menu bar.
+Several hacks're set to invisible by default.
+![menu visible](https://user-images.githubusercontent.com/33578715/91351549-0f7f8d80-e81b-11ea-9216-e7d77a0566d1.png)
+
 # :computer: Hacks
 
 ## Aimbot
