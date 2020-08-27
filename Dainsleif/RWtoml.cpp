@@ -1,5 +1,6 @@
 #include "pch.h"
 #include <map>
+#include <future>
 #include "RWtoml.h"
 #include "PatternScanner.h"
 
@@ -78,13 +79,18 @@ std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
                                              {"dwLocalPlayer", dwLocalPlayer}};
 }
 
+//This is a syntax sugar to be passed to std::async
+uintptr_t Scan(std::string dllName, std::string signature, int offset, uintptr_t moduleBase, int extra) {
+    return PatternScanner(dllName.data(), signature.data(), offset).CalculateOffset(moduleBase, extra);
+}
+
 void RWtoml::UpdateOffsets(std::string& filename)
 {
-    int64_t a_forceAttack = PatternScanner("client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2).CalculateOffset(Modules::client, 0);
-    int64_t a_entityList = PatternScanner("client.dll", "\xBB????\x83??\x7C?", 1).CalculateOffset(Modules::client, 0);
-    int64_t a_glowObjectManager = PatternScanner("client.dll", "\x11?????\x83??\xC7?????????\x0F\x28?????\x68????", 2).CalculateOffset(Modules::client, 0);
-    int64_t a_localPlayer = PatternScanner("client.dll", "\x8D\x34\x85????\x89\x15????\x8B\x41\x08\x8B\x48\x04\x83\xF9\xFF", 3).CalculateOffset(Modules::client, 4);
-    int64_t a_clientState = PatternScanner("engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1).CalculateOffset(Modules::engine, 0);
+    uintptr_t a_forceAttack = std::async(std::launch::async, Scan, "client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2, Modules::client, 0).get();
+    uintptr_t a_entityList = std::async(std::launch::async, Scan, "client.dll", "\xBB????\x83??\x7C?", 1, Modules::client, 0).get();
+    uintptr_t a_glowObjectManager = std::async(std::launch::async, Scan, "client.dll", "\x11?????\x83??\xC7?????????\x0F\x28?????\x68????", 2, Modules::client, 0).get();
+    uintptr_t a_localPlayer = std::async(std::launch::async, Scan, "client.dll", "\x8D\x34\x85????\x89\x15????\x8B\x41\x08\x8B\x48\x04\x83\xF9\xFF", 3, Modules::client, 4).get();
+    uintptr_t a_clientState = std::async(std::launch::async, Scan, "engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1, Modules::engine, 0).get();
 
     const toml::value data {
                     {"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList},

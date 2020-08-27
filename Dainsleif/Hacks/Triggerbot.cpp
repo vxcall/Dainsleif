@@ -9,7 +9,7 @@ void Triggerbot::Run()
     Weapon* weapon = localPlayer->GetActiveWeapon();
     WeaponID weaponId = weapon->GetWeaponID();
     static const WeaponID rejectWeaponList[8] = {KNIFE, C4, GN_DECOY, GN_FLASH_, GN_HE, GN_MOLOTOV, GN_SMOKE};
-    for (WeaponID rejW : rejectWeaponList) {
+    for (auto& rejW : rejectWeaponList) {
         if (rejW == weaponId)
             return;
     }
