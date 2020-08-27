@@ -99,7 +99,7 @@ You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your key
 
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 
-![Hack menu](https://user-images.githubusercontent.com/33578715/89070761-09c39300-d3a8-11ea-9aac-18cf2749b622.gif)
+![Hack menu](https://user-images.githubusercontent.com/33578715/91472649-5aa4a980-e8ca-11ea-8352-21b6400a494b.gif)
 
 You can choose what hacks to be visible with the menu bar.
 Several hacks're set to invisible by default.
