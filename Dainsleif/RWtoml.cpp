@@ -79,7 +79,7 @@ std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
                                              {"dwLocalPlayer", dwLocalPlayer}};
 }
 
-//This is a syntax sugar to be passed to std::async
+//This is a wrap function to be passed to std::async
 uintptr_t Scan(std::string dllName, std::string signature, int offset, uintptr_t moduleBase, int extra) {
     return PatternScanner(dllName.data(), signature.data(), offset).CalculateOffset(moduleBase, extra);
 }
@@ -97,9 +97,9 @@ void RWtoml::UpdateOffsets(std::string& filename)
                     {"dwGlowObjectManager", a_glowObjectManager}, {"dwLocalPlayer", a_localPlayer},
                     {"dwClientState", a_clientState},
 
-                    {"dwClientState_State", 0x108}, {"dwForceBackward", 0x3185A58},
-                    {"dwForceRight", 0x3185A70}, {"dwForceForward", 0x3185AC4},
-                    {"dwForceJump", 0x51FE22C}, {"dwForceLeft", 0x3185A4C},
+                    {"dwClientState_State", 0x108}, {"dwForceBackward", 0x31859D8},
+                    {"dwForceRight", 0x31859F0}, {"dwForceForward", 0x31859B4},
+                    {"dwForceJump", 0x51FE044}, {"dwForceLeft", 0x31859CC},
                     {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
                     {"dwppDirect3DDevice9", 0xA7030}, {"m_vecOrigin", 0x138},
                     {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
@@ -119,13 +119,13 @@ void RWtoml::UpdateOffsets(std::string& filename)
 void RWtoml::InitializeOffsets(std::string& filename)
 {
     const toml::value data {
-                    {"dwClientState", 0x589DD4}, {"dwClientState_State", 0x108}, {"dwForceBackward", 0x3185A58},
-                    {"dwForceRight", 0x3185A70}, {"dwForceForward", 0x3185AC4},
-                    {"dwForceJump", 0x51FE22C}, {"dwForceLeft", 0x3185A4C},
+                    {"dwClientState", 0x589DD4}, {"dwClientState_State", 0x108}, {"dwForceBackward", 0x31859D8},
+                    {"dwForceRight", 0x31859F0}, {"dwForceForward", 0x31859B4},
+                    {"dwForceJump", 0x51FE044}, {"dwForceLeft", 0x31859CC},
                     {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
-                    {"dwppDirect3DDevice9", 0xA7030}, {"dwEntityList", 0x4D5450C},
-                    {"dwLocalPlayer", 0xD3FC5C}, {"dwGlowObjectManager", 0x529C3D0},
-                    {"dwForceAttack", 0x3185AA0}, {"m_vecOrigin", 0x138},
+                    {"dwppDirect3DDevice9", 0xA7030}, {"dwEntityList", 0x4D5442C},
+                    {"dwLocalPlayer", 0xD3FC5C}, {"dwGlowObjectManager", 0x529C208},
+                    {"dwForceAttack", 0x3185984}, {"m_vecOrigin", 0x138},
                     {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
                     {"m_dwBoneMatrix", 0x26A8}, {"m_iTeamNum", 0xF4},
                     {"m_iGlowIndex", 0xA438}, {"m_aimPunchAngle", 0x302C},
