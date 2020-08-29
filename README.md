@@ -41,6 +41,8 @@ You can easily support/motivate me by either **starring my project**, **followin
     - [Glow hack](#glow-hack)
     - [Trigger bot](#trigger-bot)
     - [Anti recoil](#anti-recoil)
+    - [Anti AFK](#anti-afk)
+    - [FOV](#fov)
 - [:busts_in_silhouette: Contributors](#busts_in_silhouette-Contributors)
 - [:hammer_and_wrench: Features being developed](#hammer_and_wrench-features-being-developed)
 
