@@ -86,21 +86,25 @@ uintptr_t Scan(std::string dllName, std::string signature, int offset, uintptr_t
 
 void RWtoml::UpdateOffsets(std::string& filename)
 {
-    uintptr_t a_forceAttack = std::async(std::launch::async, Scan, "client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2, Modules::client, 0).get();
     uintptr_t a_entityList = std::async(std::launch::async, Scan, "client.dll", "\xBB????\x83??\x7C?", 1, Modules::client, 0).get();
     uintptr_t a_glowObjectManager = std::async(std::launch::async, Scan, "client.dll", "\x11?????\x83??\xC7?????????\x0F\x28?????\x68????", 2, Modules::client, 0).get();
     uintptr_t a_localPlayer = std::async(std::launch::async, Scan, "client.dll", "\x8D\x34\x85????\x89\x15????\x8B\x41\x08\x8B\x48\x04\x83\xF9\xFF", 3, Modules::client, 4).get();
     uintptr_t a_clientState = std::async(std::launch::async, Scan, "engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1, Modules::engine, 0).get();
-
+    uintptr_t a_forceAttack = std::async(std::launch::async, Scan, "client.dll", "\x89\x0D????\x8B\x0D????\x8B\xF2\x8B\xC1\x83\xCE\x04", 2, Modules::client, 0).get();
+    uintptr_t a_forceBackward = std::async(std::launch::async, Scan, "client.dll", "\x55\x8B\xEC\x51\x53\x8A\x5D\x08", 287, Modules::client, 0).get();
+    uintptr_t a_forceForward = std::async(std::launch::async, Scan, "client.dll","\x55\x8B\xEC\x51\x53\x8A\x5D\x08", 245, Modules::client, 0).get();
+    uintptr_t a_forceJump = std::async(std::launch::async, Scan, "client.dll", "\x8B\x0D????\x8B\xD6\x8B\xC1\x83\xCA\x02", 2, Modules::client, 0).get();
+    uintptr_t a_forceLeft = std::async(std::launch::async, Scan, "client.dll", "\x55\x8B\xEC\x51\x53\x8A\x5D\x08", 465, Modules::client, 0).get();
+    uintptr_t a_forceRight = std::async(std::launch::async, Scan, "client.dll", "\x55\x8B\xEC\x51\x53\x8A\x5D\x08", 512, Modules::client, 0).get();
     const toml::value data {
                     {"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList},
                     {"dwGlowObjectManager", a_glowObjectManager}, {"dwLocalPlayer", a_localPlayer},
-                    {"dwClientState", a_clientState},
+                    {"dwClientState", a_clientState}, {"dwForceBackward", a_forceBackward},
+                    {"dwForceForward", a_forceForward}, {"dwForceRight", a_forceRight},
+                    {"dwForceJump", a_forceJump},
+                    {"dwClientState_State", 0x108}, {"dwForceLeft", a_forceLeft},
 
-                    {"dwClientState_State", 0x108}, {"dwForceBackward", 0x31859D8},
-                    {"dwForceRight", 0x31859F0}, {"dwForceForward", 0x31859B4},
-                    {"dwForceJump", 0x51FE044}, {"dwForceLeft", 0x31859CC},
-                    {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
+                   {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
                     {"dwppDirect3DDevice9", 0xA7030}, {"m_vecOrigin", 0x138},
                     {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
                     {"m_dwBoneMatrix", 0x26A8}, {"m_iTeamNum", 0xF4},
