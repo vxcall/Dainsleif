@@ -115,7 +115,7 @@ void ShowMenuBar(std::map<const std::string, bool>& visibleHacks)
     static std::map<std::string, uintptr_t> newOffsets;
     if(show_updated_modal) {
         std::string offsetString;
-        offsetString.reserve(200); //allocating memory beforehand for performance reason.
+        offsetString.reserve(300); //allocating memory beforehand for performance reason.
         offsetString = "Updating offsets has done!\nNew offsets:\n\n";
         for (auto& offset : newOffsets) {
             offsetString += offset.first;

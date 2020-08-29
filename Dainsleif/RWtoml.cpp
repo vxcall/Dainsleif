@@ -47,10 +47,6 @@ void RWtoml::WriteSettings(std::string& filename) {
 std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
     auto saveData = toml::parse(filename);
     dwClientState = toml::find_or(saveData, "dwClientState", dwClientState);
-    dwClientState_State = toml::find_or(saveData, "dwClientState_State", dwClientState_State);
-    dwClientState_MaxPlayer = toml::find_or(saveData, "dwClientState_MaxPlayer", dwClientState_MaxPlayer);
-    dwClientState_ViewAngles = toml::find_or(saveData, "dwClientState_ViewAngles", dwClientState_ViewAngles);
-    dwppDirect3DDevice9 = toml::find_or(saveData, "dwppDirect3DDevice9", dwppDirect3DDevice9);
     dwEntityList = toml::find_or(saveData, "dwEntityList", dwEntityList);
     dwLocalPlayer = toml::find_or(saveData, "dwLocalPlayer", dwLocalPlayer);
     dwGlowObjectManager = toml::find_or(saveData, "dwGlowObjectManager", dwGlowObjectManager);
@@ -60,6 +56,11 @@ std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
     dwForceRight = toml::find_or(saveData, "dwForceRight", dwForceRight);
     dwForceLeft = toml::find_or(saveData, "dwForceLeft", dwForceLeft);
     dwForceJump = toml::find_or(saveData, "dwForceJump", dwForceJump);
+
+    dwClientState_State = toml::find_or(saveData, "dwClientState_State", dwClientState_State);
+    dwClientState_MaxPlayer = toml::find_or(saveData, "dwClientState_MaxPlayer", dwClientState_MaxPlayer);
+    dwClientState_ViewAngles = toml::find_or(saveData, "dwClientState_ViewAngles", dwClientState_ViewAngles);
+    dwppDirect3DDevice9 = toml::find_or(saveData, "dwppDirect3DDevice9", dwppDirect3DDevice9);
     m_vecOrigin = toml::find_or(saveData, "m_vecOrigin", m_vecOrigin);
     m_iHealth = toml::find_or(saveData, "m_iHealth", m_iHealth);
     m_vecViewOffset = toml::find_or(saveData, "m_vecViewOffset", m_vecViewOffset);
@@ -76,7 +77,9 @@ std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
 
     return std::map<std::string, uintptr_t> {{"dwClientState", dwClientState}, {"dwForceAttack", dwForceAttack},
                                              {"dwEntityList", dwEntityList}, {"dwGlowObjectManager", dwGlowObjectManager},
-                                             {"dwLocalPlayer", dwLocalPlayer}};
+                                             {"dwLocalPlayer", dwLocalPlayer}, {"dwForceForward", dwForceForward},
+                                             {"dwForceBackward", dwForceBackward}, {"dwForceRight", dwForceRight},
+                                             {"dwForceLeft", dwForceLeft}, {"dwForceJump", dwForceJump}};
 }
 
 //This is a wrap function to be passed to std::async
