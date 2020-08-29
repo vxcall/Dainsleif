@@ -3,7 +3,9 @@
 #include "GraphicHook.h"
 #include "DrawGUI.h"
 #include <map>
+#include "../Hacks/Esp.h"
 
+bool bEsp = true;
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
@@ -42,6 +44,9 @@ void ShutdownImGui()
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
+    if (bEsp) {
+        Esp::DrawFilledRect(*pDevice, 25, 25, 100, 100, D3DCOLOR_ARGB(255, 255, 255, 255));
+    }
     if (g_ShowMenu)
     {
         ImGui_ImplDX9_NewFrame();
