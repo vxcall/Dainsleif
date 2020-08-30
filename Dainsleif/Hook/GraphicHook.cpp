@@ -4,13 +4,15 @@
 #include "DrawGUI.h"
 #include <map>
 #include "../Hacks/Esp.h"
+#include <tuple>
 
 bool bEsp = true;
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 
+
+
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
-
 HWND window = nullptr;
 WNDPROC originalWndProc = nullptr;
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -42,10 +44,22 @@ void ShutdownImGui()
     ImGui::DestroyContext();
 }
 
+std::tuple<int, int> GetWindowSize() {
+    RECT size;
+    GetWindowRect(window, &size);
+    int windowWidth = size.right - size.left;
+    windowWidth -= 5; //removing pixels sidebar has.
+    int windowHeight = size.bottom - size.top;
+    windowHeight -=29; //removing pixels topbar has.
+    return std::tuple<int, int>(windowWidth, windowHeight);
+}
+
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
     if (bEsp) {
-        Esp::DrawFilledRect(*pDevice, 25, 25, 100, 100, D3DCOLOR_ARGB(255, 255, 255, 255));
+        //Esp::DrawFilledRect(*pDevice, 25, 25, 100, 100, D3DCOLOR_ARGB(255, 255, 255, 255));
+        //auto[windowWidth, windowHeight] = GetWindowSize();
+        //Esp::DrawFilledRect(*pDevice, windowWidth / 2 - 2, windowHeight / 2 - 2, 4, 4, D3DCOLOR_ARGB(255, 255, 255, 255));
     }
     if (g_ShowMenu)
     {

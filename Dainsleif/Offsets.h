@@ -10,6 +10,8 @@ extern uintptr_t dwForceBackward;
 extern uintptr_t dwForceRight;
 extern uintptr_t dwForceLeft;
 extern uintptr_t dwForceJump;
+extern uintptr_t dwViewMatrix;
+
 extern uintptr_t m_vecOrigin;
 extern uintptr_t m_iHealth;
 extern uintptr_t m_vecViewOffset;

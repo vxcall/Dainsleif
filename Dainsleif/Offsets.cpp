@@ -14,6 +14,8 @@ uintptr_t dwForceBackward;
 uintptr_t dwForceRight;
 uintptr_t dwForceLeft;
 uintptr_t dwForceJump;
+uintptr_t dwViewMatrix;
+
 uintptr_t m_vecOrigin;
 uintptr_t m_iHealth;
 uintptr_t m_vecViewOffset;
