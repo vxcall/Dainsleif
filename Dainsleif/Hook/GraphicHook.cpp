@@ -4,9 +4,11 @@
 #include "DrawGUI.h"
 #include <map>
 #include "../Hacks/Esp.h"
+#include "../Player.h"
+#include <d3dx9math.h>
 #include <tuple>
 
-bool bEsp = true;
+bool bEsp;
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 
 
@@ -44,23 +46,27 @@ void ShutdownImGui()
     ImGui::DestroyContext();
 }
 
-std::tuple<int, int> GetWindowSize() {
+WindowSize GetWindowSize() {
     RECT size;
+    WindowSize windowSize{};
     GetWindowRect(window, &size);
-    int windowWidth = size.right - size.left;
-    windowWidth -= 5; //removing pixels sidebar has.
-    int windowHeight = size.bottom - size.top;
-    windowHeight -=29; //removing pixels topbar has.
-    return std::tuple<int, int>(windowWidth, windowHeight);
+    windowSize.w = size.right - size.left;
+    windowSize.w -= 5; //removing pixels sidebar has.
+    windowSize.h = size.bottom - size.top;
+    windowSize.h -=29; //removing pixels topbar has.
+    return windowSize;
 }
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
     if (bEsp) {
-        //Esp::DrawFilledRect(*pDevice, 25, 25, 100, 100, D3DCOLOR_ARGB(255, 255, 255, 255));
-        //auto[windowWidth, windowHeight] = GetWindowSize();
-        //Esp::DrawFilledRect(*pDevice, windowWidth / 2 - 2, windowHeight / 2 - 2, 4, 4, D3DCOLOR_ARGB(255, 255, 255, 255));
-    }
+        Esp::Run((LPDIRECT3DDEVICE9)pDevice, GetWindowSize());
+        }
+
+    //Esp::DrawFilledRect(*pDevice, 25, 25, 100, 100, D3DCOLOR_ARGB(255, 255, 255, 255));
+    //WindowSize windowSize = GetWindowSize();
+    //Esp::DrawFilledRect(*pDevice, yawDistance - 3, pitchDistance - 3, 6, 6, D3DCOLOR_ARGB(255, 255, 255, 255));
+    //}
     if (g_ShowMenu)
     {
         ImGui_ImplDX9_NewFrame();
@@ -73,11 +79,12 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ImGui::Begin("Dainsleif", &g_ShowMenu, window_flags);
 
         static std::map<const std::string, bool> visibleHacks = {{"Aim bot", true},
-                                                           {"Glow hack", true},
-                                                           {"Anti Recoil", true},
-                                                           {"Trigger bot", true},
-                                                           {"Anti AFK", false},
-                                                           {"Field of View", false}};
+                                                                {"Glow hack", true},
+                                                                {"Anti Recoil", true},
+                                                                {"Trigger bot", true},
+                                                                {"Anti AFK", false},
+                                                                {"Field of View", false},
+                                                                {"ESP", false}};
         ShowMenuBar(visibleHacks); //tab
 
         ShowTabMenu(visibleHacks); //main view

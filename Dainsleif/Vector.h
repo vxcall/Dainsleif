@@ -40,3 +40,13 @@ public:
             x = -89.f;
 	}
 };
+
+class Vector2 {
+public:
+    float  x, y;
+};
+
+class Vector4 {
+public:
+    float x, y, z, w;
+};
