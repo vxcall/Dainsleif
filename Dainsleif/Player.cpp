@@ -35,7 +35,7 @@ void FilterOutIrrelevant(std::vector<Player*>& playerList, Player* localPlayer)
     }
 }
 // FilterOutIrrelevant basically filter out the dead enemies and allies from playerList.
-std::vector<Player*> Player::GetLiving() {
+std::vector<Player*> Player::GetLivingOpponents() {
     Player* localPlayer = GetLocalPlayer();
     std::vector<Player*> playerList = GetAll();
     FilterOutIrrelevant(playerList, localPlayer);

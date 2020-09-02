@@ -10,7 +10,7 @@ public:
 
     static std::vector<Player*> GetAll();
 
-    static std::vector<Player*> GetLiving();
+    static std::vector<Player*> GetLivingOpponents();
 
     static int GetMaxPlayers();
 

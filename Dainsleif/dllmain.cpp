@@ -120,7 +120,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bAimbot)
         {
-            std::vector<Player*> pl = Player::GetLiving();
+            std::vector<Player*> pl = Player::GetLivingOpponents();
             Aimbot::Run(pl);
         }
 

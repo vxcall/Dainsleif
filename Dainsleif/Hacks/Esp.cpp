@@ -37,7 +37,7 @@ void DrawLine(IDirect3DDevice9& pDevice, int x1, int y1, int x2, int y2, int thi
 
 void Esp::Run(IDirect3DDevice9& pDevice, WindowSize windowSize) {
     Player* localPlayer = Player::GetLocalPlayer();
-    std::vector<Player*> playerList = Player::GetLiving();
+    std::vector<Player*> playerList = Player::GetLivingOpponents();
     for (auto& player : playerList) {
         std::optional<Vector2> entPos2D = WorldToScreen(player->GetBodyPosition(), windowSize);
         if (entPos2D) {
