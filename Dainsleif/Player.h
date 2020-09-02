@@ -10,6 +10,8 @@ public:
 
     static std::vector<Player*> GetAll();
 
+    static std::vector<Player*> GetLiving();
+
     static int GetMaxPlayers();
 
     uintptr_t GetBoneMatrix();

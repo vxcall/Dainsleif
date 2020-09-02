@@ -59,14 +59,9 @@ WindowSize GetWindowSize() {
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
-    if (bEsp) {
+    if (bEsp)
         Esp::Run((LPDIRECT3DDEVICE9)pDevice, GetWindowSize());
-        }
 
-    //Esp::DrawFilledRect(*pDevice, 25, 25, 100, 100, D3DCOLOR_ARGB(255, 255, 255, 255));
-    //WindowSize windowSize = GetWindowSize();
-    //Esp::DrawFilledRect(*pDevice, yawDistance - 3, pitchDistance - 3, 6, 6, D3DCOLOR_ARGB(255, 255, 255, 255));
-    //}
     if (g_ShowMenu)
     {
         ImGui_ImplDX9_NewFrame();

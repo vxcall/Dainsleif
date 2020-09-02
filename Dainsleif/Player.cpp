@@ -23,6 +23,25 @@ std::vector<Player*> Player::GetAll()
     return allPlayers;
 }
 
+// FilterOutIrrelevant basically filter out the dead enemies and allies from playerList.
+void FilterOutIrrelevant(std::vector<Player*>& playerList, Player* localPlayer)
+{
+    for (int i = 0;i < static_cast<int>(playerList.size());) {
+        if (playerList[i]->GetTeam() == localPlayer->GetTeam() || !playerList[i]->GetHealth()) {
+            playerList.erase(playerList.begin() + i);
+        } else {
+            ++i;
+        }
+    }
+}
+// FilterOutIrrelevant basically filter out the dead enemies and allies from playerList.
+std::vector<Player*> Player::GetLiving() {
+    Player* localPlayer = GetLocalPlayer();
+    std::vector<Player*> playerList = GetAll();
+    FilterOutIrrelevant(playerList, localPlayer);
+    return playerList;
+}
+
 int Player::GetMaxPlayers()
 {
     uintptr_t clientState = *reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState);

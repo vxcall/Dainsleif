@@ -2,7 +2,6 @@
 #include <optional>
 
 std::optional<Vector2> WorldToScreen(Vector3 entPos, WindowSize& windowSize) {
-    //float viewMatrix[4][4];
     float viewMatrix[4][4];
     memcpy(&viewMatrix, (PBYTE*)(Modules::client + dwViewMatrix), sizeof(viewMatrix));
     Vector4 clipCoords{};
@@ -24,11 +23,6 @@ std::optional<Vector2> WorldToScreen(Vector3 entPos, WindowSize& windowSize) {
     return screen;
 }
 
-void DrawFilledRect(IDirect3DDevice9& pDevice, int x, int y, int w, int h, D3DCOLOR color) {
-    D3DRECT rect = {x, y, x + w, y + h};
-    pDevice.Clear(1, &rect, D3DCLEAR_TARGET, color, 0, 0);
-}
-
 void DrawLine(LPDIRECT3DDEVICE9 pDevice, int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color) {
     ID3DXLine* LineL;
     D3DXCreateLine(pDevice, &LineL);
@@ -43,7 +37,7 @@ void DrawLine(LPDIRECT3DDEVICE9 pDevice, int x1, int y1, int x2, int y2, int thi
 
 void Esp::Run(LPDIRECT3DDEVICE9 pDevice, WindowSize windowSize) {
     Player* localPlayer = Player::GetLocalPlayer();
-    std::vector<Player*> playerList = Player::GetAll();
+    std::vector<Player*> playerList = Player::GetLiving();
     for (auto& player : playerList) {
         std::optional<Vector2> entPos2D = WorldToScreen(player->GetBodyPosition(), windowSize);
         if (entPos2D) {
