@@ -37,16 +37,18 @@ void DrawLine(IDirect3DDevice9& pDevice, int x1, int y1, int x2, int y2, int thi
 
 void Esp::Run(IDirect3DDevice9& pDevice, WindowSize windowSize) {
     Player* localPlayer = Player::GetLocalPlayer();
-    std::vector<Player*> playerList = Player::GetLivingOpponents();
+    std::vector<Player*> playerList = Player::GetAll();
     for (auto& player : playerList) {
-        std::optional<Vector2> entPos2D = WorldToScreen(player->GetBodyPosition(), windowSize);
-        if (entPos2D) {
-            D3DCOLOR color;
-            if (player->GetTeam() == localPlayer->GetTeam())
-                color = D3DCOLOR_ARGB(255, 0, 255, 0);
-            else
-                color = D3DCOLOR_ARGB(255, 255, 0, 0);
-            DrawLine(pDevice, entPos2D->x, entPos2D->y, windowSize.w / 2, windowSize.h, 2, color);
+        if (player->GetHealth() && !player->IsDormant()) {
+            std::optional<Vector2> entPos2D = WorldToScreen(player->GetBodyPosition(), windowSize);
+            if (entPos2D) {
+                D3DCOLOR color;
+                if (player->GetTeam() == localPlayer->GetTeam())
+                    color = D3DCOLOR_ARGB(255, 0, 255, 0);
+                else
+                    color = D3DCOLOR_ARGB(255, 255, 0, 0);
+                DrawLine(pDevice, entPos2D->x, entPos2D->y, windowSize.w / 2, windowSize.h, 2, color);
+            }
         }
     }
 }
