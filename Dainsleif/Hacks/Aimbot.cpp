@@ -45,23 +45,9 @@ Player* GetClosestEnemyFromCrosshair(std::vector<Player*> playerList, Player* lo
     return playerList[closestPlayerIndex];
 }
 
-// FilterOutIrrelevant basically filter out the dead enemies and allies from playerList.
-void FilterOutIrrelevant(std::vector<Player*>& playerList, Player* localPlayer)
-{
-    for (int i = 0;i < static_cast<int>(playerList.size());) {
-        if (playerList[i]->GetTeam() == localPlayer->GetTeam() || !playerList[i]->GetHealth()) {
-            playerList.erase(playerList.begin() + i);
-        } else {
-            ++i;
-        }
-    }
-}
-
 void Aimbot::Run(std::vector<Player*> playerList)
 {
     Player* localPlayer = Player::GetLocalPlayer();
-
-    FilterOutIrrelevant(playerList, localPlayer);
 
     static auto* viewAngles = reinterpret_cast<Vector3*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_ViewAngles);
 

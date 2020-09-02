@@ -11,11 +11,13 @@
 #include <filesystem>
 #include <Windows.h>
 #include <d3d9.h>
+#include <d3dx9core.h>
 #include <detours.h>
+
 
 //my header
 #include "Hook/ImGuiTheme.h"
-#include "vector3.h"
+#include "Vector.h"
 #include "DefaultSettings.h"
 #include "Offsets.h"
 #include "Modules.h"

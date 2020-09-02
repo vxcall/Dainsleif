@@ -3,7 +3,7 @@
 #include "../Player.h"
 #include "../RWtoml.h"
 
-extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK; //declared in dll.main
+extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bEsp; //declared in dll.main
 extern int fov; //declared in dllmain.cpp
 extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
 extern ImVec4 enemyGlowColor, localGlowColor;
@@ -107,6 +107,8 @@ void setToDefault(Hack_label label) {
             break;
         case ANTIAFK:
             bAntiAFK = Default::bAntiAFK;
+        case ESP:
+            bEsp = Default::bEsp;
     }
 }
 
@@ -145,6 +147,8 @@ void ShowMenuBar(std::map<const std::string, bool>& visibleHacks)
                     setToDefault(ANTIAFK);
                 } else if (ImGui::MenuItem("FOV")) {
                     setToDefault(FOV);
+                } else if (ImGui::MenuItem("ESP")) {
+                    setToDefault(ESP);
                 }
                 ImGui::EndMenu();
             }
@@ -206,6 +210,12 @@ void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
                 localPlayer->SetFOV(fov);
             ImGui::EndTabItem();
         }
-        ImGui::EndTabBar();
+        if (ImGui::BeginTabItem("ESP", &visibleHacks.at("ESP")))
+        {
+            ImGui::Checkbox("ESP", &bEsp);
+            ImGui::EndTabItem();
+        }
+
     }
+        ImGui::EndTabBar();
 }

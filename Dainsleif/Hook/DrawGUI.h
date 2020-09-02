@@ -10,7 +10,8 @@ enum Hack_label {
     ANTIRECOIL,
     TRIGGERBOT,
     ANTIAFK,
-    FOV
+    FOV,
+    ESP
 };
 
 void ShowMenuBar(std::map<const std::string, bool>& visibleHacks);

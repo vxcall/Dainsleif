@@ -39,4 +39,4 @@ if (MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")
 endif ()
 
-target_link_libraries(${PROJECT_NAME} d3d9 detours)
+target_link_libraries(${PROJECT_NAME} d3d9 d3dx9 detours)

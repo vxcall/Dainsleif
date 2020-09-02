@@ -56,6 +56,7 @@ std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
     dwForceRight = toml::find_or(saveData, "dwForceRight", dwForceRight);
     dwForceLeft = toml::find_or(saveData, "dwForceLeft", dwForceLeft);
     dwForceJump = toml::find_or(saveData, "dwForceJump", dwForceJump);
+    dwViewMatrix = toml::find_or(saveData, "dwViewMatrix", dwViewMatrix);
 
     dwClientState_State = toml::find_or(saveData, "dwClientState_State", dwClientState_State);
     dwClientState_MaxPlayer = toml::find_or(saveData, "dwClientState_MaxPlayer", dwClientState_MaxPlayer);
@@ -79,7 +80,8 @@ std::map<std::string, uintptr_t> RWtoml::ReadOffsets(std::string& filename) {
                                              {"dwEntityList", dwEntityList}, {"dwGlowObjectManager", dwGlowObjectManager},
                                              {"dwLocalPlayer", dwLocalPlayer}, {"dwForceForward", dwForceForward},
                                              {"dwForceBackward", dwForceBackward}, {"dwForceRight", dwForceRight},
-                                             {"dwForceLeft", dwForceLeft}, {"dwForceJump", dwForceJump}};
+                                             {"dwForceLeft", dwForceLeft}, {"dwForceJump", dwForceJump},
+                                             {"dwViewMatrix", dwViewMatrix}};
 }
 
 //This is a wrap function to be passed to std::async
@@ -99,14 +101,17 @@ void RWtoml::UpdateOffsets(std::string& filename)
     uintptr_t a_forceJump = std::async(std::launch::async, Scan, "client.dll", "\x8B\x0D????\x8B\xD6\x8B\xC1\x83\xCA\x02", 2, Modules::client, 0).get();
     uintptr_t a_forceLeft = std::async(std::launch::async, Scan, "client.dll", "\x55\x8B\xEC\x51\x53\x8A\x5D\x08", 465, Modules::client, 0).get();
     uintptr_t a_forceRight = std::async(std::launch::async, Scan, "client.dll", "\x55\x8B\xEC\x51\x53\x8A\x5D\x08", 512, Modules::client, 0).get();
+    uintptr_t a_viewMatrix = std::async(std::launch::async, Scan, "client.dll", "\x0F\x10\x05????\x8D\x85????\xB9", 3, Modules::client, 176).get();
+
     const toml::value data {
                     {"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList},
                     {"dwGlowObjectManager", a_glowObjectManager}, {"dwLocalPlayer", a_localPlayer},
                     {"dwClientState", a_clientState}, {"dwForceBackward", a_forceBackward},
                     {"dwForceForward", a_forceForward}, {"dwForceRight", a_forceRight},
-                    {"dwForceJump", a_forceJump},
-                    {"dwClientState_State", 0x108}, {"dwForceLeft", a_forceLeft},
+                    {"dwForceJump", a_forceJump}, {"dwForceLeft", a_forceLeft},
+                    {"dwViewMatrix", a_viewMatrix},
 
+                    {"dwClientState_State", 0x108},
                    {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
                     {"dwppDirect3DDevice9", 0xA7030}, {"m_vecOrigin", 0x138},
                     {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
@@ -128,7 +133,7 @@ void RWtoml::InitializeOffsets(std::string& filename)
     const toml::value data {
                     {"dwClientState", 0x589DD4}, {"dwClientState_State", 0x108}, {"dwForceBackward", 0x31859D8},
                     {"dwForceRight", 0x31859F0}, {"dwForceForward", 0x31859B4},
-                    {"dwForceJump", 0x51FE044}, {"dwForceLeft", 0x31859CC},
+                    {"dwForceJump", 0x51FE044}, {"dwForceLeft", 0x31859CC},{"dwViewMatrix", 0x4D45D74},
                     {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
                     {"dwppDirect3DDevice9", 0xA7030}, {"dwEntityList", 0x4D5442C},
                     {"dwLocalPlayer", 0xD3FC5C}, {"dwGlowObjectManager", 0x529C208},

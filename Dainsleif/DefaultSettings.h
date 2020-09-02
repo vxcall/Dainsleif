@@ -24,4 +24,7 @@ namespace Default {
 
     //Anti AFK
     const bool bAntiAFK = false;
+
+    //ESP
+    const bool bEsp = false;
 }

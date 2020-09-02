@@ -109,7 +109,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
             inGame = true;
         }
 
-        if (bAimbot || bTriggerBot || bGlowHack || bAntiRecoil) {
+        if (bTriggerBot || bGlowHack || bAntiRecoil) {
             playerList = Player::GetAll();
         }
 
@@ -120,7 +120,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bAimbot)
         {
-            Aimbot::Run(playerList);
+            std::vector<Player*> pl = Player::GetLiving();
+            Aimbot::Run(pl);
         }
 
         if (bGlowHack)
