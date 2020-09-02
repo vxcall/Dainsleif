@@ -9,6 +9,11 @@ std::optional<Vector2> WorldToScreen(Vector3 entPos, WindowSize& windowSize) {
     clipCoords.y = entPos.x * viewMatrix[1][0] + entPos.y * viewMatrix[1][1] + entPos.z * viewMatrix[1][2] + viewMatrix[1][3];
     clipCoords.z = entPos.x * viewMatrix[2][0] + entPos.y * viewMatrix[2][1] + entPos.z * viewMatrix[2][2] + viewMatrix[2][3];
     clipCoords.w = entPos.x * viewMatrix[3][0] + entPos.y * viewMatrix[3][1] + entPos.z * viewMatrix[3][2] + viewMatrix[3][3];
+//    std::cout << viewMatrix[0][0] << " : "  << viewMatrix[0][1] << " : " << viewMatrix[0][2] << " : " << viewMatrix[0][3] << std::endl;
+//    std::cout << viewMatrix[1][0] << " : "  << viewMatrix[1][1] << " : " << viewMatrix[1][2] << " : " << viewMatrix[1][3] << std::endl;
+//    std::cout << viewMatrix[2][0] << " : "  << viewMatrix[2][1] << " : " << viewMatrix[2][2] << " : " << viewMatrix[2][3] << std::endl;
+//    std::cout << viewMatrix[3][0] << " : "  << viewMatrix[3][1] << " : " << viewMatrix[3][2] << " : " << viewMatrix[3][3] << std::endl;
+//    std::cout << "" << std::endl;
 
     if (clipCoords.w < 0.1f)
         return {};
