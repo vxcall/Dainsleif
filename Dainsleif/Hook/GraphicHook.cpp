@@ -60,7 +60,7 @@ WindowSize GetWindowSize() {
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
     if (bEsp)
-        Esp::Run((LPDIRECT3DDEVICE9)pDevice, GetWindowSize());
+        Esp::Run(*pDevice, GetWindowSize());
 
     if (g_ShowMenu)
     {

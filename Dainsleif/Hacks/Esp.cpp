@@ -23,9 +23,9 @@ std::optional<Vector2> WorldToScreen(Vector3 entPos, WindowSize& windowSize) {
     return screen;
 }
 
-void DrawLine(LPDIRECT3DDEVICE9 pDevice, int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color) {
+void DrawLine(IDirect3DDevice9& pDevice, int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color) {
     ID3DXLine* LineL;
-    D3DXCreateLine(pDevice, &LineL);
+    D3DXCreateLine(&pDevice, &LineL);
 
     D3DXVECTOR2 Line[2];
     Line[0] = D3DXVECTOR2(x1, y1);
@@ -35,7 +35,7 @@ void DrawLine(LPDIRECT3DDEVICE9 pDevice, int x1, int y1, int x2, int y2, int thi
     LineL->Release();
 }
 
-void Esp::Run(LPDIRECT3DDEVICE9 pDevice, WindowSize windowSize) {
+void Esp::Run(IDirect3DDevice9& pDevice, WindowSize windowSize) {
     Player* localPlayer = Player::GetLocalPlayer();
     std::vector<Player*> playerList = Player::GetLiving();
     for (auto& player : playerList) {
