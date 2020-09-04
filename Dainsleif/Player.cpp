@@ -77,7 +77,7 @@ Vector3 Player::GetAimPunchAngle()
 Vector3 Player::GetBonePosition()
 {
     uintptr_t boneMatrix = GetBoneMatrix();
-    if (!boneMatrix) //When started the game while bAimbot is on, the game is gonna crash.
+    if (!boneMatrix) //When the game starts with bAimbot on, the game is gonna crash.
     {
         return {};
     }

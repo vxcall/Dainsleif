@@ -35,19 +35,43 @@ void DrawLine(IDirect3DDevice9& pDevice, int x1, int y1, int x2, int y2, int thi
     LineL->Release();
 }
 
+void DrawOutLineRect(IDirect3DDevice9& pDevice, Vector2 top, Vector2 bottom, int thickness, D3DCOLOR color) {
+    ID3DXLine* LineL;
+    D3DXCreateLine(&pDevice, &LineL);
+
+    float height = top.y - bottom.y;
+
+    // apparently, height / 2 is the horizontal length of the rectangle.
+    // top.x and bottom.x is located at the center of the entity
+    // so x coordinate -(+) height / 4 should be the left and right end of the rectangle.
+    D3DXVECTOR2 topLine[2] = {D3DXVECTOR2(top.x - height / 4, top.y), D3DXVECTOR2(top.x + height / 4, top.y)};
+    D3DXVECTOR2 bottomLine[2] = {D3DXVECTOR2(bottom.x - height / 4, bottom.y), D3DXVECTOR2(bottom.x + height / 4, bottom.y)};
+    D3DXVECTOR2 rightLine[2] = {D3DXVECTOR2(top.x + height / 4, top.y), D3DXVECTOR2(bottom.x + height / 4, bottom.y)};
+    D3DXVECTOR2 leftLine[2] = {D3DXVECTOR2(top.x - height / 4, top.y), D3DXVECTOR2(bottom.x - height / 4, bottom.y)};
+
+    LineL->SetWidth(thickness);
+    LineL->Draw(topLine, 2, color);
+    LineL->Draw(bottomLine, 2, color);
+    LineL->Draw(rightLine, 2, color);
+    LineL->Draw(leftLine, 2, color);
+    LineL->Release();
+}
+
 void Esp::Run(IDirect3DDevice9& pDevice, WindowSize windowSize) {
     Player* localPlayer = Player::GetLocalPlayer();
     std::vector<Player*> playerList = Player::GetAll();
     for (auto& player : playerList) {
         if (player->GetHealth() && !player->IsDormant()) {
             std::optional<Vector2> entPos2D = WorldToScreen(player->GetBodyPosition(), windowSize);
-            if (entPos2D) {
+            std::optional<Vector2> entHeadPos2D = WorldToScreen(player->GetBonePosition(), windowSize);
+            if (entPos2D && entHeadPos2D) {
                 D3DCOLOR color;
                 if (player->GetTeam() == localPlayer->GetTeam())
                     color = D3DCOLOR_ARGB(255, 0, 255, 0);
                 else
                     color = D3DCOLOR_ARGB(255, 255, 0, 0);
                 DrawLine(pDevice, entPos2D->x, entPos2D->y, windowSize.w / 2, windowSize.h, 2, color);
+                DrawOutLineRect(pDevice, *entHeadPos2D, *entPos2D, 1, color);
             }
         }
     }
