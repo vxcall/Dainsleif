@@ -25,7 +25,7 @@ As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as 
 If you have any request or question, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
 Please understand that it may take a certain days because I'm doing this as completely my hobby without profit or reward, you know? 
 
-### STILL WORKING: September 02, 2020
+### STILL WORKING: September 04, 2020
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 
@@ -39,9 +39,9 @@ You can easily support/motivate me by either **starring my project**, **followin
 - [:computer: Hacks](#computer-hacks)
     - [Aimbot](#aimbot)
     - [Glow hack](#glow-hack)
+    - [ESP hack](#esp-hack)
     - [Trigger bot](#trigger-bot)
     - [Anti recoil](#anti-recoil)
-    - [ESP hack](#esp-hack)
     - [Anti AFK](#anti-afk)
     - [FOV](#fov)
 - [:busts_in_silhouette: Contributors](#busts_in_silhouette-Contributors)
@@ -128,6 +128,14 @@ This feature allows you to see both opponents and teammate's outline through wal
 
 ![Glow hack](https://user-images.githubusercontent.com/33578715/89087560-48b51100-d3c7-11ea-9ada-8ef04acfa52c.png)
 
+## ESP hack
+
+With this hack turned on:
+- Red and green lines from player's foot position towards every enemies and allies are displayed.
+- Outline rectangles are drawn on the players
+
+![esp](https://user-images.githubusercontent.com/33578715/92253522-30726d80-ef02-11ea-80d3-fdb7045851d0.png)
+
 ## Trigger bot
 
 Once you turn this on, you no longer have to press left click when you engage them.
@@ -142,12 +150,6 @@ It automatically calculate the in comming recoil and manipulate your angle to ha
 But this doesn't guarantee the 100% accuracy.
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
-
-## ESP hack
-
-:warning: This hack is WIP.
-**Currently**, this hack displays red and green lines from player's foot position towards every enemies and allies.
-Ima create the 2D square ESP next, then go onto the 3D box ESP. 
 
 ## Anti AFK
 
@@ -181,6 +183,7 @@ I couldn't have got this far without them ([emoji key](https://allcontributors.o
 # :hammer_and_wrench: Features being developed
 
 **overall**
-- [ ] Enemy's health indicator. <- postponed
+- [ ] Enemy's health indicator.
+- [ ] 3D rectangle ESP.
 - [ ] Chams feature. <- postponed
 
