@@ -6,7 +6,7 @@
 #include "../Hacks/Esp.h"
 
 bool bEsp, bLineOverlay, bRectOverlay;
-extern bool g_ShowMenu; //decleard in dllmain.cpp
+extern bool g_ShowMenu, inGame; //decleard in dllmain.cpp
 
 
 
@@ -56,8 +56,12 @@ WindowSize GetWindowSize() {
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
-    if (bEsp) {
-        Player* localPlayer = Player::GetLocalPlayer();
+    static Player* oldLocalPlayer = Player::GetLocalPlayer();
+    Player* localPlayer = Player::GetLocalPlayer();
+    int gameState = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
+
+    if (localPlayer != oldLocalPlayer && localPlayer && bEsp)
+    {
         std::vector<Player*> playerList = Player::GetAll();
         WindowSize ws = GetWindowSize();
         Esp esp = Esp(localPlayer->GetTeam(), playerList, *pDevice, ws);
@@ -65,6 +69,10 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
             esp.LineOverlay();
         if (bRectOverlay)
             esp.RectangleOverlay();
+    }
+
+    if (gameState != 6 && inGame) {
+        oldLocalPlayer = localPlayer;
     }
 
 
