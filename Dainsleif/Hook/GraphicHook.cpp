@@ -59,8 +59,15 @@ WindowSize GetWindowSize() {
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
-    if (bEsp)
-        Esp::Run(*pDevice, GetWindowSize());
+    if (bEsp) {
+        Player* localPlayer = Player::GetLocalPlayer();
+        std::vector<Player*> playerList = Player::GetAll();
+        WindowSize ws = GetWindowSize();
+        Esp esp = Esp(localPlayer->GetTeam(), playerList, *pDevice, ws);
+        esp.LineOverlay();
+        esp.RectangleOverlay();
+    }
+
 
     if (g_ShowMenu)
     {

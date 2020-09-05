@@ -57,21 +57,34 @@ void DrawOutLineRect(IDirect3DDevice9& pDevice, Vector2 top, Vector2 bottom, int
     LineL->Release();
 }
 
-void Esp::Run(IDirect3DDevice9& pDevice, WindowSize windowSize) {
-    Player* localPlayer = Player::GetLocalPlayer();
-    std::vector<Player*> playerList = Player::GetAll();
-    for (auto& player : playerList) {
+void Esp::LineOverlay() {
+    for (auto& player : this->playerList) {
         if (player->GetHealth() && !player->IsDormant()) {
-            std::optional<Vector2> entPos2D = WorldToScreen(player->GetBodyPosition(), windowSize);
-            std::optional<Vector2> entHeadPos2D = WorldToScreen(player->GetBonePosition(), windowSize);
-            if (entPos2D && entHeadPos2D) {
+            std::optional<Vector2> entFootPos2D = WorldToScreen(player->GetBodyPosition(), this->windowSize);
+            if (entFootPos2D) {
                 D3DCOLOR color;
-                if (player->GetTeam() == localPlayer->GetTeam())
+                if (player->GetTeam() == this->localTeamNum)
                     color = D3DCOLOR_ARGB(255, 0, 255, 0);
                 else
                     color = D3DCOLOR_ARGB(255, 255, 0, 0);
-                DrawLine(pDevice, entPos2D->x, entPos2D->y, windowSize.w / 2, windowSize.h, 2, color);
-                DrawOutLineRect(pDevice, *entHeadPos2D, *entPos2D, 1, color);
+                DrawLine(this->pDevice, entFootPos2D->x, entFootPos2D->y, windowSize.w / 2, windowSize.h, 2, color);
+            }
+        }
+    }
+}
+
+void Esp::RectangleOverlay() {
+    for (auto& player : this->playerList) {
+        if (player->GetHealth() && !player->IsDormant()) {
+            std::optional<Vector2> entHeadPos2D = WorldToScreen(player->GetBonePosition(), windowSize);
+            std::optional<Vector2> entFootPos2D = WorldToScreen(player->GetBodyPosition(), this->windowSize);
+            if (entHeadPos2D) {
+                D3DCOLOR color;
+                if (player->GetTeam() == this->localTeamNum)
+                    color = D3DCOLOR_ARGB(255, 0, 255, 0);
+                else
+                    color = D3DCOLOR_ARGB(255, 255, 0, 0);
+                DrawOutLineRect(pDevice, *entHeadPos2D, *entFootPos2D, 1, color);
             }
         }
     }

@@ -3,10 +3,20 @@
 #include "../Player.h"
 #include "../Hook/GraphicHook.h"
 #include <optional>
+#include <utility>
 
 std::optional<Vector2> WorldToScreen(Vector3 entPos, WindowSize& windowSize);
-void DrawLine(IDirect3DDevice9& pDevice, int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color);
-namespace Esp
-{
-    void Run(IDirect3DDevice9& pDevice, WindowSize windowSize);
-}
+class Esp {
+    const int& localTeamNum;
+    std::vector<Player*>& playerList;
+    IDirect3DDevice9& pDevice;
+    WindowSize& windowSize;
+
+
+public:
+    Esp(const int& localTeamNum, std::vector<Player*>& playerList, IDirect3DDevice9& pDevice, WindowSize& windowSize)
+    : localTeamNum(localTeamNum), playerList(playerList), pDevice(pDevice), windowSize(windowSize){}
+
+    void LineOverlay();
+    void RectangleOverlay();
+};
