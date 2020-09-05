@@ -177,8 +177,10 @@ I couldn't have got this far without them ([emoji key](https://allcontributors.o
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 **Unintentional contributors:**
+
 - [Osiris project](https://github.com/danielkrupinski/Osiris)
 - [Hazedumper project](https://github.com/frk1/hazedumper)
+- [Guided Hacking](https://guidedhacking.com)
 
 # :hammer_and_wrench: Features being developed
 

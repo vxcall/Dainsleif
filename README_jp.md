@@ -31,6 +31,7 @@ Dainsleifは _Counter-Strike: Global Offensive_ 用のチートプログラム�
 - [:computer: ハック](#computer-ハック)
     - [エイムボット](#エイムボット)
     - [発光ハック](#発光ハック)
+    - [ESPハック](#ESPハック)
     - [トリガーボット](#トリガーボット)
     - [アンチリコイル](#アンチリコイル)
 - [:busts_in_silhouette: 共同開発者](#busts_in_silhouette-共同開発者)
@@ -113,6 +114,14 @@ Rangeの項目を変えると、エイムボットが反応する範囲を変え
 敵と味方の光る色はハックメニューから自由にカスタマイズできます。
 
 ![Glow hack](https://user-images.githubusercontent.com/33578715/89087560-48b51100-d3c7-11ea-9ada-8ef04acfa52c.png)
+
+## ESPハック (Esp)
+
+これはESPハックです。味方や敵に対して長方形のオーバーレイを表示します。
+
+また、自分から各プレイヤーに対して直線を引きます。
+
+![esp](https://user-images.githubusercontent.com/33578715/92253522-30726d80-ef02-11ea-80d3-fdb7045851d0.png)
 
 ## トリガーボット(Trigger bot)
 
