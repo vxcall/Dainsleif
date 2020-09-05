@@ -3,7 +3,8 @@
 #include "../Player.h"
 #include "../RWtoml.h"
 
-extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bEsp; //declared in dll.main
+extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK; //declared in dll.main
+extern bool bEsp, bLineOverlay, bRectOverlay; //declared in GraphicHook.main
 extern int fov; //declared in dllmain.cpp
 extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
 extern ImVec4 enemyGlowColor, localGlowColor;
@@ -210,9 +211,13 @@ void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
                 localPlayer->SetFOV(fov);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("ESP", &visibleHacks.at("ESP")))
+        if (ImGui::BeginTabItem("ESP          ", &visibleHacks.at("ESP")))
         {
-            ImGui::Checkbox("ESP", &bEsp);
+            ImGui::Checkbox("Enable ESP", &bEsp);
+            if (bEsp) {
+                ImGui::Checkbox("Enable Line overlay", &bLineOverlay);
+                ImGui::Checkbox("Enable Rectangle overlay", &bRectOverlay);
+            }
             ImGui::EndTabItem();
         }
 

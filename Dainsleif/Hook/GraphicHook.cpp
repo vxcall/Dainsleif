@@ -4,11 +4,8 @@
 #include "DrawGUI.h"
 #include <map>
 #include "../Hacks/Esp.h"
-#include "../Player.h"
-#include <d3dx9math.h>
-#include <tuple>
 
-bool bEsp;
+bool bEsp, bLineOverlay, bRectOverlay;
 extern bool g_ShowMenu; //decleard in dllmain.cpp
 
 
@@ -64,8 +61,10 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         std::vector<Player*> playerList = Player::GetAll();
         WindowSize ws = GetWindowSize();
         Esp esp = Esp(localPlayer->GetTeam(), playerList, *pDevice, ws);
-        esp.LineOverlay();
-        esp.RectangleOverlay();
+        if (bLineOverlay)
+            esp.LineOverlay();
+        if (bRectOverlay)
+            esp.RectangleOverlay();
     }
 
 

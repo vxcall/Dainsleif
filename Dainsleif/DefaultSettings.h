@@ -27,4 +27,6 @@ namespace Default {
 
     //ESP
     const bool bEsp = false;
+    const bool bLineOverlay = false;
+    const bool bRectOverlay = false;
 }

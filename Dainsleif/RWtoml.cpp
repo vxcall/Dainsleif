@@ -6,6 +6,7 @@
 
 extern ImVec4 enemyGlowColor, localGlowColor;
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK; //declared in dllmain.cpp
+extern bool bEsp, bLineOverlay, bRectOverlay; //declared in GraphicHook.main
 extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern int fov; //declared in dllmain.cpp
 extern float range;
@@ -22,6 +23,9 @@ void RWtoml::ReadSettings(std::string& filename) {
     bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", Default::bTriggerBot);
     bAntiAFK = toml::find_or<bool>(saveData, "bAntiAFK", Default::bAntiAFK);
     fov = toml::find_or(saveData, "fov", Default::fov);
+    bEsp = toml::find_or(saveData, "bEsp", Default::bEsp);
+    bLineOverlay = toml::find_or(saveData, "bLineOverlay", Default::bLineOverlay);
+    bRectOverlay = toml::find_or(saveData, "bRectOverlay", Default::bRectOverlay);
 
     auto& enemyGlowColorTable = toml::find_or(saveData, "enemyGlowColor", {});
     enemyGlowColor = ImVec4(toml::find_or(enemyGlowColorTable, "Red", Default::enemyGlowColor.x), toml::find_or(enemyGlowColorTable, "Green", Default::enemyGlowColor.y), toml::find_or(enemyGlowColorTable, "Blue", Default::enemyGlowColor.z), toml::find_or(enemyGlowColorTable, "Alpha", Default::enemyGlowColor.w));
@@ -36,7 +40,9 @@ void RWtoml::WriteSettings(std::string& filename) {
                            {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot}, {"bAntiAFK", bAntiAFK}, {"fov", fov},
                            {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
                            {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
-                           {"aimSmoothness", aimSmoothness}, {"range", range}};
+                           {"aimSmoothness", aimSmoothness}, {"range", range},
+                           {"bEsp", bEsp}, {"bLineOverlay", bLineOverlay}, {"bRectOverlay", bRectOverlay}
+    };
     //Open file and write it in toml syntax.
     std::ofstream file;
     file.open(filename, std::ios::out);
