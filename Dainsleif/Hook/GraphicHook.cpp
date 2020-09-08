@@ -65,8 +65,11 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         std::vector<Player*> playerList = Player::GetAll();
         WindowSize ws = GetWindowSize();
         Esp esp = Esp(localPlayer->GetTeam(), playerList, *pDevice, ws);
-        if (bLineOverlay)
+        if (bLineOverlay) {
             esp.LineOverlay();
+            esp.HealthOverlay();
+        }
+
         if (bRectOverlay)
             esp.RectangleOverlay();
     }
@@ -112,7 +115,8 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
     return originalEndScene(pDevice);
 }
 
-void hookEndScene() {
+void hookEndScene()
+{
     auto shaderapidx9 = reinterpret_cast<uintptr_t>(GetModuleHandle("shaderapidx9.dll"));
     IDirect3DDevice9* pDevice = *reinterpret_cast<IDirect3DDevice9**>(shaderapidx9 + dwppDirect3DDevice9);
 

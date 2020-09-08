@@ -37,7 +37,7 @@ void RWtoml::ReadSettings(std::string& filename)
 
 void RWtoml::WriteSettings(std::string& filename)
 {
-    //Make a variable holds keys and values.
+    //Make a variable that holds keys and values.
     const toml::value data{{"bAimbot", bAimbot}, {"bGlowHack", bGlowHack},
                            {"bAntiRecoil", bAntiRecoil}, {"bTriggerBot", bTriggerBot}, {"bAntiAFK", bAntiAFK}, {"fov", fov},
                            {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},

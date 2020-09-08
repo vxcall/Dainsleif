@@ -23,9 +23,9 @@ std::optional<Vector2> WorldToScreen(Vector3 entPos, WindowSize& windowSize) {
     return screen;
 }
 
-void DrawLine(IDirect3DDevice9& pDevice, int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color) {
+void Esp::DrawLine(int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color) {
     ID3DXLine* LineL;
-    D3DXCreateLine(&pDevice, &LineL);
+    D3DXCreateLine(&this->pDevice, &LineL);
 
     D3DXVECTOR2 Line[2];
     Line[0] = D3DXVECTOR2(x1, y1);
@@ -35,11 +35,11 @@ void DrawLine(IDirect3DDevice9& pDevice, int x1, int y1, int x2, int y2, int thi
     LineL->Release();
 }
 
-void DrawOutLineRect(IDirect3DDevice9& pDevice, Vector2 top, Vector2 bottom, int thickness, D3DCOLOR color) {
+void Esp::DrawOutLineRect(Vector2 top, Vector2 bottom, int thickness, D3DCOLOR color) {
     ID3DXLine* LineL;
-    D3DXCreateLine(&pDevice, &LineL);
+    D3DXCreateLine(&this->pDevice, &LineL);
 
-    float height = top.y - bottom.y;
+    float height = fabs(top.y - bottom.y);
 
     // apparently, height / 2 is the horizontal length of the rectangle.
     // top.x and bottom.x is located at the center of the entity
@@ -57,6 +57,13 @@ void DrawOutLineRect(IDirect3DDevice9& pDevice, Vector2 top, Vector2 bottom, int
     LineL->Release();
 }
 
+void Esp::DrawFilledRect(Vector2 top, Vector2 bottom, D3DCOLOR color) {
+    float height = fabs(top.y - bottom.y);
+
+    D3DRECT rect = {static_cast<LONG>(top.x - height / 4), static_cast<LONG>(top.y), static_cast<LONG>(bottom.x + height / 4), static_cast<LONG>(bottom.y)};
+    this->pDevice.Clear(1, &rect, D3DCLEAR_TARGET, color, 0, 0);
+}
+
 void Esp::LineOverlay() {
     for (auto& player : this->playerList) {
         if (player->GetHealth() && !player->IsDormant()) {
@@ -67,7 +74,7 @@ void Esp::LineOverlay() {
                     color = D3DCOLOR_ARGB(255, 0, 255, 0);
                 else
                     color = D3DCOLOR_ARGB(255, 255, 0, 0);
-                DrawLine(this->pDevice, entFootPos2D->x, entFootPos2D->y, windowSize.w / 2, windowSize.h, 2, color);
+                DrawLine(entFootPos2D->x, entFootPos2D->y, windowSize.w / 2, windowSize.h, 2, color);
             }
         }
     }
@@ -76,15 +83,27 @@ void Esp::LineOverlay() {
 void Esp::RectangleOverlay() {
     for (auto& player : this->playerList) {
         if (player->GetHealth() && !player->IsDormant()) {
-            std::optional<Vector2> entHeadPos2D = WorldToScreen(player->GetBonePosition(), windowSize);
+            std::optional<Vector2> entHeadPos2D = WorldToScreen(player->GetBonePosition(), this->windowSize);
             std::optional<Vector2> entFootPos2D = WorldToScreen(player->GetBodyPosition(), this->windowSize);
-            if (entHeadPos2D) {
+            if (entHeadPos2D && entFootPos2D) {
                 D3DCOLOR color;
                 if (player->GetTeam() == this->localTeamNum)
                     color = D3DCOLOR_ARGB(255, 0, 255, 0);
                 else
                     color = D3DCOLOR_ARGB(255, 255, 0, 0);
-                DrawOutLineRect(pDevice, *entHeadPos2D, *entFootPos2D, 1, color);
+                DrawOutLineRect(*entHeadPos2D, *entFootPos2D, 1, color);
+            }
+        }
+    }
+}
+
+void Esp::HealthOverlay() {
+    for (auto& player : this->playerList) {
+        if (player->GetHealth() && !player->IsDormant()) {
+            std::optional<Vector2> entHeadPos2D = WorldToScreen(player->GetBonePosition(), this->windowSize);
+            std::optional<Vector2> entFootPos2D = WorldToScreen(player->GetBodyPosition(), this->windowSize);
+            if (entHeadPos2D && entFootPos2D) {
+                this->DrawFilledRect(*entHeadPos2D, *entFootPos2D, D3DCOLOR_ARGB(255, 255, 51, 51));
             }
         }
     }

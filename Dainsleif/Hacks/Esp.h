@@ -12,6 +12,9 @@ class Esp {
     IDirect3DDevice9& pDevice;
     WindowSize& windowSize;
 
+    void DrawOutLineRect(Vector2 top, Vector2 bottom, int thickness, D3DCOLOR color);
+    void DrawLine(int x1, int y1, int x2, int y2, int thickness, D3DCOLOR color);
+    void DrawFilledRect(Vector2 top, Vector2 bottom, D3DCOLOR color);
 
 public:
     Esp(const int& localTeamNum, std::vector<Player*>& playerList, IDirect3DDevice9& pDevice, WindowSize& windowSize)
@@ -19,4 +22,5 @@ public:
 
     void LineOverlay();
     void RectangleOverlay();
+    void HealthOverlay();
 };

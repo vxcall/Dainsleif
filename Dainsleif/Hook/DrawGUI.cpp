@@ -211,7 +211,7 @@ void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
                 localPlayer->SetFOV(fov);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("ESP          ", &visibleHacks.at("ESP")))
+        if (ImGui::BeginTabItem("ESP           ", &visibleHacks.at("ESP")))
         {
             ImGui::Checkbox("Enable ESP", &bEsp);
             if (bEsp) {
