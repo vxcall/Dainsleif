@@ -60,7 +60,7 @@ void Esp::DrawOutLineRect(Vector2 top, Vector2 bottom, int thickness, D3DCOLOR c
 void Esp::DrawFilledRect(Vector2 top, Vector2 bottom, D3DCOLOR color) {
     float height = fabs(top.y - bottom.y);
 
-    D3DRECT rect = {static_cast<LONG>(top.x - height / 4), static_cast<LONG>(top.y), static_cast<LONG>(bottom.x + height / 4), static_cast<LONG>(bottom.y)};
+    D3DRECT rect = {static_cast<LONG>(top.x + height / 4), static_cast<LONG>(top.y), static_cast<LONG>((bottom.x + height / 4)) + 25, static_cast<LONG>(bottom.y)};
     this->pDevice.Clear(1, &rect, D3DCLEAR_TARGET, color, 0, 0);
 }
 
