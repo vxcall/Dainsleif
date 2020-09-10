@@ -56,7 +56,7 @@ WindowSize GetWindowSize() {
 
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
-    static Player* oldLocalPlayer = Player::GetLocalPlayer();
+    static Player* oldLocalPlayer = nullptr;
     Player* localPlayer = Player::GetLocalPlayer();
     int gameState = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
 
@@ -76,6 +76,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
 
     if (gameState != 6 && inGame) {
         oldLocalPlayer = localPlayer;
+        inGame = false;
     }
 
 
