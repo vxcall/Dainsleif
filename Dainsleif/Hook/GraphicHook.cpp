@@ -67,7 +67,6 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         Esp esp = Esp(localPlayer->GetTeam(), playerList, *pDevice, ws);
         if (bLineOverlay) {
             esp.LineOverlay();
-            esp.HealthOverlay();
         }
 
         if (bRectOverlay)
