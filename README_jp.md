@@ -5,7 +5,7 @@
 
 [README in English](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README.md)
 
-[![Banner](https://user-images.githubusercontent.com/33578715/90953346-22056a00-e49d-11ea-9b63-56f33187e667.png)
+![Banner](https://user-images.githubusercontent.com/33578715/90953346-22056a00-e49d-11ea-9b63-56f33187e667.png)
 この絵は僕の親友である[@suzuharuR](https://twitter.com/suzuharuR)から頂いたものです。
 
 # :zap: Dainsleif
