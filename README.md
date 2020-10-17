@@ -40,6 +40,7 @@ You can easily support/motivate me by either **starring my project**, **followin
     - [ESP hack](#esp-hack)
     - [Trigger bot](#trigger-bot)
     - [Anti recoil](#anti-recoil)
+    - [Minimap hack](#minimap-hack)
     - [Anti AFK](#anti-afk)
     - [FOV](#fov)
 - [:busts_in_silhouette: Contributors](#busts_in_silhouette-Contributors)
@@ -148,6 +149,12 @@ It automatically calculate the in comming recoil and manipulate your angle to ha
 But this doesn't guarantee the 100% accuracy.
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
+
+## Minimap hack
+
+Minimap hack will show you all enemy positions on the mini map as a red dot even if they're not in your sight which would be super cool.
+
+![Minimap hack](https://user-images.githubusercontent.com/33578715/96349413-0c4da300-10e2-11eb-8ba9-b1965b1a7dfb.png)
 
 ## Anti AFK
 
