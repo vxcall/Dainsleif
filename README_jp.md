@@ -34,6 +34,9 @@ Dainsleifは _Counter-Strike: Global Offensive_ 用のチートプログラム�
     - [ESPハック](#ESPハック)
     - [トリガーボット](#トリガーボット)
     - [アンチリコイル](#アンチリコイル)
+    - [ミニマップハック](#ミニマップハック)
+    - [視野角調整](#視野角調整)
+    - [アンチ放置キック](#アンチ放置キック)
 - [:busts_in_silhouette: 共同開発者](#busts_in_silhouette-共同開発者)
 
 # :syringe: ビルド方法
@@ -138,6 +141,13 @@ Rangeの項目を変えると、エイムボットが反応する範囲を変え
 実際のスプレー結果↓
 
 ![Anti recoil](https://user-images.githubusercontent.com/33578715/89087634-769a5580-d3c7-11ea-83b1-dc31345e7424.png)
+
+## ミニマップハック(Minimap hack)
+
+ミニマップハックは全ての敵をミニマップ上で赤点でとして表示してくれます。
+通常のCSGOなら赤点は敵がプレイヤーの視野内に入った場合のみに表示されますが、このハックを使うと視野の外の敵や壁越しの敵を赤点で表示することができます。
+
+![Minimap hack](https://user-images.githubusercontent.com/33578715/96349413-0c4da300-10e2-11eb-8ba9-b1965b1a7dfb.png)
 
 ## 視野角調整(Field of view)
 
