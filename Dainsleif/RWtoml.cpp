@@ -139,13 +139,13 @@ void RWtoml::UpdateOffsets(std::string& filename)
 void RWtoml::InitializeOffsets(std::string& filename)
 {
     const toml::value data {
-                    {"dwClientState", 0x589DD4}, {"dwClientState_State", 0x108}, {"dwForceBackward", 0x31817E4},
-                    {"dwForceRight", 0x3181760}, {"dwForceForward", 0x31817F0},
-                    {"dwForceJump", 0x51F9E44}, {"dwForceLeft", 0x318176C},{"dwViewMatrix", 0x4D41B74},
+                    {"dwClientState", 0x58CFE4}, {"dwClientState_State", 0x108}, {"dwForceBackward", 0x31838E8},
+                    {"dwForceRight", 0x3183900}, {"dwForceForward", 0x3183954},
+                    {"dwForceJump", 0x51FBFB8}, {"dwForceLeft", 0x31838DC},{"dwViewMatrix", 0x4D43CC4},
                     {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
-                    {"dwppDirect3DDevice9", 0xA7030}, {"dwEntityList", 0x4D5022C},
-                    {"dwLocalPlayer", 0xD3BC5C}, {"dwGlowObjectManager", 0x5298078},
-                    {"dwForceAttack", 0x3181790}, {"m_vecOrigin", 0x138},
+                    {"dwppDirect3DDevice9", 0xA7030}, {"dwEntityList", 0x4D523AC},
+                    {"dwLocalPlayer", 0xD3DD14}, {"dwGlowObjectManager", 0x529A1E0},
+                    {"dwForceAttack", 0x3183930}, {"m_vecOrigin", 0x138},
                     {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
                     {"m_dwBoneMatrix", 0x26A8}, {"m_iTeamNum", 0xF4},
                     {"m_iGlowIndex", 0xA438}, {"m_aimPunchAngle", 0x302C},
