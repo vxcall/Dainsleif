@@ -3,7 +3,7 @@
 ![Game](https://img.shields.io/badge/Game-CS%3AGO-blue.svg?style=flat)
 ![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
 
-[README in English](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README.md)
+**[README in English](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README.md)**
 
 ![Banner](https://user-images.githubusercontent.com/33578715/90953346-22056a00-e49d-11ea-9b63-56f33187e667.png)
 この絵は僕の親友である[@suzuharuR](https://twitter.com/suzuharuR)から頂いたものです。
@@ -29,14 +29,14 @@ Dainsleifは _Counter-Strike: Global Offensive_ 用のチートプログラム�
 - [:rotating_light: トラブルシューティング](#rotating_light-トラブルシューティング)
 - [:scroll: ハックメニュー](#scroll-ハックメニュー)
 - [:computer: ハック](#computer-ハック)
-    - [エイムボット](#エイムボット)
-    - [発光ハック](#発光ハック)
-    - [ESPハック](#ESPハック)
-    - [トリガーボット](#トリガーボット)
-    - [アンチリコイル](#アンチリコイル)
-    - [ミニマップハック](#ミニマップハック)
-    - [視野角調整](#視野角調整)
-    - [アンチ放置キック](#アンチ放置キック)
+    - [エイムボット](#エイムボットaimbot)
+    - [発光ハック](#発光ハックglow-hack)
+    - [ESPハック](#ESPハックesp)
+    - [トリガーボット](#トリガーボットtrigger-bot)
+    - [アンチリコイル](#アンチリコイルanti-recoil)
+    - [ミニマップハック](#ミニマップハックminimap-hack)
+    - [視野角調整](#視野角調整field-of-view)
+    - [アンチ放置キック](#アンチ放置キックanti-afk)
 - [:busts_in_silhouette: 共同開発者](#busts_in_silhouette-共同開発者)
 
 # :syringe: ビルド方法
