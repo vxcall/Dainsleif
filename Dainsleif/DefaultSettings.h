@@ -29,4 +29,7 @@ namespace Default {
     const bool bEsp = false;
     const bool bLineOverlay = false;
     const bool bRectOverlay = false;
+
+    //Minimap hack
+    const bool bMinimapHack = false;
 }

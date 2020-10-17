@@ -7,9 +7,10 @@
 #include "Hook/GraphicHook.h"
 #include "PatternScanner.h"
 #include "Hacks/AntiAFK.h"
+#include "Hacks/MinimapHack.h"
 #include <thread>
 
-bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK;
+bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack;
 int fov;
 bool g_ShowMenu = false;
 bool inGame = false;
@@ -81,7 +82,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         int gameState = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
 
-        static Player* localPlayer = Player::GetLocalPlayer();
+        Player* localPlayer = Player::GetLocalPlayer();
 
         if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
             RWtoml::WriteSettings(settingsFile);
@@ -130,6 +131,11 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (bAntiRecoil) {
             AntiRecoil::Run();
+        }
+
+        if (bMinimapHack) {
+            std::vector<Player*> pl = Player::GetLivingOpponents();
+            Minimap::Run(pl);
         }
 
         static bool checkState_bAntiAFK;

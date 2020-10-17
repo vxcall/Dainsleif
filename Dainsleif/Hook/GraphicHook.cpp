@@ -96,7 +96,7 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
                                                                 {"Trigger bot", true},
                                                                 {"Anti AFK", false},
                                                                 {"Field of View", false},
-                                                                {"ESP", false}};
+                                                                {"ESP", false}, {"Minimap hack", false}};
         ShowMenuBar(visibleHacks); //tab
 
         ShowTabMenu(visibleHacks); //main view

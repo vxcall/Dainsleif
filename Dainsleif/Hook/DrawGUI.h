@@ -11,7 +11,8 @@ enum Hack_label {
     TRIGGERBOT,
     ANTIAFK,
     FOV,
-    ESP
+    ESP,
+    MINIMAPHACK
 };
 
 void ShowMenuBar(std::map<const std::string, bool>& visibleHacks);

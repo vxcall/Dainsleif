@@ -3,7 +3,7 @@
 #include "../Player.h"
 #include "../RWtoml.h"
 
-extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK; //declared in dll.main
+extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack; //declared in dll.main
 extern bool bEsp, bLineOverlay, bRectOverlay; //declared in GraphicHook.main
 extern int fov; //declared in dllmain.cpp
 extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
@@ -83,6 +83,7 @@ void setToDefault(Hack_label label) {
             bAntiRecoil = Default::bAntiRecoil;
             bTriggerBot = Default::bTriggerBot;
             bAntiAFK = Default::bAntiAFK;
+            bMinimapHack = Default::bMinimapHack;
             fov = Default::fov;
             Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
@@ -110,6 +111,8 @@ void setToDefault(Hack_label label) {
             bAntiAFK = Default::bAntiAFK;
         case ESP:
             bEsp = Default::bEsp;
+        case MINIMAPHACK:
+            bMinimapHack = Default::bMinimapHack;
     }
 }
 
@@ -150,6 +153,8 @@ void ShowMenuBar(std::map<const std::string, bool>& visibleHacks)
                     setToDefault(FOV);
                 } else if (ImGui::MenuItem("ESP")) {
                     setToDefault(ESP);
+                } else if (ImGui::MenuItem("Minimap hack")) {
+                    setToDefault(MINIMAPHACK);
                 }
                 ImGui::EndMenu();
             }
@@ -218,6 +223,11 @@ void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
                 ImGui::Checkbox("Enable Line overlay", &bLineOverlay);
                 ImGui::Checkbox("Enable Rectangle overlay", &bRectOverlay);
             }
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Minimap hack", &visibleHacks.at("Minimap hack")))
+        {
+            ImGui::Checkbox("Enable Minimap hack", &bMinimapHack);
             ImGui::EndTabItem();
         }
 

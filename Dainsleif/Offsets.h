@@ -28,6 +28,7 @@ extern uintptr_t m_iItemDefinitionIndex;
 extern uintptr_t dwClientState;
 extern uintptr_t dwClientState_State;
 extern uintptr_t dwClientState_MaxPlayer;
-extern uintptr_t dwClientState_ViewAngles ;
+extern uintptr_t dwClientState_ViewAngles;
+extern uintptr_t m_bSpotted;
 
 
