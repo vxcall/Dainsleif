@@ -15,6 +15,6 @@ enum Hack_label {
     MINIMAPHACK
 };
 
-void ShowMenuBar(std::map<const std::string, bool>& visibleHacks);
-void ShowTabMenu(std::map<const std::string, bool>& visibleHacks);
+void ShowMenuBar(std::map<std::string, bool>& visibleHacks);
+void ShowTabMenu(std::map<std::string, bool>& visibleHacks);
 void HelpMarker(const char* title, const std::string& desc);

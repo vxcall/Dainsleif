@@ -1,14 +1,8 @@
-#include "../pch.h"
-#include "ImGuiTheme.h"
 #include "GraphicHook.h"
-#include "DrawGUI.h"
-#include <map>
 #include "../Hacks/Esp.h"
 
 bool bEsp, bLineOverlay, bRectOverlay;
 extern bool g_ShowMenu, inGame; //decleard in dllmain.cpp
-
-
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
@@ -54,6 +48,8 @@ WindowSize GetWindowSize() {
     return windowSize;
 }
 
+extern std::map<std::string, bool> visibleHacks;
+
 HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
     static Player* oldLocalPlayer = nullptr;
@@ -90,16 +86,10 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar;
         ImGui::Begin("Dainsleif", &g_ShowMenu, window_flags);
 
-        static std::map<const std::string, bool> visibleHacks = {{"Aim bot", true},
-                                                                {"Glow hack", true},
-                                                                {"Anti Recoil", true},
-                                                                {"Trigger bot", true},
-                                                                {"Anti AFK", false},
-                                                                {"Field of View", false},
-                                                                {"ESP", false}, {"Minimap hack", false}};
         ShowMenuBar(visibleHacks); //tab
 
         ShowTabMenu(visibleHacks); //main view
+
 
         ImGui::Separator();
         ImGui::Spacing();

@@ -1,7 +1,7 @@
 #include "DrawGUI.h"
 #include <map>
 #include "../Player.h"
-#include "../RWtoml.h"
+#include "../Save/RWtoml.h"
 
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack; //declared in dll.main
 extern bool bEsp, bLineOverlay, bRectOverlay; //declared in GraphicHook.main
@@ -83,6 +83,9 @@ void setToDefault(Hack_label label) {
             bAntiRecoil = Default::bAntiRecoil;
             bTriggerBot = Default::bTriggerBot;
             bAntiAFK = Default::bAntiAFK;
+            bEsp = Default::bEsp;
+            bLineOverlay = Default::bLineOverlay;
+            bRectOverlay = Default::bRectOverlay;
             bMinimapHack = Default::bMinimapHack;
             fov = Default::fov;
             Player::GetLocalPlayer()->SetFOV(Default::fov);
@@ -111,12 +114,14 @@ void setToDefault(Hack_label label) {
             bAntiAFK = Default::bAntiAFK;
         case ESP:
             bEsp = Default::bEsp;
+            bLineOverlay = Default::bLineOverlay;
+            bRectOverlay = Default::bRectOverlay;
         case MINIMAPHACK:
             bMinimapHack = Default::bMinimapHack;
     }
 }
 
-void ShowMenuBar(std::map<const std::string, bool>& visibleHacks)
+void ShowMenuBar(std::map<std::string, bool>& visibleHacks)
 {
     static std::map<std::string, uintptr_t> newOffsets;
     if(show_updated_modal) {
@@ -168,7 +173,7 @@ void ShowMenuBar(std::map<const std::string, bool>& visibleHacks)
         // Menu 2
         if (ImGui::BeginMenu("Hacks")) {
             for (auto& [key, value] : visibleHacks) {
-                ImGui::MenuItem(key.data(), NULL, &value);
+                ImGui::MenuItem(key.c_str(), NULL, &value);
             }
             ImGui::EndMenu();
         }
@@ -176,19 +181,19 @@ void ShowMenuBar(std::map<const std::string, bool>& visibleHacks)
     }
 }
 
-void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
+void ShowTabMenu(std::map<std::string, bool>& visibleHacks) {
     Player* localPlayer = Player::GetLocalPlayer();
     static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
     if (ImGui::BeginTabBar("Hack_tab_bar", tab_bar_flags))
     {
-        if (ImGui::BeginTabItem("Aim bot", &visibleHacks.at("Aim bot")))
+        if (ImGui::BeginTabItem("Aim bot", &visibleHacks.at("Aim Bot")))
         {
             ImGui::Checkbox("Enable Aim bot", &bAimbot);
             ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.005f, 0.4f);
             ImGui::SliderFloat("Range", &range, 1.f, 30.f);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Glow hack", &visibleHacks.at("Glow hack")))
+        if (ImGui::BeginTabItem("Glow hack", &visibleHacks.at("Glow Hack")))
         {
             ImGui::Checkbox("Enable Glow hack", &bGlowHack);
             ImGui::ColorEdit4("Enemy Color", (float*)&enemyGlowColor);
@@ -200,7 +205,7 @@ void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
             ImGui::Checkbox("Enable Anti recoil", &bAntiRecoil);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Trigger bot", &visibleHacks.at("Trigger bot")))
+        if (ImGui::BeginTabItem("Trigger bot", &visibleHacks.at("Trigger Bot")))
         {
             ImGui::Checkbox("Enable Trigger bot", &bTriggerBot);
             ImGui::EndTabItem();
@@ -210,13 +215,13 @@ void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
             ImGui::Checkbox("Enable AntiAFK", &bAntiAFK);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Field of View", &visibleHacks.at("Field of View")))
+        if (ImGui::BeginTabItem("Field of View", &visibleHacks.at("Fov")))
         {
             if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120) && inGame)
                 localPlayer->SetFOV(fov);
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("ESP           ", &visibleHacks.at("ESP")))
+        if (ImGui::BeginTabItem("ESP           ", &visibleHacks.at("Esp")))
         {
             ImGui::Checkbox("Enable ESP", &bEsp);
             if (bEsp) {
@@ -225,7 +230,7 @@ void ShowTabMenu(std::map<const std::string, bool>& visibleHacks) {
             }
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Minimap hack", &visibleHacks.at("Minimap hack")))
+        if (ImGui::BeginTabItem("Minimap hack", &visibleHacks.at("Minimap Hack")))
         {
             ImGui::Checkbox("Enable Minimap hack", &bMinimapHack);
             ImGui::EndTabItem();

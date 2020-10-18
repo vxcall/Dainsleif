@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-#include "RWtoml.h"
+#include "Save/RWtoml.h"
 #include "Hacks/Aimbot.h"
 #include "Hacks/Glow.h"
 #include "Hacks/AntiRecoil.h"
@@ -8,15 +8,18 @@
 #include "PatternScanner.h"
 #include "Hacks/AntiAFK.h"
 #include "Hacks/MinimapHack.h"
+#include "Save/TabState.h"
 #include <thread>
 
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack;
+bool t_aimBot = true, t_glowHack = true, t_antiRecoil = true, t_triggerBot = true, t_antiAFK, t_fov, t_esp, t_minimapHack;
 int fov;
 bool g_ShowMenu = false;
 bool inGame = false;
 
 std::string settingsFile;
 std::string offsetsFile;
+std::string tabStateFile;
 
 VOID WINAPI Detach()
 {
@@ -30,6 +33,8 @@ void InitSetting() {
     Player::GetLocalPlayer()->SetFOV(fov);
 }
 
+std::map<std::string, bool> visibleHacks;
+
 DWORD WINAPI fMain(LPVOID lpParameter)
 {
     //Create console window
@@ -40,7 +45,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
     settingsFile = static_cast<std::string>(dir) + "/Dainsleif/savedata.toml"; //Set file path.
     offsetsFile = static_cast<std::string>(dir) + "/Dainsleif/offsets.toml";
-    std::filesystem::path path1{settingsFile}, path2{offsetsFile};
+    tabStateFile = static_cast<std::string>(dir) + "/Dainsleif/tabstate.toml";
+    std::filesystem::path path1{settingsFile}, path2{offsetsFile}, path3{tabStateFile};
     std::filesystem::create_directories(path1.parent_path());
     if (!std::filesystem::exists(path1))
     {
@@ -55,8 +61,26 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         RWtoml::InitializeOffsets(offsetsFile);
     }
 
+    if (!std::filesystem::exists(path3))
+    {
+        std::ofstream stream{path3};
+        stream.close();
+    }
+
     RWtoml::ReadSettings(settingsFile);
     RWtoml::ReadOffsets(offsetsFile);
+    TabState::Fetch(tabStateFile);
+
+    visibleHacks = {
+        {"Aim Bot", t_aimBot},
+        {"Glow Hack", t_glowHack},
+        {"Anti Recoil", t_antiRecoil},
+        {"Trigger Bot", t_triggerBot},
+        {"Anti AFK", t_antiAFK},
+        {"Fov", t_fov},
+        {"Esp", t_esp},
+        {"Minimap Hack", t_minimapHack}
+    };
 
     Modules::Initialize();
 
@@ -77,6 +101,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     {
         if (GetAsyncKeyState(VK_DELETE) & 1 || bQuit) {
             RWtoml::WriteSettings(settingsFile);
+            TabState::Save(tabStateFile);
             break;
         }
 
@@ -86,6 +111,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
         if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
             RWtoml::WriteSettings(settingsFile);
+            TabState::Save(tabStateFile);
             oldLocalPlayer = localPlayer;
             inGame = false;
         }
@@ -93,8 +119,11 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         if (GetAsyncKeyState(VK_INSERT) & 1)
         {
             g_ShowMenu = !g_ShowMenu;
-            if (!g_ShowMenu)
+            if (!g_ShowMenu) {
                 RWtoml::WriteSettings(settingsFile);
+                TabState::Save(tabStateFile);
+            }
+
         }
 
         if (gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer)

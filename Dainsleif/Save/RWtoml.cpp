@@ -1,8 +1,8 @@
-#include "pch.h"
+#include "../pch.h"
 #include <map>
 #include <future>
 #include "RWtoml.h"
-#include "PatternScanner.h"
+#include "../PatternScanner.h"
 
 extern ImVec4 enemyGlowColor, localGlowColor;
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack; //declared in dllmain.cpp
