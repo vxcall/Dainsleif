@@ -5,7 +5,7 @@
 #include "PatternScanner.h"
 
 extern ImVec4 enemyGlowColor, localGlowColor;
-extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK; //declared in dllmain.cpp
+extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack; //declared in dllmain.cpp
 extern bool bEsp, bLineOverlay, bRectOverlay; //declared in GraphicHook.main
 extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern int fov; //declared in dllmain.cpp
@@ -27,12 +27,14 @@ void RWtoml::ReadSettings(std::string& filename)
     bEsp = toml::find_or(saveData, "bEsp", Default::bEsp);
     bLineOverlay = toml::find_or(saveData, "bLineOverlay", Default::bLineOverlay);
     bRectOverlay = toml::find_or(saveData, "bRectOverlay", Default::bRectOverlay);
+    bMinimapHack = toml::find_or(saveData, "bMinimapHack", Default::bMinimapHack);
 
     auto& enemyGlowColorTable = toml::find_or(saveData, "enemyGlowColor", {});
     enemyGlowColor = ImVec4(toml::find_or(enemyGlowColorTable, "Red", Default::enemyGlowColor.x), toml::find_or(enemyGlowColorTable, "Green", Default::enemyGlowColor.y), toml::find_or(enemyGlowColorTable, "Blue", Default::enemyGlowColor.z), toml::find_or(enemyGlowColorTable, "Alpha", Default::enemyGlowColor.w));
 
     auto& localGlowColorTable = toml::find_or(saveData, "localGlowColor", {});
     localGlowColor = ImVec4(toml::find_or(localGlowColorTable, "Red", Default::localGlowColor.x), toml::find_or(localGlowColorTable, "Green", Default::localGlowColor.y), toml::find_or(localGlowColorTable, "Blue", Default::localGlowColor.z), toml::find_or(localGlowColorTable, "Alpha", Default::localGlowColor.w));
+
 }
 
 void RWtoml::WriteSettings(std::string& filename)
@@ -43,7 +45,8 @@ void RWtoml::WriteSettings(std::string& filename)
                            {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
                            {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
                            {"aimSmoothness", aimSmoothness}, {"range", range},
-                           {"bEsp", bEsp}, {"bLineOverlay", bLineOverlay}, {"bRectOverlay", bRectOverlay}
+                           {"bEsp", bEsp}, {"bLineOverlay", bLineOverlay}, {"bRectOverlay", bRectOverlay},
+                           {"bMinimapHack", bMinimapHack}
     };
     //Open file and write it in toml syntax.
     std::ofstream file;
