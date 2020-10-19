@@ -13,12 +13,12 @@ void TabStateToml::Save(std::string& filename)
 void TabStateToml::Fetch(std::string& filename)
 {
     auto prevTabState = toml::parse(filename);
-    t_aimBot = toml::find_or(prevTabState, "Aim Bot", true);
-    t_glowHack = toml::find_or(prevTabState, "Glow Hack", true);
-    t_antiRecoil = toml::find_or(prevTabState, "Anti Recoil", true);
-    t_triggerBot = toml::find_or(prevTabState, "Trigger Bot", true);
-    t_antiAFK = toml::find_or(prevTabState, "Anti AFK", false);
-    t_fov = toml::find_or(prevTabState, "Fov", false);
-    t_esp = toml::find_or(prevTabState, "Esp", false);
-    t_minimapHack = toml::find_or(prevTabState, "Minimap Hack", false);
+    TabFlags::t_aimBot = toml::find_or(prevTabState, "Aim Bot", true);
+    TabFlags::t_glowHack = toml::find_or(prevTabState, "Glow Hack", true);
+    TabFlags::t_antiRecoil = toml::find_or(prevTabState, "Anti Recoil", true);
+    TabFlags::t_triggerBot = toml::find_or(prevTabState, "Trigger Bot", true);
+    TabFlags::t_antiAFK = toml::find_or(prevTabState, "Anti AFK", false);
+    TabFlags::t_fov = toml::find_or(prevTabState, "Fov", false);
+    TabFlags::t_esp = toml::find_or(prevTabState, "Esp", false);
+    TabFlags::t_minimapHack = toml::find_or(prevTabState, "Minimap Hack", false);
 }

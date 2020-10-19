@@ -1,7 +1,6 @@
 #include "../pch.h"
 #include "Triggerbot.h"
-
-extern bool bAimbot;
+#include "../dllmain.h"
 
 void Triggerbot::Run()
 {
@@ -21,12 +20,11 @@ void Triggerbot::Run()
     int crosshairID = localPlayer->GetCrosshairID();
     if (crosshairID != 0) {
         //When you kill all enemy, it's somehow gonna be a number more than 300.
-        //if (crosshairID < 2 ||crosshairID - 2 > 9) return;
         Entity* target = Entity::GetByIndex(crosshairID - 1);
         if (target->GetClientClass()->m_ClassID == ClassID::CCSPlayer && localPlayer->GetTeam() != target->Cast<Player*>()->GetTeam())
         {
             bFreeMouse = false;
-            if (bAimbot && *forceAttack == 4)
+            if (HackFlags::bAimbot && *forceAttack == 4)
             {
                 Sleep(60);
             }

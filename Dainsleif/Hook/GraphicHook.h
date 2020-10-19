@@ -5,6 +5,9 @@
 #include "DrawGUI.h"
 #include <map>
 
+namespace EspFlags {
+    extern bool bEsp, bLineOverlay, bRectOverlay;
+}
 
 struct WindowSize {
     int w;
@@ -15,4 +18,3 @@ void hookEndScene();
 void unhookEndScene();
 
 extern std::map<std::string, bool> visibleHacks;
-extern bool t_aimBot, t_glowHack, t_antiRecoil, t_triggerBot, t_antiAFK, t_fov, t_esp, t_minimapHack;

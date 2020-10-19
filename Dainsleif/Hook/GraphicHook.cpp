@@ -1,7 +1,9 @@
 #include "GraphicHook.h"
 #include "../Hacks/Esp.h"
 
-bool bEsp, bLineOverlay, bRectOverlay;
+namespace EspFlags {
+    bool bEsp, bLineOverlay, bRectOverlay;
+}
 extern bool g_ShowMenu, inGame; //decleard in dllmain.cpp
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
@@ -20,6 +22,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 void InitImGui(IDirect3DDevice9* pDevice)
 {
     IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     LoadFont(io);
@@ -56,16 +59,16 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
     Player* localPlayer = Player::GetLocalPlayer();
     int gameState = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
 
-    if (localPlayer != oldLocalPlayer && localPlayer && bEsp)
+    if (localPlayer != oldLocalPlayer && localPlayer && EspFlags::bEsp)
     {
         std::vector<Player*> playerList = Player::GetAll();
         WindowSize ws = GetWindowSize();
         Esp esp = Esp(localPlayer->GetTeam(), playerList, *pDevice, ws);
-        if (bLineOverlay) {
+        if (EspFlags::bLineOverlay) {
             esp.LineOverlay();
         }
 
-        if (bRectOverlay)
+        if (EspFlags::bRectOverlay)
             esp.RectangleOverlay();
     }
 

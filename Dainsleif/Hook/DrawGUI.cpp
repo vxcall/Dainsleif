@@ -2,9 +2,8 @@
 #include <map>
 #include "../Player.h"
 #include "../Save/OffsetsToml.h"
+#include "GraphicHook.h"
 
-extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack; //declared in dll.main
-extern bool bEsp, bLineOverlay, bRectOverlay; //declared in GraphicHook.main
 extern int fov; //declared in dllmain.cpp
 extern float aimSmoothness, range; //declared in Hacks/Aimbot.cpp
 extern ImVec4 enemyGlowColor, localGlowColor;
@@ -72,50 +71,50 @@ void ShowModal(const char* message) {
 void setToDefault(Hack_label label) {
     switch (label) {
         case ALL:
-            bAimbot = Default::bAimbot;
+            HackFlags::bAimbot = Default::bAimbot;
             aimSmoothness = Default::aimSmoothness;
             range = Default::range;
-            bGlowHack = Default::bGlowhack;
+            HackFlags::bGlowHack = Default::bGlowhack;
             enemyGlowColor = Default::enemyGlowColor;
             localGlowColor = Default::localGlowColor;
-            bAntiRecoil = Default::bAntiRecoil;
-            bTriggerBot = Default::bTriggerBot;
-            bAntiAFK = Default::bAntiAFK;
-            bEsp = Default::bEsp;
-            bLineOverlay = Default::bLineOverlay;
-            bRectOverlay = Default::bRectOverlay;
-            bMinimapHack = Default::bMinimapHack;
+            HackFlags::bAntiRecoil = Default::bAntiRecoil;
+            HackFlags::bTriggerBot = Default::bTriggerBot;
+            HackFlags::bAntiAFK = Default::bAntiAFK;
+            EspFlags::bEsp = Default::bEsp;
+            EspFlags::bLineOverlay = Default::bLineOverlay;
+            EspFlags::bRectOverlay = Default::bRectOverlay;
+            HackFlags:: bMinimapHack = Default::bMinimapHack;
             fov = Default::fov;
             Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
         case AIMBOT:
-            bAimbot = Default::bAimbot;
+            HackFlags::bAimbot = Default::bAimbot;
             aimSmoothness = Default::aimSmoothness;
             range = Default::range;
             break;
         case GLOWHACK:
-            bGlowHack = Default::bGlowhack;
+            HackFlags::bGlowHack = Default::bGlowhack;
             enemyGlowColor = Default::enemyGlowColor;
             localGlowColor = Default::localGlowColor;
             break;
         case ANTIRECOIL:
-            bAntiRecoil = Default::bAntiRecoil;
+            HackFlags::bAntiRecoil = Default::bAntiRecoil;
             break;
         case TRIGGERBOT:
-            bTriggerBot = Default::bTriggerBot;
+            HackFlags::bTriggerBot = Default::bTriggerBot;
             break;
         case FOV:
             fov = Default::fov;
             Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
         case ANTIAFK:
-            bAntiAFK = Default::bAntiAFK;
+            HackFlags::bAntiAFK = Default::bAntiAFK;
         case ESP:
-            bEsp = Default::bEsp;
-            bLineOverlay = Default::bLineOverlay;
-            bRectOverlay = Default::bRectOverlay;
+            EspFlags::bEsp = Default::bEsp;
+            EspFlags::bLineOverlay = Default::bLineOverlay;
+            EspFlags::bRectOverlay = Default::bRectOverlay;
         case MINIMAPHACK:
-            bMinimapHack = Default::bMinimapHack;
+            HackFlags::bMinimapHack = Default::bMinimapHack;
     }
 }
 
@@ -165,7 +164,7 @@ void ShowMenuBar(std::map<std::string, bool>& visibleHacks)
                 newOffsets = UpdateOffsets();
             }
             if (ImGui::MenuItem("Remove hack"))
-                bQuit = true;
+                HackFlags::bQuit = true;
             ImGui::EndMenu();
         }
         // Menu 2
@@ -186,31 +185,31 @@ void ShowTabMenu(std::map<std::string, bool>& visibleHacks) {
     {
         if (ImGui::BeginTabItem("Aim bot", &visibleHacks.at("Aim Bot")))
         {
-            ImGui::Checkbox("Enable Aim bot", &bAimbot);
+            ImGui::Checkbox("Enable Aim bot", &HackFlags::bAimbot);
             ImGui::SliderFloat("Smoothness", &aimSmoothness, 0.005f, 0.4f);
             ImGui::SliderFloat("Range", &range, 1.f, 30.f);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Glow hack", &visibleHacks.at("Glow Hack")))
         {
-            ImGui::Checkbox("Enable Glow hack", &bGlowHack);
+            ImGui::Checkbox("Enable Glow hack", &HackFlags::bGlowHack);
             ImGui::ColorEdit4("Enemy Color", (float*)&enemyGlowColor);
             ImGui::ColorEdit4("Teammate color", (float*)&localGlowColor);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Anti Recoil", &visibleHacks.at("Anti Recoil")))
         {
-            ImGui::Checkbox("Enable Anti recoil", &bAntiRecoil);
+            ImGui::Checkbox("Enable Anti recoil", &HackFlags::bAntiRecoil);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Trigger bot", &visibleHacks.at("Trigger Bot")))
         {
-            ImGui::Checkbox("Enable Trigger bot", &bTriggerBot);
+            ImGui::Checkbox("Enable Trigger bot", &HackFlags::bTriggerBot);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Anti AFK", &visibleHacks.at("Anti AFK")))
         {
-            ImGui::Checkbox("Enable AntiAFK", &bAntiAFK);
+            ImGui::Checkbox("Enable AntiAFK", &HackFlags::bAntiAFK);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Field of View", &visibleHacks.at("Fov")))
@@ -221,16 +220,16 @@ void ShowTabMenu(std::map<std::string, bool>& visibleHacks) {
         }
         if (ImGui::BeginTabItem("ESP           ", &visibleHacks.at("Esp")))
         {
-            ImGui::Checkbox("Enable ESP", &bEsp);
-            if (bEsp) {
-                ImGui::Checkbox("Enable Line overlay", &bLineOverlay);
-                ImGui::Checkbox("Enable Rectangle overlay", &bRectOverlay);
+            ImGui::Checkbox("Enable ESP", &EspFlags::bEsp);
+            if (EspFlags::bEsp) {
+                ImGui::Checkbox("Enable Line overlay", &EspFlags::bLineOverlay);
+                ImGui::Checkbox("Enable Rectangle overlay", &EspFlags::bRectOverlay);
             }
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Minimap hack", &visibleHacks.at("Minimap Hack")))
         {
-            ImGui::Checkbox("Enable Minimap hack", &bMinimapHack);
+            ImGui::Checkbox("Enable Minimap hack", &HackFlags::bMinimapHack);
             ImGui::EndTabItem();
         }
 

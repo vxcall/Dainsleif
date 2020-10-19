@@ -1,19 +1,24 @@
-﻿#include "pch.h"
+﻿#include "dllmain.h"
+#include "pch.h"
 #include "Save/SettingsToml.h"
 #include "Save/OffsetsToml.h"
 #include "Hacks/Aimbot.h"
 #include "Hacks/Glow.h"
 #include "Hacks/AntiRecoil.h"
 #include "Hacks/Triggerbot.h"
-#include "Hook/GraphicHook.h"
-#include "PatternScanner.h"
 #include "Hacks/AntiAFK.h"
 #include "Hacks/MinimapHack.h"
 #include "Save/TabStateToml.h"
 #include <thread>
 
-bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack;
-bool t_aimBot = true, t_glowHack = true, t_antiRecoil = true, t_triggerBot = true, t_antiAFK, t_fov, t_esp, t_minimapHack;
+namespace HackFlags {
+    bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack;
+}
+
+namespace TabFlags {
+    bool t_aimBot = true, t_glowHack = true, t_antiRecoil = true, t_triggerBot = true, t_antiAFK, t_fov, t_esp, t_minimapHack;
+}
+
 int fov;
 bool g_ShowMenu = false;
 bool inGame = false;
@@ -73,14 +78,14 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     TabStateToml::Fetch(tabStateFile);
 
     visibleHacks = {
-        {"Aim Bot", t_aimBot},
-        {"Glow Hack", t_glowHack},
-        {"Anti Recoil", t_antiRecoil},
-        {"Trigger Bot", t_triggerBot},
-        {"Anti AFK", t_antiAFK},
-        {"Fov", t_fov},
-        {"Esp", t_esp},
-        {"Minimap Hack", t_minimapHack}
+        {"Aim Bot", TabFlags::t_aimBot},
+        {"Glow Hack", TabFlags::t_glowHack},
+        {"Anti Recoil", TabFlags::t_antiRecoil},
+        {"Trigger Bot", TabFlags::t_triggerBot},
+        {"Anti AFK", TabFlags::t_antiAFK},
+        {"Fov", TabFlags::t_fov},
+        {"Esp", TabFlags::t_esp},
+        {"Minimap Hack", TabFlags::t_minimapHack}
     };
 
     Modules::Initialize();
@@ -100,7 +105,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     //Hack loop entry point.
     while (true)
     {
-        if (GetAsyncKeyState(VK_DELETE) & 1 || bQuit) {
+        if (GetAsyncKeyState(VK_DELETE) & 1 || HackFlags::bQuit) {
             SettingsToml::WriteSettings(settingsFile);
             TabStateToml::Save(tabStateFile);
             break;
@@ -139,41 +144,41 @@ DWORD WINAPI fMain(LPVOID lpParameter)
             inGame = true;
         }
 
-        if (bTriggerBot || bGlowHack || bAntiRecoil) {
+        if (HackFlags::bTriggerBot || HackFlags::bGlowHack || HackFlags::bAntiRecoil) {
             playerList = Player::GetAll();
         }
 
-        if (bTriggerBot) {
+        if (HackFlags::bTriggerBot) {
             Triggerbot::Run();
         }
 
-        if (bAimbot) {
+        if (HackFlags::bAimbot) {
             std::vector<Player*> pl = Player::GetLivingOpponents();
             Aimbot::Run(pl);
         }
 
-        if (bGlowHack) {
+        if (HackFlags::bGlowHack) {
             for (Player* player : playerList)
             {
                 Glow::Run(player);
             }
         }
 
-        if (bAntiRecoil) {
+        if (HackFlags::bAntiRecoil) {
             AntiRecoil::Run();
         }
 
-        if (bMinimapHack) {
+        if (HackFlags::bMinimapHack) {
             std::vector<Player*> pl = Player::GetLivingOpponents();
             Minimap::Run(pl);
         }
 
         static bool checkState_bAntiAFK;
-        if (!checkState_bAntiAFK && bAntiAFK) { //First loop after user ticks the checkbox.
-            std::thread worker(AntiAFK::Run, &bAntiAFK);
+        if (!checkState_bAntiAFK && HackFlags::bAntiAFK) { //First loop after user ticks the checkbox.
+            std::thread worker(AntiAFK::Run, &HackFlags::bAntiAFK);
             worker.detach();
             checkState_bAntiAFK = true;
-        } else if (checkState_bAntiAFK && !bAntiAFK) { //First loop after user unticks the checkbox.
+        } else if (checkState_bAntiAFK && !HackFlags::bAntiAFK) { //First loop after user unticks the checkbox.
             checkState_bAntiAFK = false;
         }
 
