@@ -157,6 +157,14 @@ Rangeの項目を変えると、エイムボットが反応する範囲を変え
 
 このハックをオンにすると、50秒ごとにプレイヤーを自動で動かすことによって放置キックされないようなります。
 
+# :busts_in_silhouette: アンインストール
+
+このチートは設定ファイルを生成するため、綺麗にアンインストールするには以下のフォルダを削除する必要があります。
+
+`C:\Users\Public\Documents\Dainsleif`
+
+もちろんexeファイル本体の削除もお忘れなく。
+
 # :busts_in_silhouette: 共同開発者
 
 彼なしでは間違いなくここまで来れませんでした。感謝します。 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
