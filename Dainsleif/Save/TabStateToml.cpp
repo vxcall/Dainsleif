@@ -1,7 +1,7 @@
-#include "TabState.h"
+#include "TabStateToml.h"
 
 //When you add new tab, modify visibleHacks in GraphicHook.cpp
-void TabState::Save(std::string& filename)
+void TabStateToml::Save(std::string& filename)
 {
         const toml::value data = visibleHacks;
         std::ofstream file;
@@ -10,7 +10,7 @@ void TabState::Save(std::string& filename)
         file.close();
 }
 
-void TabState::Fetch(std::string& filename)
+void TabStateToml::Fetch(std::string& filename)
 {
     auto prevTabState = toml::parse(filename);
     t_aimBot = toml::find_or(prevTabState, "Aim Bot", true);

@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
-#include "Save/RWtoml.h"
+#include "Save/SettingsToml.h"
+#include "Save/OffsetsToml.h"
 #include "Hacks/Aimbot.h"
 #include "Hacks/Glow.h"
 #include "Hacks/AntiRecoil.h"
@@ -8,7 +9,7 @@
 #include "PatternScanner.h"
 #include "Hacks/AntiAFK.h"
 #include "Hacks/MinimapHack.h"
-#include "Save/TabState.h"
+#include "Save/TabStateToml.h"
 #include <thread>
 
 bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack;
@@ -58,7 +59,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     {
         std::ofstream stream{path2};
         stream.close();
-        RWtoml::InitializeOffsets(offsetsFile);
+        OffsetsToml::InitializeOffsets(offsetsFile);
     }
 
     if (!std::filesystem::exists(path3))
@@ -67,9 +68,9 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         stream.close();
     }
 
-    RWtoml::ReadSettings(settingsFile);
-    RWtoml::ReadOffsets(offsetsFile);
-    TabState::Fetch(tabStateFile);
+    SettingsToml::ReadSettings(settingsFile);
+    OffsetsToml::ReadOffsets(offsetsFile);
+    TabStateToml::Fetch(tabStateFile);
 
     visibleHacks = {
         {"Aim Bot", t_aimBot},
@@ -100,8 +101,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     while (true)
     {
         if (GetAsyncKeyState(VK_DELETE) & 1 || bQuit) {
-            RWtoml::WriteSettings(settingsFile);
-            TabState::Save(tabStateFile);
+            SettingsToml::WriteSettings(settingsFile);
+            TabStateToml::Save(tabStateFile);
             break;
         }
 
@@ -110,8 +111,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         Player* localPlayer = Player::GetLocalPlayer();
 
         if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
-            RWtoml::WriteSettings(settingsFile);
-            TabState::Save(tabStateFile);
+            SettingsToml::WriteSettings(settingsFile);
+            TabStateToml::Save(tabStateFile);
             oldLocalPlayer = localPlayer;
             inGame = false;
         }
@@ -120,8 +121,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         {
             g_ShowMenu = !g_ShowMenu;
             if (!g_ShowMenu) {
-                RWtoml::WriteSettings(settingsFile);
-                TabState::Save(tabStateFile);
+                SettingsToml::WriteSettings(settingsFile);
+                TabStateToml::Save(tabStateFile);
             }
 
         }

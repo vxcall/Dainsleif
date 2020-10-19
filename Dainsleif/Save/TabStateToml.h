@@ -2,7 +2,7 @@
 #include "../Hook/GraphicHook.h"
 #include "../pch.h"
 
-namespace TabState {
+namespace TabStateToml {
     void Save(std::string& filename);
     void Fetch(std::string& filename);
 }

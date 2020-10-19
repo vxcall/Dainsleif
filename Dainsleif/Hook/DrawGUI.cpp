@@ -1,7 +1,7 @@
 #include "DrawGUI.h"
 #include <map>
 #include "../Player.h"
-#include "../Save/RWtoml.h"
+#include "../Save/OffsetsToml.h"
 
 extern bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack; //declared in dll.main
 extern bool bEsp, bLineOverlay, bRectOverlay; //declared in GraphicHook.main
@@ -11,8 +11,6 @@ extern ImVec4 enemyGlowColor, localGlowColor;
 
 extern bool inGame;
 extern std::string offsetsFile; //declared in dllmain.cpp
-
-
 
 void HelpMarker(const char* title, const std::string& desc)
 {
@@ -30,8 +28,8 @@ void HelpMarker(const char* title, const std::string& desc)
 bool show_updated_modal = false;
 
 std::map<std::string, uintptr_t> UpdateOffsets() {
-    RWtoml::UpdateOffsets(offsetsFile);
-    std::map<std::string, uintptr_t> offsets = RWtoml::ReadOffsets(offsetsFile);
+    OffsetsToml::UpdateOffsets(offsetsFile);
+    std::map<std::string, uintptr_t> offsets = OffsetsToml::ReadOffsets(offsetsFile);
     show_updated_modal = true;
     return offsets;
 }
@@ -65,8 +63,8 @@ void ShowModal(const char* message) {
 }
 
 /* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
-         * ReadSettings() in RWtoml.cpp
-         * WriteSettings() in RWtoml.cpp
+         * ReadSettings() in OffsetsToml.cpp
+         * WriteSettings() in OffsetsToml.cpp
          * setToDefault function
          * DefaultSettings.h
 */
