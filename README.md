@@ -43,7 +43,8 @@ You can easily support/motivate me by either **starring my project**, **followin
     - [Minimap hack](#minimap-hack)
     - [Anti AFK](#anti-afk)
     - [FOV](#fov)
-- [:busts_in_silhouette: Contributors](#busts_in_silhouette-Contributors)
+- [:put_litter_in_its_place: Uninstall](#put_litter_in_its_place-uninstall)
+- [:busts_in_silhouette: Contributors](#busts_in_silhouette-contributors)
 - [:hammer_and_wrench: Features being developed](#hammer_and_wrench-features-being-developed)
 
 # :syringe: How to build this hack
@@ -163,6 +164,13 @@ This feature basically make you move randomly every 50 seconds so that you proba
 ## FOV
 
 You can change your field of view from 60 to 120 degrees.
+
+# :put_litter_in_its_place: Uninstall
+
+Since this cheat creates some setting files, u have to follow this to clear things up.
+
+All setting files are located at `C:\Users\Public\Documents\Dainsleif`, so delete this folder and you're good.
+Of course don't forget to delete exe file itself.
 
 # :busts_in_silhouette: Contributors
 
