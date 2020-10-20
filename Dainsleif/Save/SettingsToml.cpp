@@ -35,13 +35,32 @@ void SettingsToml::Fetch(std::string& filename)
 void SettingsToml::Save(std::string& filename)
 {
     //Make a variable that holds keys and values.
-    const toml::value data{{"bAimbot",        HackFlags::bAimbot}, {"bGlowHack", HackFlags::bGlowHack},
-                           {"bAntiRecoil",    HackFlags::bAntiRecoil}, {"bTriggerBot", HackFlags::bTriggerBot}, {"bAntiAFK", HackFlags::bAntiAFK}, {"fov", fov},
-                           {"enemyGlowColor", {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
-                           {"localGlowColor", {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
-                           {"aimSmoothness",  aimSmoothness}, {"range", range},
-                           {"bEsp",           HackFlags::bEsp}, {"bLineOverlay", HackFlags::bLineOverlay}, {"bRectOverlay", HackFlags::bRectOverlay},
-                           {"bMinimapHack",   HackFlags::bMinimapHack}
+    const toml::value data
+    {
+        {"bAimbot",        HackFlags::bAimbot},
+        {"bGlowHack", HackFlags::bGlowHack},
+        {"bAntiRecoil",    HackFlags::bAntiRecoil},
+        {"bTriggerBot", HackFlags::bTriggerBot},
+        {"bAntiAFK", HackFlags::bAntiAFK},
+        {"fov", fov},
+        {"enemyGlowColor",{
+            {"Red", enemyGlowColor.x},
+            {"Green", enemyGlowColor.y},
+            {"Blue", enemyGlowColor.z},
+            {"Alpha", enemyGlowColor.w}
+        }},
+        {"localGlowColor", {
+            {"Red", localGlowColor.x},
+            {"Green", localGlowColor.y},
+            {"Blue", localGlowColor.z},
+            {"Alpha", localGlowColor.w}
+        }},
+        {"aimSmoothness",  aimSmoothness},
+        {"range", range},
+        {"bEsp",           HackFlags::bEsp},
+        {"bLineOverlay", HackFlags::bLineOverlay},
+        {"bRectOverlay", HackFlags::bRectOverlay},
+        {"bMinimapHack",   HackFlags::bMinimapHack}
     };
     //Open file and write it in toml syntax.
     std::ofstream file;

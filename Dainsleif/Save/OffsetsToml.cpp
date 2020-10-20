@@ -33,12 +33,20 @@ std::map<std::string, uintptr_t> OffsetsToml::Fetch(std::string& filename) {
     m_iItemDefinitionIndex = toml::find_or(saveData, "m_iItemDefinitionIndex", m_iItemDefinitionIndex);
     m_bSpotted = toml::find_or(saveData, "m_bSpotted", m_bSpotted);
 
-    return std::map<std::string, uintptr_t> {{"dwClientState", dwClientState}, {"dwForceAttack", dwForceAttack},
-                                             {"dwEntityList", dwEntityList}, {"dwGlowObjectManager", dwGlowObjectManager},
-                                             {"dwLocalPlayer", dwLocalPlayer}, {"dwForceForward", dwForceForward},
-                                             {"dwForceBackward", dwForceBackward}, {"dwForceRight", dwForceRight},
-                                             {"dwForceLeft", dwForceLeft}, {"dwForceJump", dwForceJump},
-                                             {"dwViewMatrix", dwViewMatrix}};
+    return std::map<std::string, uintptr_t>
+            {
+        {"dwClientState", dwClientState},
+        {"dwForceAttack", dwForceAttack},
+        {"dwEntityList", dwEntityList},
+        {"dwGlowObjectManager", dwGlowObjectManager},
+        {"dwLocalPlayer", dwLocalPlayer},
+        {"dwForceForward", dwForceForward},
+        {"dwForceBackward", dwForceBackward},
+        {"dwForceRight", dwForceRight},
+        {"dwForceLeft", dwForceLeft},
+        {"dwForceJump", dwForceJump},
+        {"dwViewMatrix", dwViewMatrix}
+            };
 }
 
 //This is a wrap function to be passed to std::async
@@ -61,22 +69,35 @@ void OffsetsToml::Update(std::string& filename)
     uintptr_t a_viewMatrix = std::async(std::launch::async, Scan, "client.dll", "\x0F\x10\x05????\x8D\x85????\xB9", 3, Modules::client, 176).get();
 
     const toml::value data {
-            {"dwForceAttack", a_forceAttack}, {"dwEntityList", a_entityList},
-            {"dwGlowObjectManager", a_glowObjectManager}, {"dwLocalPlayer", a_localPlayer},
-            {"dwClientState", a_clientState}, {"dwForceBackward", a_forceBackward},
-            {"dwForceForward", a_forceForward}, {"dwForceRight", a_forceRight},
-            {"dwForceJump", a_forceJump}, {"dwForceLeft", a_forceLeft},
+            {"dwForceAttack", a_forceAttack},
+            {"dwEntityList", a_entityList},
+            {"dwGlowObjectManager", a_glowObjectManager},
+            {"dwLocalPlayer", a_localPlayer},
+            {"dwClientState", a_clientState},
+            {"dwForceBackward", a_forceBackward},
+            {"dwForceForward", a_forceForward},
+            {"dwForceRight", a_forceRight},
+            {"dwForceJump", a_forceJump},
+            {"dwForceLeft", a_forceLeft},
             {"dwViewMatrix", a_viewMatrix},
-
             {"dwClientState_State", 0x108},
-            {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D90},
-            {"dwppDirect3DDevice9", 0xA7050}, {"m_vecOrigin", 0x138},
-            {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
-            {"m_dwBoneMatrix", 0x26A8}, {"m_iTeamNum", 0xF4},
-            {"m_iGlowIndex", 0xA438}, {"m_aimPunchAngle", 0x302C},
-            {"m_iShotsFired", 0xA390}, {"m_iCrosshairId", 0xB3E4},
-            {"m_iFOV", 0x332C}, {"m_bDormant", 0xED}, {"m_bSpotted", 0x93D},
-            {"m_hActiveWeapon", 0x2EF8}, {"m_iItemDefinitionIndex", 0x2FAA}
+            {"dwClientState_MaxPlayer", 0x388},
+            {"dwClientState_ViewAngles", 0x4D90},
+            {"dwppDirect3DDevice9", 0xA7050},
+            {"m_vecOrigin", 0x138},
+            {"m_iHealth", 0x100},
+            {"m_vecViewOffset", 0x108},
+            {"m_dwBoneMatrix", 0x26A8},
+            {"m_iTeamNum", 0xF4},
+            {"m_iGlowIndex", 0xA438},
+            {"m_aimPunchAngle", 0x302C},
+            {"m_iShotsFired", 0xA390},
+            {"m_iCrosshairId", 0xB3E4},
+            {"m_iFOV", 0x332C},
+            {"m_bDormant", 0xED},
+            {"m_bSpotted", 0x93D},
+            {"m_hActiveWeapon", 0x2EF8},
+            {"m_iItemDefinitionIndex", 0x2FAA}
     };
 
     std::ofstream file;
@@ -90,19 +111,35 @@ void OffsetsToml::Update(std::string& filename)
 void OffsetsToml::Initialize(std::string& filename)
 {
     const toml::value data {
-            {"dwClientState", 0x58CFE4}, {"dwClientState_State", 0x108}, {"dwForceBackward", 0x31838E8},
-            {"dwForceRight", 0x3183900}, {"dwForceForward", 0x3183954},
-            {"dwForceJump", 0x51FBFB8}, {"dwForceLeft", 0x31838DC},{"dwViewMatrix", 0x4D43CC4},
-            {"dwClientState_MaxPlayer", 0x388}, {"dwClientState_ViewAngles", 0x4D88},
-            {"dwppDirect3DDevice9", 0xA7050}, {"dwEntityList", 0x4D523AC},
-            {"dwLocalPlayer", 0xD3DD14}, {"dwGlowObjectManager", 0x529A1E0},
-            {"dwForceAttack", 0x3183930}, {"m_vecOrigin", 0x138},
-            {"m_iHealth", 0x100}, {"m_vecViewOffset", 0x108},
-            {"m_dwBoneMatrix", 0x26A8}, {"m_iTeamNum", 0xF4},
-            {"m_iGlowIndex", 0xA438}, {"m_aimPunchAngle", 0x302C},
-            {"m_iShotsFired", 0xA390}, {"m_iCrosshairId", 0xB3E4},
-            {"m_iFOV", 0x332C}, {"m_bDormant", 0xED},{"m_bSpotted", 0x93D},
-            {"m_hActiveWeapon", 0x2EF8}, {"m_iItemDefinitionIndex", 0x2FAA}
+            {"dwClientState", 0x58CFE4},
+            {"dwClientState_State", 0x108},
+            {"dwForceBackward", 0x31838E8},
+            {"dwForceRight", 0x3183900},
+            {"dwForceForward", 0x3183954},
+            {"dwForceJump", 0x51FBFB8},
+            {"dwForceLeft", 0x31838DC},
+            {"dwViewMatrix", 0x4D43CC4},
+            {"dwClientState_MaxPlayer", 0x388},
+            {"dwClientState_ViewAngles", 0x4D88},
+            {"dwppDirect3DDevice9", 0xA7050},
+            {"dwEntityList", 0x4D523AC},
+            {"dwLocalPlayer", 0xD3DD14},
+            {"dwGlowObjectManager", 0x529A1E0},
+            {"dwForceAttack", 0x3183930},
+            {"m_vecOrigin", 0x138},
+            {"m_iHealth", 0x100},
+            {"m_vecViewOffset", 0x108},
+            {"m_dwBoneMatrix", 0x26A8},
+            {"m_iTeamNum", 0xF4},
+            {"m_iGlowIndex", 0xA438},
+            {"m_aimPunchAngle", 0x302C},
+            {"m_iShotsFired", 0xA390},
+            {"m_iCrosshairId", 0xB3E4},
+            {"m_iFOV", 0x332C},
+            {"m_bDormant", 0xED},
+            {"m_bSpotted", 0x93D},
+            {"m_hActiveWeapon", 0x2EF8},
+            {"m_iItemDefinitionIndex", 0x2FAA}
     };
 
     std::ofstream file;
