@@ -6,6 +6,6 @@
 #include "../Hook/GraphicHook.h"
 
 namespace SettingsToml {
-    void ReadSettings(std::string& filename);
-    void WriteSettings(std::string& filename);
+    void Fetch(std::string& filename);
+    void Save(std::string& filename);
 }

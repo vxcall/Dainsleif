@@ -54,7 +54,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     {
         std::ofstream stream{path2};
         stream.close();
-        OffsetsToml::InitializeOffsets(offsetsFile);
+        OffsetsToml::Initialize(offsetsFile);
     }
 
     if (!std::filesystem::exists(path3))
@@ -63,8 +63,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         stream.close();
     }
 
-    SettingsToml::ReadSettings(settingsFile);
-    OffsetsToml::ReadOffsets(offsetsFile);
+    SettingsToml::Fetch(settingsFile);
+    OffsetsToml::Fetch(offsetsFile);
     TabStateToml::Fetch(tabStateFile);
 
     visibleHacks = {
@@ -96,7 +96,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     while (true)
     {
         if (GetAsyncKeyState(VK_DELETE) & 1 || HackFlags::bQuit) {
-            SettingsToml::WriteSettings(settingsFile);
+            SettingsToml::Save(settingsFile);
             TabStateToml::Save(tabStateFile);
             break;
         }
@@ -106,7 +106,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         Player* localPlayer = Player::GetLocalPlayer();
 
         if (gameState != 6 && inGame) {   //Not 6 means user's in menu.//true means user used to be in game.
-            SettingsToml::WriteSettings(settingsFile);
+            SettingsToml::Save(settingsFile);
             TabStateToml::Save(tabStateFile);
             oldLocalPlayer = localPlayer;
             inGame = false;
@@ -116,7 +116,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
         {
             g_ShowMenu = !g_ShowMenu;
             if (!g_ShowMenu) {
-                SettingsToml::WriteSettings(settingsFile);
+                SettingsToml::Save(settingsFile);
                 TabStateToml::Save(tabStateFile);
             }
 

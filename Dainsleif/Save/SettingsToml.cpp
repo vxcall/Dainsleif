@@ -6,7 +6,7 @@ extern float aimSmoothness; //declared in Hacks/Aimbot.cpp
 extern int fov; //declared in dllmain.cpp
 extern float range;
 
-void SettingsToml::ReadSettings(std::string& filename)
+void SettingsToml::Fetch(std::string& filename)
 {
     auto saveData = toml::parse(filename);
 
@@ -32,7 +32,7 @@ void SettingsToml::ReadSettings(std::string& filename)
 
 }
 
-void SettingsToml::WriteSettings(std::string& filename)
+void SettingsToml::Save(std::string& filename)
 {
     //Make a variable that holds keys and values.
     const toml::value data{{"bAimbot",        HackFlags::bAimbot}, {"bGlowHack", HackFlags::bGlowHack},

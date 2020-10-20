@@ -6,7 +6,7 @@
 #include "../PatternScanner.h"
 
 namespace OffsetsToml {
-    std::map<std::string, uintptr_t> ReadOffsets(std::string& filename);
-    void UpdateOffsets(std::string& filename);
-    void InitializeOffsets(std::string& filename);
+    std::map<std::string, uintptr_t> Fetch(std::string& filename);
+    void Update(std::string& filename);
+    void Initialize(std::string& filename);
 }

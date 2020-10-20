@@ -27,8 +27,8 @@ void HelpMarker(const char* title, const std::string& desc)
 bool show_updated_modal = false;
 
 std::map<std::string, uintptr_t> UpdateOffsets() {
-    OffsetsToml::UpdateOffsets(offsetsFile);
-    std::map<std::string, uintptr_t> offsets = OffsetsToml::ReadOffsets(offsetsFile);
+    OffsetsToml::Update(offsetsFile);
+    std::map<std::string, uintptr_t> offsets = OffsetsToml::Fetch(offsetsFile);
     show_updated_modal = true;
     return offsets;
 }
@@ -62,8 +62,8 @@ void ShowModal(const char* message) {
 }
 
 /* NOTE: When a new element which manipulates a hack parameter is added to the menu, you have to modify following 4 places in this project.
-         * ReadSettings() in OffsetsToml.cpp
-         * WriteSettings() in OffsetsToml.cpp
+         * Fetch() in OffsetsToml.cpp
+         * Save() in OffsetsToml.cpp
          * setToDefault function
          * DefaultSettings.h
 */

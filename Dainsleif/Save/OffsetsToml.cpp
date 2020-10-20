@@ -1,6 +1,6 @@
 #include "OffsetsToml.h"
 
-std::map<std::string, uintptr_t> OffsetsToml::ReadOffsets(std::string& filename) {
+std::map<std::string, uintptr_t> OffsetsToml::Fetch(std::string& filename) {
     auto saveData = toml::parse(filename);
     dwClientState = toml::find_or(saveData, "dwClientState", dwClientState);
     dwEntityList = toml::find_or(saveData, "dwEntityList", dwEntityList);
@@ -46,7 +46,7 @@ uintptr_t Scan(std::string dllName, std::string signature, int offset, uintptr_t
     return PatternScanner(dllName.data(), signature.data(), offset).CalculateOffset(moduleBase, extra);
 }
 
-void OffsetsToml::UpdateOffsets(std::string& filename)
+void OffsetsToml::Update(std::string& filename)
 {
     uintptr_t a_entityList = std::async(std::launch::async, Scan, "client.dll", "\xBB????\x83??\x7C?", 1, Modules::client, 0).get();
     uintptr_t a_glowObjectManager = std::async(std::launch::async, Scan, "client.dll", "\x11?????\x83??\xC7?????????\x0F\x28?????\x68????", 2, Modules::client, 0).get();
@@ -86,8 +86,8 @@ void OffsetsToml::UpdateOffsets(std::string& filename)
 }
 
 
-// When you add new offset, go to InitializeOffsets(), UpdateOffsets(), ReadOffsets(), Offsets.cpp, Offsets.h
-void OffsetsToml::InitializeOffsets(std::string& filename)
+// When you add new offset, go to Initialize(), Update(), Fetch(), Offsets.cpp, Offsets.h
+void OffsetsToml::Initialize(std::string& filename)
 {
     const toml::value data {
             {"dwClientState", 0x58CFE4}, {"dwClientState_State", 0x108}, {"dwForceBackward", 0x31838E8},
