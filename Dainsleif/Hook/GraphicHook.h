@@ -5,7 +5,7 @@
 #include "DrawGUI.h"
 #include <map>
 
-namespace EspFlags {
+namespace HackFlags {
     extern bool bEsp, bLineOverlay, bRectOverlay;
 }
 

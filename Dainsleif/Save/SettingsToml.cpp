@@ -19,9 +19,9 @@ void SettingsToml::ReadSettings(std::string& filename)
     HackFlags::bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", Default::bTriggerBot);
     HackFlags::bAntiAFK = toml::find_or<bool>(saveData, "bAntiAFK", Default::bAntiAFK);
     fov = toml::find_or(saveData, "fov", Default::fov);
-    EspFlags::bEsp = toml::find_or(saveData, "bEsp", Default::bEsp);
-    EspFlags::bLineOverlay = toml::find_or(saveData, "bLineOverlay", Default::bLineOverlay);
-    EspFlags::bRectOverlay = toml::find_or(saveData, "bRectOverlay", Default::bRectOverlay);
+    HackFlags::bEsp = toml::find_or(saveData, "bEsp", Default::bEsp);
+    HackFlags::bLineOverlay = toml::find_or(saveData, "bLineOverlay", Default::bLineOverlay);
+    HackFlags::bRectOverlay = toml::find_or(saveData, "bRectOverlay", Default::bRectOverlay);
     HackFlags::bMinimapHack = toml::find_or(saveData, "bMinimapHack", Default::bMinimapHack);
 
     auto& enemyGlowColorTable = toml::find_or(saveData, "enemyGlowColor", {});
@@ -35,13 +35,13 @@ void SettingsToml::ReadSettings(std::string& filename)
 void SettingsToml::WriteSettings(std::string& filename)
 {
     //Make a variable that holds keys and values.
-    const toml::value data{{"bAimbot", HackFlags::bAimbot}, {"bGlowHack", HackFlags::bGlowHack},
-                           {"bAntiRecoil", HackFlags::bAntiRecoil}, {"bTriggerBot", HackFlags::bTriggerBot}, {"bAntiAFK", HackFlags::bAntiAFK}, {"fov", fov},
-                           {"enemyGlowColor",    {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
-                           {"localGlowColor",    {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
-                           {"aimSmoothness", aimSmoothness}, {"range", range},
-                           {"bEsp", EspFlags::bEsp}, {"bLineOverlay", EspFlags::bLineOverlay}, {"bRectOverlay", EspFlags::bRectOverlay},
-                           {"bMinimapHack", HackFlags::bMinimapHack}
+    const toml::value data{{"bAimbot",        HackFlags::bAimbot}, {"bGlowHack", HackFlags::bGlowHack},
+                           {"bAntiRecoil",    HackFlags::bAntiRecoil}, {"bTriggerBot", HackFlags::bTriggerBot}, {"bAntiAFK", HackFlags::bAntiAFK}, {"fov", fov},
+                           {"enemyGlowColor", {{"Red", enemyGlowColor.x}, {"Green", enemyGlowColor.y}, {"Blue", enemyGlowColor.z}, {"Alpha", enemyGlowColor.w}}},
+                           {"localGlowColor", {{"Red", localGlowColor.x}, {"Green", localGlowColor.y}, {"Blue", localGlowColor.z}, {"Alpha", localGlowColor.w}}},
+                           {"aimSmoothness",  aimSmoothness}, {"range", range},
+                           {"bEsp",           HackFlags::bEsp}, {"bLineOverlay", HackFlags::bLineOverlay}, {"bRectOverlay", HackFlags::bRectOverlay},
+                           {"bMinimapHack",   HackFlags::bMinimapHack}
     };
     //Open file and write it in toml syntax.
     std::ofstream file;

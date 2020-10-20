@@ -80,9 +80,9 @@ void setToDefault(Hack_label label) {
             HackFlags::bAntiRecoil = Default::bAntiRecoil;
             HackFlags::bTriggerBot = Default::bTriggerBot;
             HackFlags::bAntiAFK = Default::bAntiAFK;
-            EspFlags::bEsp = Default::bEsp;
-            EspFlags::bLineOverlay = Default::bLineOverlay;
-            EspFlags::bRectOverlay = Default::bRectOverlay;
+            HackFlags::bEsp = Default::bEsp;
+            HackFlags::bLineOverlay = Default::bLineOverlay;
+            HackFlags::bRectOverlay = Default::bRectOverlay;
             HackFlags:: bMinimapHack = Default::bMinimapHack;
             fov = Default::fov;
             Player::GetLocalPlayer()->SetFOV(Default::fov);
@@ -110,9 +110,9 @@ void setToDefault(Hack_label label) {
         case ANTIAFK:
             HackFlags::bAntiAFK = Default::bAntiAFK;
         case ESP:
-            EspFlags::bEsp = Default::bEsp;
-            EspFlags::bLineOverlay = Default::bLineOverlay;
-            EspFlags::bRectOverlay = Default::bRectOverlay;
+            HackFlags::bEsp = Default::bEsp;
+            HackFlags::bLineOverlay = Default::bLineOverlay;
+            HackFlags::bRectOverlay = Default::bRectOverlay;
         case MINIMAPHACK:
             HackFlags::bMinimapHack = Default::bMinimapHack;
     }
@@ -220,10 +220,10 @@ void ShowTabMenu(std::map<std::string, bool>& visibleHacks) {
         }
         if (ImGui::BeginTabItem("ESP           ", &visibleHacks.at("Esp")))
         {
-            ImGui::Checkbox("Enable ESP", &EspFlags::bEsp);
-            if (EspFlags::bEsp) {
-                ImGui::Checkbox("Enable Line overlay", &EspFlags::bLineOverlay);
-                ImGui::Checkbox("Enable Rectangle overlay", &EspFlags::bRectOverlay);
+            ImGui::Checkbox("Enable ESP", &HackFlags::bEsp);
+            if (HackFlags::bEsp) {
+                ImGui::Checkbox("Enable Line overlay", &HackFlags::bLineOverlay);
+                ImGui::Checkbox("Enable Rectangle overlay", &HackFlags::bRectOverlay);
             }
             ImGui::EndTabItem();
         }

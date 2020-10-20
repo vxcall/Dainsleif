@@ -1,7 +1,7 @@
 #include "GraphicHook.h"
 #include "../Hacks/Esp.h"
 
-namespace EspFlags {
+namespace HackFlags {
     bool bEsp, bLineOverlay, bRectOverlay;
 }
 extern bool g_ShowMenu, inGame; //decleard in dllmain.cpp
@@ -59,16 +59,16 @@ HRESULT __stdcall hookedEndScene(IDirect3DDevice9* pDevice) //A function contain
     Player* localPlayer = Player::GetLocalPlayer();
     int gameState = *reinterpret_cast<int*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
 
-    if (localPlayer != oldLocalPlayer && localPlayer && EspFlags::bEsp)
+    if (localPlayer != oldLocalPlayer && localPlayer && HackFlags::bEsp)
     {
         std::vector<Player*> playerList = Player::GetAll();
         WindowSize ws = GetWindowSize();
         Esp esp = Esp(localPlayer->GetTeam(), playerList, *pDevice, ws);
-        if (EspFlags::bLineOverlay) {
+        if (HackFlags::bLineOverlay) {
             esp.LineOverlay();
         }
 
-        if (EspFlags::bRectOverlay)
+        if (HackFlags::bRectOverlay)
             esp.RectangleOverlay();
     }
 
