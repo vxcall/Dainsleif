@@ -1,6 +1,26 @@
 ﻿#include "dllmain.h"
 #include "pch.h"
 
+//#define DEBUG
+
+#ifdef DEBUG
+#define LOGHEX(name, val) std::cout << name << ": " << std::hex << val << std::endl;
+#define ALLOCCONSOLE()\
+{\
+    AllocConsole();\
+    freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);\
+}
+#define FREECONSOLE()\
+{\
+    fclose(stdout);\
+    FreeConsole();\
+}
+#else
+#define LOGHEX(name, val)
+#define ALLOCCONSOLE()
+#define FREECONSOLE()
+#endif
+
 namespace HackFlags {
     bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack;
 }
@@ -20,9 +40,7 @@ std::string tabStateFile;
 VOID WINAPI Detach()
 {
     unhookEndScene();
-
-    fclose(stdout);
-    FreeConsole();
+    FREECONSOLE();
 }
 
 void InitSetting() {
@@ -33,10 +51,7 @@ std::map<std::string, bool> visibleHacks;
 
 DWORD WINAPI fMain(LPVOID lpParameter)
 {
-    //Create console window
-    AllocConsole();
-    freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
-
+    ALLOCCONSOLE();
     TCHAR dir[ MAX_PATH ];
     SHGetSpecialFolderPath(NULL, dir, CSIDL_COMMON_DOCUMENTS, 0); //Find the Document directory location
     settingsFile = static_cast<std::string>(dir) + "/Dainsleif/savedata.toml"; //Set file path.
@@ -82,8 +97,8 @@ DWORD WINAPI fMain(LPVOID lpParameter)
 
     dwClientState = PatternScanner("engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1).CalculateOffset(Modules::engine, 0);
 
-    std::cout << "client.dll: " << std::hex << Modules::client << std::endl;
-    std::cout << "engine.dll: " << std::hex << Modules::engine << std::endl;
+    LOGHEX("client.dll", Modules::client);
+    LOGHEX("engine.dll", Modules::engine);
 
     hookEndScene();
 
