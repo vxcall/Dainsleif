@@ -1,10 +1,11 @@
 #include "GraphicHook.h"
 #include "../Hacks/Esp.h"
+#include "../dllmain.h"
 
 namespace HackFlags {
     bool bEsp, bLineOverlay, bRectOverlay;
 }
-extern bool g_ShowMenu, inGame; //decleard in dllmain.cpp
+extern bool inGame; //decleard in dllmain.cpp
 
 using endScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
 endScene originalEndScene = nullptr; //An original endscene which is null now.
