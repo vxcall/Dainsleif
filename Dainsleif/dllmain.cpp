@@ -1,7 +1,8 @@
 ﻿#include "dllmain.h"
 #include "pch.h"
+#include "Hook/ControlCursor.h"
 
-//#define DEBUG
+#define DEBUG
 
 #ifdef DEBUG
 #define LOGHEX(name, val) std::cout << name << ": " << std::hex << val << std::endl;
@@ -101,6 +102,7 @@ DWORD WINAPI fMain(LPVOID lpParameter)
     LOGHEX("engine.dll", Modules::engine);
 
     hookEndScene();
+    HookLockCursor();
 
     std::vector<Player*> playerList;
 
