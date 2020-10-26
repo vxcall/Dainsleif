@@ -1,11 +1,7 @@
 #pragma once
-
 #include "../pch.h"
-#include "Interface.h"
 #include "../Utils.h"
-#include "../PatternScanner.h"
 #include "../Modules.h"
-#include "../dllmain.h"
 
 template<typename T>
 T GetVirtualFunction(void* baseClass, int index);

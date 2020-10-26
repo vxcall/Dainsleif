@@ -1,5 +1,9 @@
 #include "ControlCursor.h"
 
+#include "Interface.h"
+#include "../PatternScanner.h"
+#include "../dllmain.h"
+
 template<typename T>
 T GetVirtualFunction(void* baseClass, const int index)
 {
