@@ -58,7 +58,8 @@ They're in Dependencies directory.
 
 **1. Build project using Visual Studio 2019**
 
-You need to run following commands in order to generate VS solution files. (No? Then scroll down a bit)
+If you have Visual Studio 2019, you must installed `Developer Command Prompt for Visual Studio` at the same time.
+Launch it and go to any directory you wanna clone Dainsleif in, and run following commands.
 
 ```
 $ git clone https://github.com/s3pt3mb3r/Dainsleif.git
@@ -73,8 +74,8 @@ Once you load the project click `Build` -> `Build Dainsleif`.
 
 Then your `Dainsleif.dll` should be in `/build/Debug` directory.
 
-You reject to install cmake? Check [releases](https://github.com/s3pt3mb3r/Dainsleif/releases) and download relevant zip file.
-(If latest release looks old, create an issue and ask me, I'll handle it.)
+This process sounds bother to you? Check [releases](https://github.com/s3pt3mb3r/Dainsleif/releases) and download relevant zip file, u will find a .sln file in it.
+(If latest release looks old, create an issue and ask me, I'll update it.)
 
 **Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
