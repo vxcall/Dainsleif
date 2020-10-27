@@ -56,23 +56,9 @@ You can select from two ways to build this hack.
 I believe all you need in order to build this project except DirectxSDK is already included which is [MSDetour](https://github.com/microsoft/Detours), [ImGui](https://github.com/ocornut/imgui), and [toml11](https://github.com/ToruNiina/toml11).
 They're in Dependencies directory.
 
-**1. Build project using Cmake**
+**1. Build project using Visual Studio 2019**
 
-Run these commands below.
-
-```
-$ git clone https://github.com/s3pt3mb3r/Dainsleif.git
-$ cd Dainsleif
-$ mkdir build && cd build
-$ cmake ..
-$ make
-```
-
-Then your `Dainsleif.dll` should be in `/build` directory.
-
-**2. Build project using Visual Studio 2019**
-
-If you still have cmake, carry out following commands. (No? Then scroll down a bit)
+You need to run following commands in order to generate VS solution files. (No? Then scroll down a bit)
 
 ```
 $ git clone https://github.com/s3pt3mb3r/Dainsleif.git
