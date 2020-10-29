@@ -85,7 +85,7 @@ This process sounds bother to you? Check [releases](https://github.com/s3pt3mb3r
 
 # :scroll: Menu
 
-You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your keyboard.
+You're accessible to the hack menu by pressing <kbd>INSERT</kbd> key on your keyboard. (While the menu is open, input to CSGO will be locked)
 
 You can toggle on/off and tweak parameters in the tabs with the name of each hack.
 
