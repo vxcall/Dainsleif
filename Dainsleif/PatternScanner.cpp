@@ -7,10 +7,10 @@ std::optional<uintptr_t> PatternScanner::FindPattern()
 {
     HMODULE hModule = GetModuleHandle(this->moduleName);
     if (!hModule)
-        return 0;
+        return std::nullopt;
     MODULEINFO moduleInfo;
     if (!GetModuleInformation(GetCurrentProcess(), hModule, &moduleInfo, sizeof(moduleInfo)))
-        return 0;
+        return std::nullopt;
 
     auto beginningOfModule = static_cast<const char*>(moduleInfo.lpBaseOfDll);
     const auto end = beginningOfModule + moduleInfo.SizeOfImage; //This is the last element of beginningOfModule array.
@@ -31,7 +31,7 @@ std::optional<uintptr_t> PatternScanner::FindPattern()
 
     // If nothing found, return optional containing nothing
     if (beginningOfModule == end){
-        return {};
+        return std::nullopt;
     }
 
     //back to the address of where current was located by subtracting the length of original pattern.

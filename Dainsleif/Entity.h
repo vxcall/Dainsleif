@@ -28,9 +28,7 @@ public:
     }
 
     void* GetClientNetworkable();
-
     ClientClass* GetClientClass();
-
     bool IsDormant();
 };
 
