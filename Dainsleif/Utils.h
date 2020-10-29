@@ -3,17 +3,26 @@
 
 namespace Utils
 {
-    template <typename T>
-    T GetVFunc(void* object, std::size_t index)
+    template < typename T >
+    T GetVirtualFunction ( void* baseClass, int index )
     {
-        void** vTable = *reinterpret_cast<void***>(object);
-        void* vFunc = vTable[index];
-        return reinterpret_cast<T>(vFunc);
+        return ( *static_cast< T** > ( baseClass ) )[ index ];
     }
 
-    template <typename T, typename... Args>
-    T CallVFunc(void* object, std::size_t index, Args... args)
+    template < typename T, typename ... Args >
+    T CallVirtualFunction ( void* baseClass, int index, Args ... args )
     {
-        return GetVFunc<T(__thiscall*)(void*, Args...)>(object, index)(object, args...);
+        return GetVirtualFunction< T(__thiscall*) (void*, Args ... ) > ( baseClass, index )(baseClass, args...);
     }
 }
+
+#define MEMBER_FUNC_ARGS(...) (this, __VA_ARGS__); };
+#define CALL_VFUNC(index, func, type) __forceinline auto func { return Utils::GetVirtualFunction<type>(this, index) MEMBER_FUNC_ARGS
+
+/*EXAMPLE OF USING CALL_VFUNC:
+* PARAMS: index, func, type
+* $param(index): the index of the virtual function you want to call.
+* $param(func): the name of the function, and its parameters if any.
+* $param(type): the type of the function (usually a __thiscall*, but others can be used aswell.)
+* CALL_VFUNC(25, some_func(int arg1, int arg2), void(__thiscall*)(type*, int, int)) (arg1, arg2)
+*/

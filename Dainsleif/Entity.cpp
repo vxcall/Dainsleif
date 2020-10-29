@@ -33,7 +33,7 @@ void* Entity::GetClientNetworkable()
 
 ClientClass* Entity::GetClientClass()
 {
-    return Utils::CallVFunc<ClientClass*>(GetClientNetworkable(), 2);
+    return Utils::CallVirtualFunction<ClientClass*>(GetClientNetworkable(), 2);
 }
 
 bool Entity::IsDormant()
