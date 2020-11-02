@@ -66,18 +66,12 @@ $ git clone https://github.com/s3pt3mb3r/Dainsleif.git
 $ cd Dainsleif
 $ mkdir build && cd build
 $ cmake .. -A Win32
+$ cmake --build .
 ```
 
-You can find `Dainsleif.sln` in `/build` directory.
+After finished compiling, `Dainsleif.dll` will be in debug folder.
 
-Once you load the project click `Build` -> `Build Dainsleif`.
-
-Then your `Dainsleif.dll` should be in `/build/Debug` directory.
-
-This process sounds bother to you? Check [releases](https://github.com/s3pt3mb3r/Dainsleif/releases) and download relevant zip file, u will find a .sln file in it.
-(If latest release looks old, create an issue and ask me, I'll update it.)
-
-**Either way you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
+**Once you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
 # :rotating_light: TROUBLE SHOOTING
 
