@@ -3,7 +3,7 @@
 #include "Hook/ControlCursor.h"
 #include "Interfaces/CInterfaceList.h"
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #define LOGHEX(name, val) std::cout << name << ": " << std::hex << val << std::endl;
