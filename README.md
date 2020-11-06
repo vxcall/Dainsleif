@@ -20,14 +20,14 @@ This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been w
 **Disclaimer**: Since I don't intend to make this a malicious software, this isn't considered to be performed in multi player mode. 
 **We won't take any responsibility if a problem occurs because of this software.** Keep that in mind.
 
-As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as your reference if you want.
+As of today, Dainsleif is a quite simple and tiny cheat, so it'll be easy to read and understand. This software is published as MIT license in addition.
 
 If you have any request or question, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues).
-Please understand that it may take a certain days because I'm doing this as completely my hobby without profit or reward, you know? 
+Please understand that it may take a certain days because I'm doing this as completely my hobby without profit or reward, you know?
 
 # :two_hearts: Support me
 Any supports will be greatly appreciated. 
-You can easily support/motivate me by either **starring my project**, **following me on github** or **sending PR to me**.
+You can simply support me by either **starring my project**, **following me on github** or **sending PR to me**.
 
 # :pushpin: Table of contents
 
