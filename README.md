@@ -13,12 +13,12 @@
 Image's gifted by my big friend [@suzuharuR](https://twitter.com/suzuharuR)
 
 # :zap: Dainsleif
-First of all, if you are kind enough to motivate me, just **:star:star** this project :) I would be very happy.
+**Please :star:star this project, it'll be a huge help for me =)**
 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
 
 **Disclaimer**: Since I don't intend to make this a malicious software, this isn't considered to be performed in multi player mode. 
-**We won't take any responsibility if a problem occurs because of this software.** Keep in that mind.
+**We won't take any responsibility if a problem occurs because of this software.** Keep that in mind.
 
 As of today, Dainsleif is a quite simple and tiny cheat, so you can use this as your reference if you want.
 
