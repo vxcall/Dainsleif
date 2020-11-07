@@ -73,6 +73,8 @@ After finished compiling, `Dainsleif.dll` will be in debug folder.
 
 **Once you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
+Needless to say, add `-insecure` flag in your launch option in order to taste this cheat without VAC scan.
+
 # :rotating_light: TROUBLE SHOOTING
 
 **Something goes wrong? We've prepared [Wiki](https://github.com/s3pt3mb3r/Dainsleif/wiki/Trouble-shooting) for you :sunglasses:**
