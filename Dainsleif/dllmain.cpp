@@ -102,13 +102,13 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
 
     dwClientState = PatternScanner ( "engine.dll", "\xA1????\x8B?????\x85?\x74?\x8B?", 1 ).CalculateOffset ( Modules::engine, 0 );
 
-    LOGHEX ( "client.dll", Modules::client );
-    LOGHEX ( "engine.dll", Modules::engine );
+    LOGHEX ("client.dll", Modules::client);
+    LOGHEX ("engine.dll", Modules::engine);
 
-    g_csgo.Initialize ( );
+    g_csgo.Initialize();
 
-    hookEndScene ( );
-    HookLockCursor ( );
+    hookEndScene();
+    HookLockCursor();
 
     std::vector< Player* > playerList;
 
@@ -116,83 +116,87 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
     Player* oldLocalPlayer = nullptr;
 
     //Hack loop entry point.
-    while ( true )
+    while (true)
     {
-        if ( GetAsyncKeyState ( VK_DELETE ) & 1 || HackFlags::bQuit )
+        if (GetAsyncKeyState(VK_DELETE) & 1 || HackFlags::bQuit)
         {
-            SettingsToml::Save ( settingsFile );
-            TabStateToml::Save ( tabStateFile );
+            SettingsToml::Save (settingsFile);
+            TabStateToml::Save (tabStateFile);
             break;
         }
 
-        int gameState = *reinterpret_cast< int* > ( *reinterpret_cast< uintptr_t* > ( Modules::engine + dwClientState ) + dwClientState_State );
+        int gameState = *reinterpret_cast<int*>( *reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
 
-        Player* localPlayer = Player::GetLocalPlayer ( );
+        Player* localPlayer = Player::GetLocalPlayer();
 
         if ( gameState != 6 && inGame )
         {   //Not 6 means user's in menu.//true means user used to be in game.
-            SettingsToml::Save ( settingsFile );
-            TabStateToml::Save ( tabStateFile );
+            SettingsToml::Save (settingsFile);
+            TabStateToml::Save (tabStateFile);
             oldLocalPlayer = localPlayer;
             inGame = false;
         }
 
-        if ( GetAsyncKeyState ( VK_INSERT ) & 1 )
+        if (GetAsyncKeyState (VK_INSERT) &1)
         {
             g_ShowMenu = !g_ShowMenu;
-            if ( !g_ShowMenu )
+            if (!g_ShowMenu)
             {
-                SettingsToml::Save ( settingsFile );
-                TabStateToml::Save ( tabStateFile );
+                SettingsToml::Save (settingsFile);
+                TabStateToml::Save (tabStateFile);
             }
         }
 
-        if ( gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer )
+        if (gameState != 6 || !localPlayer || localPlayer == oldLocalPlayer)
             continue;
 
-        if ( !localPlayer->GetActiveWeapon ( ) )
+        if (!localPlayer->GetActiveWeapon())
             continue;
 
         //If we have values to set in initializing phase, have to be written here.
-        if ( !inGame )
+        if (!inGame)
         {
-            InitSetting ( );
+            InitSetting ();
             inGame = true;
         }
 
-        if ( HackFlags::bTriggerBot || HackFlags::bGlowHack || HackFlags::bAntiRecoil )
+        if (HackFlags::bTriggerBot || HackFlags::bGlowHack || HackFlags::bAntiRecoil)
         {
-            playerList = Player::GetAll ( );
+            playerList = Player::GetAll();
         }
 
-        if ( HackFlags::bTriggerBot )
+        if (HackFlags::bTriggerBot)
         {
-            Triggerbot::Run ( );
+            Triggerbot::Run();
         }
 
-        if ( HackFlags::bAimbot )
+        if (HackFlags::bAimbot)
         {
-            std::vector< Player* > pl = Player::GetLivingOpponents ( );
-            Aimbot::Run ( pl );
+            std::vector< Player* > pl = Player::GetLivingOpponents ();
+            Aimbot::Run (pl);
         }
 
-        if ( HackFlags::bGlowHack )
+        if (HackFlags::bGlowHack)
         {
-            for ( Player* player : playerList )
+            for (Player* player : playerList)
             {
-                Glow::Run ( player );
+                Glow::Run (player);
             }
         }
 
-        if ( HackFlags::bAntiRecoil )
+        if (HackFlags::bAntiRecoil)
         {
-            AntiRecoil::Run ( );
+            AntiRecoil::Run();
         }
 
-        if ( HackFlags::bMinimapHack )
+        if (HackFlags::bMinimapHack)
         {
-            std::vector< Player* > pl = Player::GetLivingOpponents ( );
-            Minimap::Run ( pl );
+            std::vector< Player* > pl = Player::GetLivingOpponents();
+            Minimap::Run (pl);
+        } else if (!HackFlags::bMinimapHack)
+        {
+            std::vector< Player* > pl = Player::GetLivingOpponents();
+            Minimap::Stop(pl)
         }
 
         static bool checkState_bAntiAFK;
