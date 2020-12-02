@@ -196,7 +196,7 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
         } else if (!HackFlags::bMinimapHack)
         {
             std::vector< Player* > pl = Player::GetLivingOpponents();
-            Minimap::Stop(pl)
+            Minimap::Stop(pl);
         }
 
         static bool checkState_bAntiAFK;
