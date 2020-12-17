@@ -97,7 +97,7 @@ void OffsetsToml::Update(std::string& filename)
             {"m_bDormant", 0xED},
             {"m_bSpotted", 0x93D},
             {"m_hActiveWeapon", 0x2EF8},
-            {"m_iItemDefinitionIndex", 0x2FAA}
+            {"m_iItemDefinitionIndex", 0x2FAA},
     };
 
     std::ofstream file;
@@ -113,19 +113,19 @@ void OffsetsToml::Initialize(std::string& filename)
     const toml::value data {
             {"dwClientState", 0x58DFE4},
             {"dwClientState_State", 0x108},
-            {"dwForceBackward", 0x31848E8},
-            {"dwForceRight", 0x3184900},
-            {"dwForceForward", 0x3184954},
-            {"dwForceJump", 0x51FCFB8},
-            {"dwForceLeft", 0x31848DC},
-            {"dwViewMatrix", 0x4D44CC4},
+            {"dwForceBackward", 0x31D0088},
+            {"dwForceRight", 0x31D0004},
+            {"dwForceForward", 0x31D0094},
+            {"dwForceJump", 0x5248A34},
+            {"dwForceLeft", 0x31D0010},
+            {"dwViewMatrix", 0x4D903D4},
             {"dwClientState_MaxPlayer", 0x388},
             {"dwClientState_ViewAngles", 0x4D90},
             {"dwppDirect3DDevice9", 0xA7050},
-            {"dwEntityList", 0x4D533AC},
-            {"dwLocalPlayer", 0xD3ED14},
-            {"dwGlowObjectManager", 0x529B210},
-            {"dwForceAttack", 0x3184930},
+            {"dwEntityList", 0x4D9EAD4},
+            {"dwLocalPlayer", 0xD8722C},
+            {"dwGlowObjectManager", 0x52E70D0},
+            {"dwForceAttack", 0x31D0034},
             {"m_vecOrigin", 0x138},
             {"m_iHealth", 0x100},
             {"m_vecViewOffset", 0x108},
@@ -139,7 +139,7 @@ void OffsetsToml::Initialize(std::string& filename)
             {"m_bDormant", 0xED},
             {"m_bSpotted", 0x93D},
             {"m_hActiveWeapon", 0x2EF8},
-            {"m_iItemDefinitionIndex", 0x2FAA}
+            {"m_iItemDefinitionIndex", 0x2FAA},
     };
 
     std::ofstream file;

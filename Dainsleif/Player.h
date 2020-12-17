@@ -26,6 +26,7 @@ public:
 
     Vector3 GetAimPunchAngle();
 
+
     Vector3 GetBonePosition();
 
     //GetHeadPosition calculates head position by view offset and body position.
