@@ -47,8 +47,17 @@ Player* GetClosestEnemyFromCrosshair(std::vector<Player*> playerList, Player* lo
 
 void Aimbot::Run(std::vector<Player*> playerList)
 {
-    Player* localPlayer = Player::GetLocalPlayer();
+    auto isAiming = *reinterpret_cast<bool*>(*reinterpret_cast<uintptr_t*>(Modules::client + 0x00D8B2DC) + 0x3928);
 
+    Player* localPlayer = Player::GetLocalPlayer();
+    static const WeaponID rejectWeaponList[3] = {SR_SSG08, SR_AWP, SR_G3SG1};
+    Weapon* activeWeapon = localPlayer->GetActiveWeapon();
+    WeaponID activeWeaponID = activeWeapon->GetWeaponID();
+    for (WeaponID rejW : rejectWeaponList) {
+        if (rejW == activeWeaponID && !isAiming) {
+            return;
+        }
+    }
     static auto* viewAngles = reinterpret_cast<Vector3*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_ViewAngles);
 
     Player* closestEnt = GetClosestEnemyFromCrosshair(playerList, localPlayer);
