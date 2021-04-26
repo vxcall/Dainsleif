@@ -54,38 +54,55 @@ void InitSetting ( )
 
 std::map< std::string, bool > visibleHacks;
 
-DWORD WINAPI fMain ( LPVOID lpParameter )
-{
-    ALLOCCONSOLE ( );
+int loadSettingsFiles() {
+
     TCHAR dir[ MAX_PATH ];
+
     SHGetSpecialFolderPath ( NULL, dir, CSIDL_COMMON_DOCUMENTS, 0 ); //Find the Document directory location
+
     settingsFile = static_cast< std::string > ( dir ) + "/Dainsleif/savedata.toml"; //Set file path.
     offsetsFile = static_cast< std::string > ( dir ) + "/Dainsleif/offsets.toml";
     tabStateFile = static_cast< std::string > ( dir ) + "/Dainsleif/tabstate.toml";
+
     std::filesystem::path path1{ settingsFile }, path2{ offsetsFile }, path3{ tabStateFile };
     std::filesystem::create_directories ( path1.parent_path ( ) );
+
     if ( !std::filesystem::exists ( path1 ) )
     {
         std::ofstream stream{ path1 };
         stream.close ( );
+        LOGHEX("error loading file savedata.toml", 1);
+        return 1;
     }
 
     if ( !std::filesystem::exists ( path2 ) )
     {
         std::ofstream stream{ path2 };
-        stream.close ( );
         OffsetsToml::Initialize ( offsetsFile );
+        stream.close ( );
+        LOGHEX("error loading file offsets.toml", 2);
+        return 2;
     }
 
     if ( !std::filesystem::exists ( path3 ) )
     {
         std::ofstream stream{ path3 };
         stream.close ( );
+        LOGHEX("error loading file tabstate.toml", 3);
+        return 3;
     }
 
     SettingsToml::Fetch ( settingsFile );
     OffsetsToml::Fetch ( offsetsFile );
     TabStateToml::Fetch ( tabStateFile );
+    return 0;
+}
+
+DWORD WINAPI fMain ( LPVOID lpParameter )
+{
+    ALLOCCONSOLE ( );
+    
+    loadSettingsFiles();
 
     visibleHacks = {
         { "Aim Bot", TabFlags::t_aimBot },
@@ -115,16 +132,11 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
     //MUST save this to use as a flag cuz the value of local player's gonna be stored at the same address even the match ended.
     Player* oldLocalPlayer = nullptr;
 
-    //Hack loop entry point.
-    while (true)
-    {
-        if (GetAsyncKeyState(VK_DELETE) & 1 || HackFlags::bQuit)
-        {
-            SettingsToml::Save (settingsFile);
-            TabStateToml::Save (tabStateFile);
-            break;
-        }
+    bool checkState_bAntiAFK = false;
 
+    //Hack loop entry point.
+    while (!(GetAsyncKeyState(VK_DELETE) & 1 || HackFlags::bQuit))
+    {
         int gameState = *reinterpret_cast<int*>( *reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_State);
 
         Player* localPlayer = Player::GetLocalPlayer();
@@ -137,7 +149,7 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
             inGame = false;
         }
 
-        if (GetAsyncKeyState (VK_INSERT) &1)
+        if (GetAsyncKeyState (VK_INSERT) & 1)
         {
             g_ShowMenu = !g_ShowMenu;
             if (!g_ShowMenu)
@@ -170,12 +182,6 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
             Triggerbot::Run();
         }
 
-        if (HackFlags::bAimbot)
-        {
-            std::vector< Player* > pl = Player::GetLivingOpponents ();
-            Aimbot::Run (pl);
-        }
-
         if (HackFlags::bGlowHack)
         {
             for (Player* player : playerList)
@@ -189,17 +195,18 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
             AntiRecoil::Run();
         }
 
-        if (HackFlags::bMinimapHack)
+        std::vector< Player* > pl = Player::GetLivingOpponents ();
+
+        if (HackFlags::bAimbot)
         {
-            std::vector< Player* > pl = Player::GetLivingOpponents();
-            Minimap::Run (pl);
-        } else if (!HackFlags::bMinimapHack)
-        {
-            std::vector< Player* > pl = Player::GetLivingOpponents();
-            Minimap::Stop(pl);
+            Aimbot::Run (pl);
         }
 
-        static bool checkState_bAntiAFK;
+        if (HackFlags::bMinimapHack)
+        {
+            Minimap::Run (pl);
+        }
+
         if ( !checkState_bAntiAFK && HackFlags::bAntiAFK )
         { //First loop after user ticks the checkbox.
             std::thread worker ( AntiAFK::Run, &HackFlags::bAntiAFK );
@@ -213,6 +220,9 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
 
         Sleep ( 1 ); //sleep for performance aspect
     }
+
+    SettingsToml::Save(settingsFile);
+    TabStateToml::Save(tabStateFile);
 
     FreeLibraryAndExitThread ( static_cast< HMODULE > ( lpParameter ), EXIT_SUCCESS );
 }

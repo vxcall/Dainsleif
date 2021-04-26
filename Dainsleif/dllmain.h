@@ -20,3 +20,5 @@ namespace TabFlags {
 }
 
 extern bool g_ShowMenu;
+
+int loadSettingsFiles();
