@@ -3,34 +3,14 @@
 #include "Hook/ControlCursor.h"
 #include "Interfaces/CInterfaceList.h"
 
-//#define DEBUG
-
-#ifdef DEBUG
-#define LOGHEX(name, val) std::cout << name << ": " << std::hex << val << std::endl;
-#define ALLOCCONSOLE()\
-{\
-    AllocConsole();\
-    freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);\
-}
-#define FREECONSOLE()\
-{\
-    fclose(stdout);\
-    FreeConsole();\
-}
-#else
-#define LOGHEX(name, val)
-#define ALLOCCONSOLE()
-#define FREECONSOLE()
-#endif
-
 namespace HackFlags
 {
-    bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bAntiAFK, bMinimapHack;
+    bool bQuit, bAimbot, bGlowHack, bAntiRecoil, bTriggerBot, bBunnyhop, bAntiAFK, bMinimapHack;
 }
 
 namespace TabFlags
 {
-    bool t_aimBot = true, t_glowHack = true, t_antiRecoil = true, t_triggerBot = true, t_antiAFK, t_fov, t_esp, t_minimapHack;
+    bool t_aimBot = true, t_glowHack = true, t_antiRecoil = true, t_triggerBot = true, t_bunnyHop = true, t_antiAFK, t_fov, t_esp, t_minimapHack;
 }
 
 int fov;
@@ -109,6 +89,7 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
         { "Glow Hack", TabFlags::t_glowHack },
         { "Anti Recoil", TabFlags::t_antiRecoil },
         { "Trigger Bot", TabFlags::t_triggerBot },
+        { "Bunnyhop", TabFlags::t_bunnyHop },
         { "Anti AFK", TabFlags::t_antiAFK },
         { "Fov", TabFlags::t_fov },
         { "Esp", TabFlags::t_esp },
@@ -170,6 +151,11 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
         {
             InitSetting ();
             inGame = true;
+        }
+
+        if ((GetAsyncKeyState(VK_SPACE) & 1) && HackFlags::bBunnyhop)
+        {
+            Bhop::Run();
         }
 
         if (HackFlags::bTriggerBot || HackFlags::bGlowHack || HackFlags::bAntiRecoil)

@@ -9,6 +9,7 @@ enum Hack_label {
     GLOWHACK,
     ANTIRECOIL,
     TRIGGERBOT,
+    BUNNYHOP,
     ANTIAFK,
     FOV,
     ESP,

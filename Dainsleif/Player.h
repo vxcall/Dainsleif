@@ -45,4 +45,6 @@ public:
     Weapon* GetActiveWeapon();
 
     void SetFOV(int fov);
+
+    uintptr_t GetFlags();
 };

@@ -64,9 +64,12 @@ Launch it and go to any directory you wanna clone Dainsleif in, and run followin
 ```Shell
 $ git clone https://github.com/s3pt3mb3r/Dainsleif.git
 $ cd Dainsleif
-$ mkdir build && cd build
-$ cmake .. -A Win32
-$ cmake --build .
+```
+
+For compiling the cheat, there is a convenient batch script that automates the process. All you need to do is run it:
+
+```Shell
+$ .\compile.bat
 ```
 
 After finished compiling, `Dainsleif.dll` will be in debug folder.
