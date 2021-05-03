@@ -17,6 +17,7 @@ void SettingsToml::Fetch(std::string& filename)
     HackFlags::bGlowHack = toml::find_or<bool>(saveData, "bGlowHack", Default::bGlowhack);
     HackFlags::bAntiRecoil = toml::find_or<bool>(saveData, "bAntiRecoil", Default::bAntiRecoil);
     HackFlags::bTriggerBot = toml::find_or<bool>(saveData, "bTriggerBot", Default::bTriggerBot);
+    HackFlags::bBunnyhop = toml::find_or<bool>(saveData, "bBunnyhop", Default::bBunnyhop);
     HackFlags::bAntiAFK = toml::find_or<bool>(saveData, "bAntiAFK", Default::bAntiAFK);
     fov = toml::find_or(saveData, "fov", Default::fov);
     HackFlags::bEsp = toml::find_or(saveData, "bEsp", Default::bEsp);
@@ -41,6 +42,7 @@ void SettingsToml::Save(std::string& filename)
         {"bGlowHack", HackFlags::bGlowHack},
         {"bAntiRecoil",    HackFlags::bAntiRecoil},
         {"bTriggerBot", HackFlags::bTriggerBot},
+        {"bBunnyhop", HackFlags::bBunnyhop},
         {"bAntiAFK", HackFlags::bAntiAFK},
         {"fov", fov},
         {"enemyGlowColor",{
