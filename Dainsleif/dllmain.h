@@ -16,7 +16,7 @@
 
 #ifdef DEBUG
 #define LOGHEX(name, val) std::cout << name << ": " << std::hex << val << std::endl;
-#define LOGFLAGS(flags) std::cout << std::bitset<sizeof(uintptr_t)>(flags) << std::endl;
+#define LOG(x) std::cout << x << std::endl;
 #define ALLOCCONSOLE()\
 {\
     AllocConsole();\

@@ -153,7 +153,7 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
             inGame = true;
         }
 
-        if ((GetAsyncKeyState(VK_SPACE) & 1) && HackFlags::bBunnyhop)
+        if (HackFlags::bBunnyhop && GetAsyncKeyState(VK_SPACE))
         {
             Bhop::Run();
         }

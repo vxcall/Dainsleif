@@ -10,7 +10,6 @@ void Bhop::Run()
 {
 	Player* localPlayer = Player::GetLocalPlayer();
 	uintptr_t flags = localPlayer->GetFlags();
-
 	if (flags & (1 << 0))
 	{
 		Bhop::ForceJump();
