@@ -18,6 +18,7 @@ uintptr_t dwViewMatrix;
 
 uintptr_t m_vecOrigin;
 uintptr_t m_iHealth;
+uintptr_t m_fFlags;
 uintptr_t m_vecViewOffset;
 uintptr_t m_dwBoneMatrix;
 uintptr_t m_iTeamNum;

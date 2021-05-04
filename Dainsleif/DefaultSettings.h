@@ -19,6 +19,9 @@ namespace Default {
     //Trigger bot
     const bool bTriggerBot = false;
 
+    //Bunnyhop
+    const bool bBunnyhop = false;
+
     //FOV
     const int fov = 90;
 

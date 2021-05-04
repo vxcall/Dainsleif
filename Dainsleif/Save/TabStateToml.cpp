@@ -17,6 +17,7 @@ void TabStateToml::Fetch(std::string& filename)
     TabFlags::t_glowHack = toml::find_or(prevTabState, "Glow Hack", true);
     TabFlags::t_antiRecoil = toml::find_or(prevTabState, "Anti Recoil", true);
     TabFlags::t_triggerBot = toml::find_or(prevTabState, "Trigger Bot", true);
+    TabFlags::t_triggerBot = toml::find_or(prevTabState, "Bunnyhop", true);
     TabFlags::t_antiAFK = toml::find_or(prevTabState, "Anti AFK", false);
     TabFlags::t_fov = toml::find_or(prevTabState, "Fov", false);
     TabFlags::t_esp = toml::find_or(prevTabState, "Esp", false);
