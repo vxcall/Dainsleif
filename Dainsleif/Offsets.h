@@ -14,6 +14,7 @@ extern uintptr_t dwViewMatrix;
 
 extern uintptr_t m_vecOrigin;
 extern uintptr_t m_iHealth;
+extern uintptr_t m_fFlags;
 extern uintptr_t m_vecViewOffset;
 extern uintptr_t m_dwBoneMatrix;
 extern uintptr_t m_iTeamNum;

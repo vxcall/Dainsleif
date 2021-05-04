@@ -79,6 +79,7 @@ void setToDefault(Hack_label label) {
             localGlowColor = Default::localGlowColor;
             HackFlags::bAntiRecoil = Default::bAntiRecoil;
             HackFlags::bTriggerBot = Default::bTriggerBot;
+            HackFlags::bBunnyhop = Default::bBunnyhop;
             HackFlags::bAntiAFK = Default::bAntiAFK;
             HackFlags::bEsp = Default::bEsp;
             HackFlags::bLineOverlay = Default::bLineOverlay;
@@ -102,6 +103,9 @@ void setToDefault(Hack_label label) {
             break;
         case TRIGGERBOT:
             HackFlags::bTriggerBot = Default::bTriggerBot;
+            break;
+        case BUNNYHOP:
+            HackFlags::bBunnyhop = Default::bBunnyhop;
             break;
         case FOV:
             fov = Default::fov;
@@ -149,6 +153,8 @@ void ShowMenuBar(std::map<std::string, bool>& visibleHacks)
                     setToDefault(ANTIRECOIL);
                 } else if (ImGui::MenuItem("Trigger bot")) {
                     setToDefault(TRIGGERBOT);
+                } else if (ImGui::MenuItem("Bunnyhop")) {
+                    setToDefault(BUNNYHOP);
                 } else if (ImGui::MenuItem("Anti AFK")) {
                     setToDefault(ANTIAFK);
                 } else if (ImGui::MenuItem("FOV")) {
@@ -205,6 +211,11 @@ void ShowTabMenu(std::map<std::string, bool>& visibleHacks) {
         if (ImGui::BeginTabItem("Trigger bot", &visibleHacks.at("Trigger Bot")))
         {
             ImGui::Checkbox("Enable Trigger bot", &HackFlags::bTriggerBot);
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Bunnyhop", &visibleHacks.at("Bunnyhop")))
+        {
+            ImGui::Checkbox("Enable Bunnyhop", &HackFlags::bBunnyhop);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Anti AFK", &visibleHacks.at("Anti AFK")))

@@ -20,6 +20,7 @@ std::map<std::string, uintptr_t> OffsetsToml::Fetch(std::string& filename) {
     dwppDirect3DDevice9 = toml::find_or(saveData, "dwppDirect3DDevice9", dwppDirect3DDevice9);
     m_vecOrigin = toml::find_or(saveData, "m_vecOrigin", m_vecOrigin);
     m_iHealth = toml::find_or(saveData, "m_iHealth", m_iHealth);
+    m_fFlags = toml::find_or(saveData, "m_fFlags", m_fFlags);
     m_vecViewOffset = toml::find_or(saveData, "m_vecViewOffset", m_vecViewOffset);
     m_dwBoneMatrix = toml::find_or(saveData, "m_dwBoneMatrix", m_dwBoneMatrix);
     m_iTeamNum = toml::find_or(saveData, "m_iTeamNum", m_iTeamNum);
@@ -86,6 +87,7 @@ void OffsetsToml::Update(std::string& filename)
             {"dwppDirect3DDevice9", 0xA7050},
             {"m_vecOrigin", 0x138},
             {"m_iHealth", 0x100},
+            {"m_fFlags", 0x104},
             {"m_vecViewOffset", 0x108},
             {"m_dwBoneMatrix", 0x26A8},
             {"m_iTeamNum", 0xF4},
@@ -128,6 +130,7 @@ void OffsetsToml::Initialize(std::string& filename)
             {"dwppDirect3DDevice9", 0xA7050},
             {"m_vecOrigin", 0x138},
             {"m_iHealth", 0x100},
+            {"m_fFlags", 0x104},
             {"m_vecViewOffset", 0x108},
             {"m_dwBoneMatrix", 0x26A8},
             {"m_iTeamNum", 0xF4},

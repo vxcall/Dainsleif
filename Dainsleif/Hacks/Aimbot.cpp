@@ -38,7 +38,7 @@ Player* GetClosestEnemyFromCrosshair(std::vector<Player*> playerList, Player* lo
             closestPlayerIndex = i;
         }
     }
-    if (closestPlayerIndex == -1)
+    if (closestPlayerIndex == -1 || playerList[closestPlayerIndex]->IsDormant())
     {
         return nullptr;
     }
@@ -50,7 +50,7 @@ void Aimbot::Run(std::vector<Player*> playerList)
     auto isAiming = *reinterpret_cast<bool*>(*reinterpret_cast<uintptr_t*>(Modules::client + 0x00D8B2DC) + 0x3928);
 
     Player* localPlayer = Player::GetLocalPlayer();
-    static const WeaponID rejectWeaponList[3] = {SR_SSG08, SR_AWP, SR_G3SG1};
+    static const WeaponID rejectWeaponList[11] = { KNIFE, C4, GN_DECOY, GN_FLASH_, GN_HE, GN_MOLOTOV, GN_SMOKE, SR_SSG08, SR_AWP, SR_G3SG1 };
     Weapon* activeWeapon = localPlayer->GetActiveWeapon();
     WeaponID activeWeaponID = activeWeapon->GetWeaponID();
     for (WeaponID rejW : rejectWeaponList) {
@@ -61,7 +61,7 @@ void Aimbot::Run(std::vector<Player*> playerList)
     static auto* viewAngles = reinterpret_cast<Vector3*>(*reinterpret_cast<uintptr_t*>(Modules::engine + dwClientState) + dwClientState_ViewAngles);
 
     Player* closestEnt = GetClosestEnemyFromCrosshair(playerList, localPlayer);
-    if (!closestEnt || closestEnt->IsDormant())
+    if (!closestEnt)
         return;
 
     Vector3 delta{};
@@ -90,7 +90,8 @@ void Aimbot::Run(std::vector<Player*> playerList)
         {
             pf = aimSmoothness;
             yf = x;
-        } else {
+        }
+        else {
             pf = x;
             yf = aimSmoothness;
         }
@@ -116,14 +117,17 @@ void Aimbot::Run(std::vector<Player*> playerList)
                 if (sign(viewAngles->y) == -1 && sign(yaw) == 1 && viewAngles->y <= -90) //When yaw is like 170 and viewAngle steps over -180
                 {
                     viewAngles->y -= yf;
-                } else {
+                }
+                else {
                     viewAngles->y += yf;
                 }
-            } else if (viewAngles->y > yaw) {
+            }
+            else if (viewAngles->y > yaw) {
                 if (sign(viewAngles->y) == 1 && sign(yaw) == -1 && viewAngles->y >= 90)  //When yaw is like -170 and viewAngle steps over 180
                 {
                     viewAngles->y += yf;
-                } else {
+                }
+                else {
                     viewAngles->y -= yf;
                 }
 

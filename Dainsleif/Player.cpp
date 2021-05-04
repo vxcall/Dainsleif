@@ -34,7 +34,7 @@ void FilterOutIrrelevant(std::vector<Player*>& playerList, Player* localPlayer)
         }
     }
 }
-// FilterOutIrrelevant basically filter out the dead enemies and allies from playerList.
+
 std::vector<Player*> Player::GetLivingOpponents() {
     Player* localPlayer = GetLocalPlayer();
     std::vector<Player*> playerList = GetAll();
@@ -123,3 +123,10 @@ void Player::SetFOV(int fov)
     if (this)
         WriteValue<int>(m_iFOV, fov);
 }
+
+uintptr_t Player::GetFlags()
+{
+    uintptr_t flags = ReadValue<uintptr_t>(m_fFlags);
+    return flags;
+}
+
