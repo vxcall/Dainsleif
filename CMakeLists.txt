@@ -15,32 +15,25 @@ link_directories($ENV{DXSDK_DIR}/Lib/x86)
 
 #minhook
 include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/include)
-file(GLOB_RECURSE MINHOOK CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/*.c ${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/*.h)
+file(GLOB_RECURSE MINHOOK CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/*.c
+  ${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/*.h)
 
 #imGUI
 include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/imGUI)
-FILE(GLOB_RECURSE IMGUI_SOURCE CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dependencies/imGUI/*.cpp)
-FILE(GLOB_RECURSE IMGUI_HEADER CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dependencies/imGUI/*.h)
+file(GLOB_RECURSE IMGUI CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_LIST_DIR}/Dependencies/imGUI/*.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/Dependencies/imGUI/*.h)
 
 #toml11
 include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/toml11)
+file(GLOB_RECURSE TOML CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dependencies/toml11/*.hpp)
 
-#Hacks directory
-FILE(GLOB_RECURSE HACKS_SOURCE CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/Hacks/*.cpp)
-FILE(GLOB_RECURSE HACKS_HEADER CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/Hacks/*.h)
+#main directory and its sub-directories
+file(GLOB_RECURSE MAIN CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/*.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/*.h)
 
-#Save directory
-FILE(GLOB_RECURSE SAVE_SOURCE CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/Save/*.cpp)
-FILE(GLOB_RECURSE SAVE_HEADER CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/Save/*.h)
-
-#main directory
-FILE(GLOB_RECURSE MAIN_SOURCE CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/*.cpp)
-FILE(GLOB_RECURSE MAIN_HEADER CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/*.h)
-
-add_library(Dainsleif SHARED ${MAIN_SOURCE} ${MAIN_HEADER} ${HACKS_SOURCE} ${HACKS_HEADER} ${MINHOOK} ${IMGUI_SOURCE} ${IMGUI_HEADER} "Dainsleif/Hacks/Bunnyhop.cpp" "Dainsleif/Hacks/Bunnyhop.h")
-
-if (MSVC)
-  target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")
-endif ()
+add_library(Dainsleif SHARED ${MAIN} ${MINHOOK} ${IMGUI} ${TOML})
 
 target_link_libraries(${PROJECT_NAME} d3d9 d3dx9)
