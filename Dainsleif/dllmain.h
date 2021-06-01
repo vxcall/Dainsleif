@@ -12,7 +12,7 @@
 #include "Save/TabStateToml.h"
 #include <thread>
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #define LOGHEX(name, val) std::cout << name << ": " << std::hex << val << std::endl;
@@ -29,7 +29,6 @@
 }
 #else
 #define LOGHEX(name, val)
-#define LOGFLAGS(flags)
 #define ALLOCCONSOLE()
 #define FREECONSOLE()
 #endif

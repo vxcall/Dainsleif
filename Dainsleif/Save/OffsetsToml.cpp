@@ -94,7 +94,7 @@ void OffsetsToml::Update(std::string& filename)
             {"m_iGlowIndex", 0xA438},
             {"m_aimPunchAngle", 0x302C},
             {"m_iShotsFired", 0xA390},
-            {"m_iCrosshairId", 0xB3E4},
+            {"m_iCrosshairId", 0xB3E8},
             {"m_iFOV", 0x332C},
             {"m_bDormant", 0xED},
             {"m_bSpotted", 0x93D},
@@ -113,7 +113,7 @@ void OffsetsToml::Update(std::string& filename)
 void OffsetsToml::Initialize(std::string& filename)
 {
     const toml::value data {
-            {"dwClientState", 0x587FE4},
+            {"dwClientState", 0x588FE4},
             {"dwForceAttack", 0x31D2628},
             {"dwForceBackward", 0x31D267C},
             {"dwForceForward", 0x31D2658},
@@ -122,7 +122,7 @@ void OffsetsToml::Initialize(std::string& filename)
             {"dwForceRight", 0x31D2694},
             {"dwEntityList", 0x4DA20DC},
             {"dwLocalPlayer", 0xD892CC},
-            {"dwGlowObjectManager", 0x52EA550},
+            {"dwGlowObjectManager", 0x52EA570},
             {"dwViewMatrix", 0x4D939F4},
             {"dwClientState_State", 0x108},
             {"dwClientState_MaxPlayer", 0x388},
@@ -137,7 +137,7 @@ void OffsetsToml::Initialize(std::string& filename)
             {"m_iGlowIndex", 0xA438},
             {"m_aimPunchAngle", 0x302C},
             {"m_iShotsFired", 0xA390},
-            {"m_iCrosshairId", 0xB3E4},
+            {"m_iCrosshairId", 0xB3E8},
             {"m_iFOV", 0x332C},
             {"m_bDormant", 0xED},
             {"m_bSpotted", 0x93D},
