@@ -12,7 +12,6 @@
 #include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9core.h>
-#include <detours.h>
 
 
 //my header

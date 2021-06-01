@@ -13,10 +13,6 @@ endif ()
 include_directories($ENV{DXSDK_DIR}/Include)
 link_directories($ENV{DXSDK_DIR}/Lib/x86)
 
-#MSDetour
-include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/MSDetour/include)
-link_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/MSDetour/binary)
-
 #minhook
 include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/include)
 file(GLOB_RECURSE MINHOOK CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/*.c ${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/*.h)
@@ -47,4 +43,4 @@ if (MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")
 endif ()
 
-target_link_libraries(${PROJECT_NAME} d3d9 d3dx9 detours)
+target_link_libraries(${PROJECT_NAME} d3d9 d3dx9)
