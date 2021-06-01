@@ -62,7 +62,7 @@ If you have Visual Studio 2019, you must installed `Developer Command Prompt for
 Launch it and go to any directory you wanna clone Dainsleif in, and run following commands.
 
 ```Shell
-$ git clone https://github.com/s3pt3mb3r/Dainsleif.git
+$ git clone https://github.com/s3pt3mb3r/Dainsleif.git --recursive
 $ cd Dainsleif
 ```
 
