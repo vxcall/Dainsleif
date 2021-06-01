@@ -16,10 +16,10 @@ void Triggerbot::Run()
     //if bFreeMouse is false, mouse move will set to be free.
     static bool bFreeMouse;
     auto* forceAttack = reinterpret_cast<int*>(Modules::client + dwForceAttack);
-
     int crosshairID = localPlayer->GetCrosshairID();
     if (crosshairID != 0) {
         //When you kill all enemy, it's somehow gonna be a number more than 300.
+
         Entity* target = Entity::GetByIndex(crosshairID - 1);
         if (target->GetClientClass()->m_ClassID == ClassID::CCSPlayer && localPlayer->GetTeam() != target->Cast<Player*>()->GetTeam())
         {
@@ -31,6 +31,7 @@ void Triggerbot::Run()
             *forceAttack = 5;
         }
     }
+
 
     if (crosshairID == 0 && !bFreeMouse) {
         *forceAttack = 4;

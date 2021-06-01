@@ -17,6 +17,9 @@ void __fastcall hLockCursor ( ISurface* surface, uintptr_t edx )
 
 void HookLockCursor ( )
 {
-    void** vTable = *reinterpret_cast< void*** > ( g_csgo.surface );
-    oLockCursor = reinterpret_cast< tLockCursor > ( DetourFunction ( static_cast< PBYTE > ( vTable[ 67 ] ), reinterpret_cast< PBYTE > ( hLockCursor ) ) );
+    void* lockCursor = Utils::GetVirtualFunction<void*>(g_csgo.surface, 67);
+    if (MH_CreateHookEx(lockCursor, &hLockCursor, &oLockCursor) != MH_OK)
+    {
+        throw std::runtime_error("Failed to hook LockCursor!");
+    }
 }

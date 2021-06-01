@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <cstddef>
+#include <MinHook.h>
 
 namespace Utils
 {
@@ -14,6 +15,11 @@ namespace Utils
     {
         return GetVirtualFunction< T(__thiscall*) (void*, Args ... ) > ( baseClass, index )(baseClass, args...);
     }
+}
+
+template <typename T>
+inline MH_STATUS MH_CreateHookEx(LPVOID pTarget, LPVOID pDetour, T** ppOriginal) {
+    return MH_CreateHook(pTarget, pDetour, reinterpret_cast<LPVOID*>(ppOriginal));
 }
 
 #define MEMBER_FUNC_ARGS(...) (this, __VA_ARGS__); };

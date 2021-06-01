@@ -47,14 +47,13 @@ Player* GetClosestEnemyFromCrosshair(std::vector<Player*> playerList, Player* lo
 
 void Aimbot::Run(std::vector<Player*> playerList)
 {
-    auto isAiming = *reinterpret_cast<bool*>(*reinterpret_cast<uintptr_t*>(Modules::client + 0x00D8B2DC) + 0x3928);
 
     Player* localPlayer = Player::GetLocalPlayer();
     static const WeaponID rejectWeaponList[11] = { KNIFE, C4, GN_DECOY, GN_FLASH_, GN_HE, GN_MOLOTOV, GN_SMOKE, SR_SSG08, SR_AWP, SR_G3SG1 };
     Weapon* activeWeapon = localPlayer->GetActiveWeapon();
     WeaponID activeWeaponID = activeWeapon->GetWeaponID();
     for (WeaponID rejW : rejectWeaponList) {
-        if (rejW == activeWeaponID && !isAiming) {
+        if (rejW == activeWeaponID) {
             return;
         }
     }
