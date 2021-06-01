@@ -53,7 +53,6 @@ int loadSettingsFiles() {
         std::ofstream stream{ path1 };
         stream.close ( );
         LOGHEX("error loading file savedata.toml", 1);
-        return 1;
     }
 
     if ( !std::filesystem::exists ( path2 ) )
@@ -62,7 +61,6 @@ int loadSettingsFiles() {
         OffsetsToml::Initialize ( offsetsFile );
         stream.close ( );
         LOGHEX("error loading file offsets.toml", 2);
-        return 2;
     }
 
     if ( !std::filesystem::exists ( path3 ) )
@@ -70,7 +68,6 @@ int loadSettingsFiles() {
         std::ofstream stream{ path3 };
         stream.close ( );
         LOGHEX("error loading file tabstate.toml", 3);
-        return 3;
     }
 
     SettingsToml::Fetch ( settingsFile );
