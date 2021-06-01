@@ -17,6 +17,10 @@ link_directories($ENV{DXSDK_DIR}/Lib/x86)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/MSDetour/include)
 link_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/MSDetour/binary)
 
+#minhook
+include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/include)
+file(GLOB_RECURSE MINHOOK CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/*.c ${CMAKE_CURRENT_LIST_DIR}/Dependencies/minhook/*.h)
+
 #imGUI
 include_directories(${CMAKE_CURRENT_LIST_DIR}/Dependencies/imGUI)
 FILE(GLOB_RECURSE IMGUI_SOURCE CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dependencies/imGUI/*.cpp)
@@ -37,7 +41,7 @@ FILE(GLOB_RECURSE SAVE_HEADER CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsl
 FILE(GLOB_RECURSE MAIN_SOURCE CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/*.cpp)
 FILE(GLOB_RECURSE MAIN_HEADER CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Dainsleif/*.h)
 
-add_library(Dainsleif SHARED ${MAIN_SOURCE} ${MAIN_HEADER} ${HACKS_SOURCE} ${HACKS_HEADER} ${IMGUI_SOURCE} ${IMGUI_HEADER} "Dainsleif/Hacks/Bunnyhop.cpp" "Dainsleif/Hacks/Bunnyhop.h")
+add_library(Dainsleif SHARED ${MAIN_SOURCE} ${MAIN_HEADER} ${HACKS_SOURCE} ${HACKS_HEADER} ${MINHOOK} ${IMGUI_SOURCE} ${IMGUI_HEADER} "Dainsleif/Hacks/Bunnyhop.cpp" "Dainsleif/Hacks/Bunnyhop.h")
 
 if (MSVC)
   target_link_options(${PROJECT_NAME} PRIVATE "/SAFESEH:NO")
