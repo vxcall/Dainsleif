@@ -1,6 +1,6 @@
 ﻿#include "dllmain.h"
 #include "pch.h"
-#include "Hook/ControlCursor.h"
+#include "Hook/Hooks.h"
 #include "Interfaces/CInterfaceList.h"
 
 namespace HackFlags
@@ -23,7 +23,8 @@ std::string tabStateFile;
 
 VOID WINAPI Detach ( )
 {
-    unhookEndScene ( );
+    Hooks::Restore();
+
     FREECONSOLE ( );
 }
 
@@ -105,8 +106,7 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
 
     g_csgo.Initialize();
 
-    hookEndScene();
-    HookLockCursor();
+    Hooks::Initialize();
 
     std::vector< Player* > playerList;
 

@@ -166,14 +166,15 @@ void hookEndScene ( )
 
     InitImGui ( pDevice );
 
-    void** vTable = *reinterpret_cast< void*** > ( pDevice );
-    originalEndScene = reinterpret_cast< endScene > ( DetourFunction ( reinterpret_cast< PBYTE > ( vTable[ 42 ] ), reinterpret_cast< PBYTE > ( hookedEndScene ) ) );
+    void* endScene = Utils::GetVirtualFunction<void*>(pDevice, 42);
+    if (MH_CreateHookEx(endScene, &hookedEndScene, &originalEndScene) != MH_OK)
+    {
+        throw std::runtime_error("Failed to hook EndScene!");
+    }
 }
 
 void unhookEndScene ( )
 {
-    DetourRemove ( reinterpret_cast< PBYTE > ( originalEndScene ), reinterpret_cast< PBYTE > ( hookedEndScene ) );
-
     SetWindowLong ( window, GWL_WNDPROC, reinterpret_cast< LONG > ( originalWndProc ) );
 
     ShutdownImGui ( );
