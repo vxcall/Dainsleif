@@ -51,12 +51,15 @@ You can simply support me by either **starring my project**, **following me on g
 
 **requirement**
 - [DirectxSDK](https://www.microsoft.com/en-au/download/details.aspx?id=6812)
+- Visual studio 2019
 
 You can select from two ways to build this hack.
 I believe all you need in order to build this project except DirectxSDK is already included which is [MSDetour](https://github.com/microsoft/Detours), [ImGui](https://github.com/ocornut/imgui), and [toml11](https://github.com/ToruNiina/toml11).
 They're in Dependencies directory.
 
-**1. Build project using Visual Studio 2019**
+**Build project**
+
+⚠️ Don't you dare use **Download ZIP** and create issue, or I'll fucking tear you apart.
 
 If you have Visual Studio 2019, you must installed `Developer Command Prompt for Visual Studio` at the same time.
 Launch it and go to any directory you wanna clone Dainsleif in, and run following commands.
