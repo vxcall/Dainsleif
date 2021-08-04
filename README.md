@@ -4,7 +4,7 @@
 ![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 **[日本語版README](https://github.com/s3pt3mb3r/Dainsleif/blob/master/README_jp.md)**
@@ -170,13 +170,15 @@ I couldn't have got this far without them ([emoji key](https://allcontributors.o
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/l1m0n3"><img src="https://avatars1.githubusercontent.com/u/13360351?v=4" width="100px;" alt=""/><br /><sub><b>L1m0n3</b></sub></a><br /><a href="https://github.com/s3pt3mb3r/Dainsleif/commits?author=l1m0n3" title="Code">💻</a> <a href="#maintenance-l1m0n3" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/tomsa000"><img src="https://avatars2.githubusercontent.com/u/45645938?v=4" width="100px;" alt=""/><br /><sub><b>tomsa</b></sub></a><br /><a href="https://github.com/s3pt3mb3r/Dainsleif/commits?author=tomsa000" title="Code">💻</a> <a href="https://github.com/s3pt3mb3r/Dainsleif/issues?q=author%3Atomsa000" title="Bug reports">🐛</a> <a href="#ideas-tomsa000" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/l1m0n3"><img src="https://avatars1.githubusercontent.com/u/13360351?v=4?s=100" width="100px;" alt=""/><br /><sub><b>L1m0n3</b></sub></a><br /><a href="https://github.com/s3pt3mb3r/Dainsleif/commits?author=l1m0n3" title="Code">💻</a> <a href="#maintenance-l1m0n3" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/tomsa000"><img src="https://avatars2.githubusercontent.com/u/45645938?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tomsa</b></sub></a><br /><a href="https://github.com/s3pt3mb3r/Dainsleif/commits?author=tomsa000" title="Code">💻</a> <a href="https://github.com/s3pt3mb3r/Dainsleif/issues?q=author%3Atomsa000" title="Bug reports">🐛</a> <a href="#ideas-tomsa000" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://0xzeno.github.io/"><img src="https://avatars.githubusercontent.com/u/79898692?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Hackersøn</b></sub></a><br /><a href="#maintenance-0xZeno" title="Maintenance">🚧</a> <a href="#ideas-0xZeno" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 **Unintentional contributors:**
