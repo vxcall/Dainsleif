@@ -25,6 +25,16 @@
         "bug",
         "ideas"
       ]
+    },
+    {
+      "login": "0xZeno",
+      "name": "Peter Hackersøn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79898692?v=4",
+      "profile": "https://0xzeno.github.io/",
+      "contributions": [
+        "maintenance",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
