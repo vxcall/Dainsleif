@@ -54,7 +54,7 @@ You can simply support me by either **starring this project**, **following me** 
 - Visual studio 2019
 
 You can select from two ways to build this hack.
-I believe all you need in order to build this project except DirectxSDK is already included which is [MSDetour](https://github.com/microsoft/Detours), [ImGui](https://github.com/ocornut/imgui), and [toml11](https://github.com/ToruNiina/toml11).
+I believe all you need in order to build this project except DirectxSDK is already included which is [Minhook](https://github.com/TsudaKageyu/minhook), [ImGui](https://github.com/ocornut/imgui), and [toml11](https://github.com/ToruNiina/toml11).
 They're in Dependencies directory.
 
 **Build project**
