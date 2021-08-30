@@ -26,8 +26,8 @@ If you have any request or question, feel free to ask me through [issue](https:/
 Please understand that it may take a certain days because I'm doing this as completely my hobby without profit or reward, you know?
 
 # :two_hearts: Support me
-Any supports will be greatly appreciated. 
-You can simply support me by either **starring my project**, **following me on github** or **sending PR to me**.
+Any sort of supports will be gratefully appreciated.
+You can simply support me by either **starring this project**, **following me** or **sending PR to me**.
 
 # :pushpin: Table of contents
 
@@ -59,8 +59,6 @@ They're in Dependencies directory.
 
 **Build project**
 
-⚠️ Don't you dare use **Download ZIP** and create issue, or I'll fucking tear you apart.
-
 If you have Visual Studio 2019, you must installed `Developer Command Prompt for Visual Studio` at the same time.
 Launch it and go to any directory you wanna clone Dainsleif in, and run following commands.
 
@@ -75,11 +73,11 @@ For compiling the cheat, there is a convenient batch script that automates the p
 $ .\compile.bat
 ```
 
-After finished compiling, `Dainsleif.dll` will be in debug folder.
+After finished compiling, `Dainsleif.dll` will be in the debug folder.
 
 **Once you get the `Dainsleif.dll`, you can now inject it to the game with any DLL injector such as [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) :)**
 
-Needless to say, add `-insecure` flag in your launch option in order to taste this cheat without VAC scan.
+Needless to say, add `-insecure` flag in your launch option in order to taste this cheat without VAC scan. Otherwise you could get banned.
 
 # :rotating_light: TROUBLE SHOOTING
 
