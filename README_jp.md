@@ -43,41 +43,26 @@ Dainsleifは _Counter-Strike: Global Offensive_ 用のチートプログラム�
 
 必要なもの
 - [DirectxSDK](https://www.microsoft.com/en-au/download/details.aspx?id=6812)
+- Visual Studio 2019
 
-ビルド方法は二つあります。DirectxSDK以外の必要なものはあらかじめ含まれているため用意する必要はありません。
+DirectxSDKとVisual Studio以外の必要なものはあらかじめ含まれているため用意する必要はありません。
 
-1. Cmakeを使ってビルドする
+Visual Studioをインストールした際に自動で追加される、Developer Command Prompt for Visual Studioを開いてください。
 
-お好きなフォルダー内で以下のコマンドを実行してください。
-```
-$ git clone https://github.com/s3pt3mb3r/Dainsleif.git
+その上で、お好きなフォルダー内で以下のコマンドを実行してください。
+
+```Shell
+$ git clone https://github.com/s3pt3mb3r/Dainsleif.git --recursive
 $ cd Dainsleif
-$ mkdir build && cd build
-$ cmake ..
-$ make
 ```
 
-`/build` ディレクトリ内に `Dainsleif.dll`が生成されるはずです。
+ビルドに必要なコマンドをバッチファイルにまとめてあるので、あとはそれを叩けば自動でビルドしてくれます。
 
-2. Visual Studio 2019でビルドする
-もし「Visual Studioでビルドしたいけど、Cmakeは持ってるよ～」って方は、お好きなフォルダー内で以下のコマンドを実行してください。
-(Cmakeがない人は少し下までスクロールしてね)
+```Shell
+$ .\compile.bat
 ```
-$ git clone https://github.com/s3pt3mb3r/Dainsleif.git
-$ cd Dainsleif
-$ mkdir build && cd build
-$ cmake .. -A Win32
-```
-`/build` ディレクトリ内に `Dainsleif.sln`が生成されます。
 
-これを使ってVisual Studioでプロジェクトとして開くことができるはずです。
-
-Visual Studioで開いたら、メニューの`ビルド` → `ビルド Dainsleif`をクリックしてビルドしましょう。
-
-すると`/build/Debug`ディレクトリ内に`Dainsleif.dll`が生成されます。
-
-Cmakeを持ってない方は、[releases](https://github.com/s3pt3mb3r/Dainsleif/releases) の最新のリリースを確認してください。
-Visual Studioユーザー用のフォルダを用意しています。(もし最新のリリース日から日にちが経過している場合はissueを作って僕に教えてください。なんとかしますw)
+これでdebugフォルダの中に`Dainsleif.dll` が生成されるはずです。
 
 `Dainsleif.dll`を生成出来たら、あとは [GH injector](https://guidedhacking.com/resources/guided-hacking-dll-injector.4/) などのお好きなDLL injectorを使ってインジェクトしてください。
 
