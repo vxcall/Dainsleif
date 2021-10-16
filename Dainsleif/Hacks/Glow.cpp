@@ -11,7 +11,7 @@ void Glow::Run(Player* player)
 {
     uintptr_t glowObjectManager = GetGlowObjectManager();
     uintptr_t glowIndex = player->GetGlowIndex();
-    GlowObject go(glowObjectManager, glowIndex);
+    GlowObject* glowObject = reinterpret_cast<GlowObject*>(glowObjectManager + (glowIndex * sizeof(GlowObject)));
 
     Player* localPlayer = Player::GetLocalPlayer();
 
@@ -19,18 +19,18 @@ void Glow::Run(Player* player)
 
     if (teamNum == localPlayer->GetTeam())
     {
-        *go.Red = localGlowColor.x;
-        *go.Green = localGlowColor.y;
-        *go.Blue = localGlowColor.z;
-        *go.Alpha = localGlowColor.w;
+        glowObject->r = localGlowColor.x;
+        glowObject->g = localGlowColor.y;
+        glowObject->b = localGlowColor.z;
+        glowObject->a = localGlowColor.w;
     }
     else if (teamNum != localPlayer->GetTeam() && !player->IsDormant())
     {
-        *go.Red = enemyGlowColor.x;
-        *go.Green = enemyGlowColor.y;
-        *go.Blue = enemyGlowColor.z;
-        *go.Alpha = enemyGlowColor.w;
+        glowObject->r = enemyGlowColor.x;
+        glowObject->g = enemyGlowColor.y;
+        glowObject->b = enemyGlowColor.z;
+        glowObject->a = enemyGlowColor.w;
     }
-    *reinterpret_cast<bool*>(glowObjectManager + (glowIndex * 0x38) + 0x24) = true; //If I set this to false, the entire glow disappear
-    *reinterpret_cast<bool*>(glowObjectManager + (glowIndex * 0x38) + 0x25) = false; //if i set this true, the damage indicater go out of the outline.
+    glowObject->m_bRenderWhenOccluded = true; //If I set this to false, the entire glow disappear
+    glowObject->m_bRenderWhenUnoccluded = false; //if i set this true, the damage indicater go out of the outline.
 }
