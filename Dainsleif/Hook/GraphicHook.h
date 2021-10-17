@@ -14,7 +14,7 @@ struct WindowSize {
     int h;
 };
 
-void hookEndScene();
-void unhookEndScene();
+void InitializeGraphicHook();
+void ShutDownGraphicHook();
 
 extern std::map<std::string, bool> visibleHacks;

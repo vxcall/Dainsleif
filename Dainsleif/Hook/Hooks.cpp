@@ -15,7 +15,7 @@ namespace Hooks
             throw std::runtime_error("Failed to initialize minhook!");
         }
 
-        hookEndScene();
+        InitializeGraphicHook();
         HookLockCursor();
 
         if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK)
@@ -31,7 +31,7 @@ namespace Hooks
             throw std::runtime_error("Failed to disable hooks!");
         }
 
-        unhookEndScene();
+        ShutDownGraphicHook();
 
         if (MH_Uninitialize() != MH_OK)
         {

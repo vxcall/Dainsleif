@@ -11,11 +11,16 @@ namespace HackFlags
 
 extern bool inGame; //decleard in dllmain.cpp
 
-using endScene = HRESULT (__stdcall*) ( IDirect3DDevice9* pDevice );
-endScene originalEndScene = nullptr; //An original endscene which is null now.
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler ( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+
+using FnEndScene = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice);
+FnEndScene originalEndScene = nullptr; //An original endscene which is null now.
+
+using FnReset = HRESULT (__stdcall*)(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters);
+FnReset originalReset = nullptr;
+
 HWND window = nullptr;
 WNDPROC originalWndProc = nullptr;
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler ( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
 LRESULT WINAPI WndProc ( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
@@ -96,7 +101,7 @@ WindowSize GetWindowSize ( )
 
 extern std::map< std::string, bool > visibleHacks;
 
-HRESULT __stdcall hookedEndScene ( IDirect3DDevice9* pDevice ) //A function containing a bunch of rendering process, that is gonna be hooked.
+HRESULT __stdcall HookedEndScene ( IDirect3DDevice9* pDevice ) //A function containing a bunch of rendering process, that is gonna be hooked.
 {
     static Player* oldLocalPlayer = nullptr;
     Player* localPlayer = Player::GetLocalPlayer ( );
@@ -153,7 +158,19 @@ HRESULT __stdcall hookedEndScene ( IDirect3DDevice9* pDevice ) //A function cont
     return originalEndScene ( pDevice );
 }
 
-void hookEndScene ( )
+HRESULT __stdcall HookedReset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters) {
+    ImGui_ImplDX9_InvalidateDeviceObjects();
+
+    HRESULT result = originalReset(pDevice, pPresentationParameters);
+    if (result == D3D_OK)
+    {
+        ImGui_ImplDX9_CreateDeviceObjects();
+    }
+
+    return result;
+}
+
+void InitializeGraphicHook ( )
 {
     auto shaderapidx9 = reinterpret_cast< uintptr_t > ( GetModuleHandle ( "shaderapidx9.dll" ) );
     IDirect3DDevice9* pDevice = *reinterpret_cast< IDirect3DDevice9** > ( shaderapidx9 + dwppDirect3DDevice9 );
@@ -167,13 +184,19 @@ void hookEndScene ( )
     InitImGui ( pDevice );
 
     void* endScene = Utils::GetVirtualFunction<void*>(pDevice, 42);
-    if (MH_CreateHookEx(endScene, &hookedEndScene, &originalEndScene) != MH_OK)
+    if (MH_CreateHookEx(endScene, &HookedEndScene, &originalEndScene) != MH_OK)
     {
         throw std::runtime_error("Failed to hook EndScene!");
     }
+
+    void* reset = Utils::GetVirtualFunction<void*>(pDevice, 16);
+    if (MH_CreateHookEx(reset, &HookedReset, &originalReset) != MH_OK)
+    {
+        throw std::runtime_error("Failed to hook Reset!");
+    }
 }
 
-void unhookEndScene ( )
+void ShutDownGraphicHook ( )
 {
     SetWindowLong ( window, GWL_WNDPROC, reinterpret_cast< LONG > ( originalWndProc ) );
 
