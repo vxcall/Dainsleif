@@ -1,9 +1,11 @@
 #pragma once
 #include "../pch.h"
 
-#include "CInput.h"
-#include "ISurface.h"
+#include "IBaseClientDll.h"
+#include "IClientModeShared.h"
 #include "IVEngineClient.h"
+#include "ISurface.h"
+#include "CInput.h"
 
 #define PRINT_INTERFACE(inter) std::cout << #inter << ": " << "0x" << ##inter << "\n";
 
@@ -12,6 +14,8 @@ class CInterfaceList
 public:
     void Initialize ( );
 public:
+    IBaseClientDll* client = nullptr;
+    IClientModeShared* clientMode = nullptr;
     IVEngineClient* engine = nullptr;
     ISurface* surface = nullptr;
     CInput* input = nullptr;
@@ -31,6 +35,8 @@ private:
 
     __forceinline void PrintInterfaces ( )
     {
+        PRINT_INTERFACE(client);
+        PRINT_INTERFACE(clientMode);
         PRINT_INTERFACE ( engine );
         PRINT_INTERFACE ( surface );
         PRINT_INTERFACE ( input );

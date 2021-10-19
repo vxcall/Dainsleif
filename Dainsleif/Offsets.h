@@ -31,5 +31,4 @@ extern uintptr_t dwClientState_State;
 extern uintptr_t dwClientState_MaxPlayer;
 extern uintptr_t dwClientState_ViewAngles;
 extern uintptr_t m_bSpotted;
-
-
+extern uintptr_t m_bIsScoped;

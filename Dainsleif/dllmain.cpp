@@ -28,11 +28,6 @@ VOID WINAPI Detach ( )
     FREECONSOLE ( );
 }
 
-void InitSetting ( )
-{
-    Player::GetLocalPlayer ( )->SetFOV ( fov );
-}
-
 std::map< std::string, bool > visibleHacks;
 
 int loadSettingsFiles() {
@@ -146,7 +141,6 @@ DWORD WINAPI fMain ( LPVOID lpParameter )
         //If we have values to set in initializing phase, have to be written here.
         if (!inGame)
         {
-            InitSetting ();
             inGame = true;
         }
 

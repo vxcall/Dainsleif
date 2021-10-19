@@ -31,3 +31,4 @@ uintptr_t m_bDormant;
 uintptr_t m_hActiveWeapon;
 uintptr_t m_iItemDefinitionIndex;
 uintptr_t m_bSpotted;
+uintptr_t m_bIsScoped;

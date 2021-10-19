@@ -86,7 +86,6 @@ void setToDefault(Hack_label label) {
             HackFlags::bRectOverlay = Default::bRectOverlay;
             HackFlags:: bMinimapHack = Default::bMinimapHack;
             fov = Default::fov;
-            Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
         case AIMBOT:
             HackFlags::bAimbot = Default::bAimbot;
@@ -109,7 +108,6 @@ void setToDefault(Hack_label label) {
             break;
         case FOV:
             fov = Default::fov;
-            Player::GetLocalPlayer()->SetFOV(Default::fov);
             break;
         case ANTIAFK:
             HackFlags::bAntiAFK = Default::bAntiAFK;
@@ -225,8 +223,7 @@ void ShowTabMenu(std::map<std::string, bool>& visibleHacks) {
         }
         if (ImGui::BeginTabItem("Field of View", &visibleHacks.at("Fov")))
         {
-            if (ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120) && inGame)
-                localPlayer->SetFOV(fov);
+            ImGui::SliderInt("Field of view(FOV)", &fov, 60, 120);
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("ESP           ", &visibleHacks.at("Esp")))

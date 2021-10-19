@@ -33,6 +33,7 @@ std::map<std::string, uintptr_t> OffsetsToml::Fetch(std::string& filename) {
     m_hActiveWeapon = toml::find_or(saveData, "m_hActiveWeapon", m_hActiveWeapon);
     m_iItemDefinitionIndex = toml::find_or(saveData, "m_iItemDefinitionIndex", m_iItemDefinitionIndex);
     m_bSpotted = toml::find_or(saveData, "m_bSpotted", m_bSpotted);
+    m_bIsScoped = toml::find_or(saveData, "m_bIsScoped", m_bIsScoped);
 
     return std::map<std::string, uintptr_t>
             {
@@ -100,6 +101,7 @@ void OffsetsToml::Update(std::string& filename)
             {"m_bSpotted", 0x93D},
             {"m_hActiveWeapon", 0x2F08},
             {"m_iItemDefinitionIndex", 0x2FBA},
+            {"m_bIsScoped", 0x9974},
     };
 
     std::ofstream file;
@@ -143,6 +145,7 @@ void OffsetsToml::Initialize(std::string& filename)
             {"m_bSpotted", 0x93D},
             {"m_hActiveWeapon", 0x2F08},
             {"m_iItemDefinitionIndex", 0x2FBA},
+            {"m_bIsScoped", 0x9974},
     };
 
     std::ofstream file;

@@ -47,4 +47,6 @@ public:
     void SetFOV(int fov);
 
     uintptr_t GetFlags();
+
+    bool isScoped();
 };

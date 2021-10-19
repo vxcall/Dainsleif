@@ -130,3 +130,7 @@ uintptr_t Player::GetFlags()
     return flags;
 }
 
+bool Player::isScoped()
+{
+    return ReadValue<bool>(m_bIsScoped);
+}
