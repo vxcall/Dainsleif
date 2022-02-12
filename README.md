@@ -23,7 +23,7 @@ This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been w
 As of today, Dainsleif is a quite simple and tiny cheat, so it'll be easy to read and understand. This software is published as MIT license in addition.
 
 If you have any request or question, feel free to ask me through [issue](https://github.com/s3pt3mb3r/Dainsleif/issues). **Please be informed if your attitude is inappropriate, we would just tell you to piss off.**
-Please understand that it may take a certain days because I'm doing this as completely my hobby without profit or reward, you know?
+ It may take a certain days because I'm doing this as completely my hobby without profit or reward, you know?
 
 # :two_hearts: Support me
 Any sort of supports will be gratefully appreciated.
