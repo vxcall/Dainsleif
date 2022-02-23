@@ -64,6 +64,10 @@ They're in Dependencies directory.
 
 **Build project**
 
+### edit(February 23, 2022)
+
+Visit [Release](https://github.com/s3pt3mb3r/Dainsleif/releases) and download [Dainsleif v1.5](https://github.com/s3pt3mb3r/Dainsleif/releases/tag/v1.5), then build it with Visual Studio 2019 and its all done, ignore everything else below this. It's the easiest way to build this.
+
 If you have Visual Studio 2019, you must installed `Developer Command Prompt for Visual Studio` at the same time.
 Launch it and go to any directory you wanna clone Dainsleif in, and run following commands.
 
