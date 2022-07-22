@@ -26,7 +26,7 @@ If you have any request or question, feel free to ask me through [issue](https:/
  It may take a certain days because I'm doing this as completely my hobby without profit or reward, you know?
  
 # development is suspended
-This project will no longer get major update by @s3pt3mb3r due to loss of motivation, so don't expect further improvements.
+This project will no longer get major update by @pseuxide due to loss of motivation, so don't expect further improvements.
 It might be the exception if huge errors appeared tho. idk.
 It's still open for pull requests, and issues.
 
