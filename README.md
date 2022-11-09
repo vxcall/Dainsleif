@@ -21,9 +21,6 @@ This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been w
 **We won't take any responsibility if a problem occurs because of this software.** Keep that in mind.
 
 As of today, Dainsleif is a quite simple and tiny cheat, so it'll be easy to read and understand. This software is published as MIT license in addition.
-
-If you have any request or question, feel free to ask me through [issue](https://github.com/pseuxide/Dainsleif/issues). **Please be informed if your attitude is inappropriate, we would just tell you to piss off.**
- It may take a certain days because I'm doing this as completely my hobby without profit or reward, you know?
  
 # development is suspended
 This project will no longer get major update by @pseuxide due to loss of motivation, so don't expect further improvements.
