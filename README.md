@@ -17,19 +17,15 @@ Image's gifted by my big friend [@suzuharuR](https://twitter.com/suzuharuR)
 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
 
-**Disclaimer**: Since I don't intend to make this a malicious software, this isn't considered to be performed in multi player mode. 
-**We won't take any responsibility if a problem occurs because of this software.** Keep that in mind.
+**Disclaimer**: Since I don't intend this to be a malicious software, this isn't considered to be performed in multi player mode.
+**We won't take any responsibility if a problem occurrs because of this software.** Keep that in mind.
 
-As of today, Dainsleif is a quite simple and tiny cheat, so it'll be easy to read and understand. This software is published as MIT license in addition.
+As of today, Dainsleif is a quite simple cheat, so it'll be easy to read and understand. This software is published as MIT license in addition.
  
 # development is suspended
 This project will no longer get major update by @pseuxide due to loss of motivation, so don't expect further improvements.
 It might be the exception if huge errors appeared tho. idk.
-It's still open for pull requests, and issues.
-
-# :two_hearts: Support me
-Any sort of supports will be gratefully appreciated.
-You can simply support me by either **starring this project**, **following me** or **sending PR to me**.
+It's still open for pull requests.
 
 # :pushpin: Table of contents
 
