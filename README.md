@@ -13,7 +13,6 @@
 Image's gifted by my big friend [@suzuharuR](https://twitter.com/suzuharuR)
 
 # :zap: Dainsleif
-**Please :star:star this project, it'll be a huge help for me =)**
 
 This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been working on as my training of reverse engineering.
 
