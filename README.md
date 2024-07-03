@@ -7,9 +7,9 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-**[日本語版README](https://github.com/pseuxide/Dainsleif/blob/master/README_jp.md)**
+**[日本語版README](https://github.com/vxcall/Dainsleif/blob/master/README_jp.md)**
 
-[![Banner](https://user-images.githubusercontent.com/33578715/90916494-b9be7600-e413-11ea-8dee-ffea384afb2e.png)](https://github.com/pseuxide/Dainsleif)
+[![Banner](https://user-images.githubusercontent.com/33578715/90916494-b9be7600-e413-11ea-8dee-ffea384afb2e.png)](https://github.com/vxcall/Dainsleif)
 Image's gifted by my big friend [@suzuharuR](https://twitter.com/suzuharuR)
 
 # :zap: Dainsleif
@@ -22,7 +22,7 @@ This is an internal cheat for **_Counter-Strike: Global Offensive_** I've been w
 As of today, Dainsleif is a quite simple cheat, so it'll be easy to read and understand. This software is published as MIT license in addition.
  
 # development is suspended
-This project will no longer get major update by @pseuxide due to loss of motivation, so don't expect further improvements.
+This project will no longer get major update by @vxcall due to loss of motivation, so don't expect further improvements.
 It might be the exception if huge errors appeared tho. idk.
 It's still open for pull requests.
 
@@ -58,13 +58,13 @@ They're in Dependencies directory.
 
 **>>>>> edit(February 23, 2022) <<<<<**
 
-**Visit [Release](https://github.com/pseuxide/Dainsleif/releases) and download [Dainsleif v1.5](https://github.com/pseuxide/Dainsleif/releases/tag/v1.5), then build it with Visual Studio 2019 and its all done, ignore everything else below this. It's the easiest way to build this.**
+**Visit [Release](https://github.com/vxcall/Dainsleif/releases) and download [Dainsleif v1.5](https://github.com/vxcall/Dainsleif/releases/tag/v1.5), then build it with Visual Studio 2019 and its all done, ignore everything else below this. It's the easiest way to build this.**
 
 If you have Visual Studio 2019, you must installed `Developer Command Prompt for Visual Studio` at the same time.
 Launch it and go to any directory you wanna clone Dainsleif in, and run following commands.
 
 ```Shell
-$ git clone https://github.com/pseuxide/Dainsleif.git --recursive
+$ git clone https://github.com/vxcall/Dainsleif.git --recursive
 $ cd Dainsleif
 ```
 
@@ -82,7 +82,7 @@ Needless to say, add `-insecure` flag in your launch option in order to taste th
 
 # :rotating_light: TROUBLE SHOOTING
 
-**Something goes wrong? We've prepared [Wiki](https://github.com/pseuxide/Dainsleif/wiki/Trouble-shooting) for you :sunglasses:**
+**Something goes wrong? We've prepared [Wiki](https://github.com/vxcall/Dainsleif/wiki/Trouble-shooting) for you :sunglasses:**
 
 # :scroll: Menu
 
@@ -169,8 +169,8 @@ I couldn't have got this far without them ([emoji key](https://allcontributors.o
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/l1m0n3"><img src="https://avatars1.githubusercontent.com/u/13360351?v=4?s=100" width="100px;" alt=""/><br /><sub><b>L1m0n3</b></sub></a><br /><a href="https://github.com/pseuxide/Dainsleif/commits?author=l1m0n3" title="Code">💻</a> <a href="#maintenance-l1m0n3" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/tomsa000"><img src="https://avatars2.githubusercontent.com/u/45645938?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tomsa</b></sub></a><br /><a href="https://github.com/pseuxide/Dainsleif/commits?author=tomsa000" title="Code">💻</a> <a href="https://github.com/pseuxide/Dainsleif/issues?q=author%3Atomsa000" title="Bug reports">🐛</a> <a href="#ideas-tomsa000" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/l1m0n3"><img src="https://avatars1.githubusercontent.com/u/13360351?v=4?s=100" width="100px;" alt=""/><br /><sub><b>L1m0n3</b></sub></a><br /><a href="https://github.com/vxcall/Dainsleif/commits?author=l1m0n3" title="Code">💻</a> <a href="#maintenance-l1m0n3" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/tomsa000"><img src="https://avatars2.githubusercontent.com/u/45645938?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tomsa</b></sub></a><br /><a href="https://github.com/vxcall/Dainsleif/commits?author=tomsa000" title="Code">💻</a> <a href="https://github.com/vxcall/Dainsleif/issues?q=author%3Atomsa000" title="Bug reports">🐛</a> <a href="#ideas-tomsa000" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://0xzeno.github.io/"><img src="https://avatars.githubusercontent.com/u/79898692?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Hackersøn</b></sub></a><br /><a href="#maintenance-0xZeno" title="Maintenance">🚧</a> <a href="#ideas-0xZeno" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
